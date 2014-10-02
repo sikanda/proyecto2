@@ -1,0 +1,361 @@
+/*
+	Name       : Liquidaciones PEPE
+	Version    : 1.0
+	Released   : 20130222
+
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+body {
+	font-size: 12pt;
+	line-height: 1.75em;
+	font-family: Georgia, serif;
+	background: #D2E0DD;
+	color: #382b31;
+}
+
+br.clear {
+	clear: both;
+}
+
+
+
+h2,h3,h4 {
+	margin-bottom: 1em;
+	font-family: Bitter, serif;
+	color: #000000;
+}
+
+
+
+p {
+	margin-bottom: 1.5em;
+}
+
+ul {
+	margin-bottom: 1.5em;
+}
+
+.imageList {
+	list-style: none;
+}
+
+.imageList li {
+	clear: both;
+}
+#titulo{
+	border-bottom: dotted 1px #557d80;
+}
+#bg {
+	background: url('images/highlight.png') top left repeat-x;
+	padding: 0 0 64px 0;
+}
+
+#banner {
+	position: relative;
+	padding: 0px;
+	height: 172px;
+	width: 932px;
+	margin: 0 0 50 0;
+	background: #fff;
+	
+}
+#barrausr{
+	float: right;
+	margin: 20px;
+	
+	padding: 10px;
+}
+#barrausr ul{
+	list-style: none;
+	list-style-type: none;	
+	margin: 0; 
+	padding: 0;
+}
+#barrausrl li{
+	float: left;
+	padding-left: 25px;
+
+} 
+#barrausr a,h4{
+	color: #ffffff;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+}
+#barrausr a:hover {
+	text-decoration: underline;
+}
+
+#copyright {
+	text-align: center;
+	color: #34564f;
+	padding: 32px 0 0 0;
+}
+
+#copyright a {
+	color: #34564f;
+}
+
+#datos{
+	text-align: center
+}
+
+#header {
+	position: relative;
+	padding: 24px;
+	height: 150px;
+	width: 932px;
+	background: #34564f;
+	color: #fff;
+	margin : 20px 0 0 0;
+}
+
+#headerlogin {
+	text-align: center;
+	position: relative;
+	padding: 24px;
+	height: 600px;
+	width: 932px;
+	background: #34564f;
+	color: #fff;
+	margin : 20px 0 0 0;
+}
+#headerlogin h2{
+	font-size: 1.75em;
+	font-family: Bitter, serif;
+	color: #fff;
+	text-align: center;
+	
+}
+#headerlogin h3{
+	font-size: 1em;
+	font-family: Bitter, serif;
+	color: #fff;
+	text-align: center;
+	
+}
+#titul{
+	border: 0;
+	color: #fff;
+	background: #117848;
+	padding: 4px;
+}
+
+#login{
+	margin:auto;
+	width: 190;
+	text-align: center;
+}
+
+#login input.button {	
+	border: 0;
+	color: #fff;
+	background: #117848;
+	padding: 4px;
+	text-transform: lowercase;
+	font-family: Bitter, serif;
+	margin: 10px;
+}
+
+#login input.text {
+	border: solid 1px #5d7872;
+	padding: 4px;
+}
+#logologin {
+	text-align:center;
+	height: 100px;
+	line-height: 120px;
+	width: 100 px;
+	
+}
+
+#logologin a {
+	text-decoration: none;
+	color: #fff;
+}
+
+#logologin h1 {
+	font-size: 2.75em;
+	font-family: Bitter, serif;
+}
+#logo {
+	float: left;
+	height: 100px;
+	line-height: 120px;
+	width: 100 px;
+	
+}
+
+#logo a {
+	text-decoration: none;
+	color: #fff;
+}
+
+#logo h1 {
+	font-size: 2.75em;
+	font-family: Bitter, serif;
+}
+
+#main {
+	font-family:Helvetica,Futura,Arial,Verdana,sans-serif;
+	text-align: center;
+	position: relative;
+	padding: 24px;
+	width: 932px;
+	color: #5e5e5e;
+}
+
+
+#nav {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 57px;
+	line-height: 57px;
+	padding: 0 24px 0 24px;
+	width: 932px;
+	margin: 0 0 0 0;
+	background: #117848;
+}
+
+#nav a {
+	text-decoration: none;
+	text-transform: lowercase;
+	color: #fff;
+}
+
+#nav a:hover {
+	text-decoration: underline;
+}
+
+#nav li {
+	margin: 0 1em 0 0;
+	padding: 0 1em 0 1em;
+}
+
+#nav ul {
+	list-style: none;
+}
+
+#nav ul li {
+	float: left;
+}
+
+#opciones a{
+	color: #34564f;
+}
+
+#outer {
+	position: relative;
+	width: 980px;
+	margin: 0 auto 0 auto;
+	background: #fff;
+}
+
+
+
+#tabla {
+	margin: auto;
+	
+	padding: 10px;
+	
+	text-align: center;
+}
+#formu {
+	
+	margin: auto;
+	
+	padding: 10px;
+	
+	text-align: center;
+}
+
+
+
+#formu form {
+	margin: auto;
+	
+	padding: 10px;
+	
+	text-align: center;
+}
+
+#formu fieldset{
+	display: inline-block;
+	padding: 10px;
+}
+
+#imgEdif{
+	float:left;
+	margin: 0;
+	padding: 0;
+	display:inline-block;
+	overflow:hidden;
+	width: 350px;
+}
+
+#edif{
+	text-align:center;
+	float: left;
+	display:inline-block;
+	
+}
+
+
+table {
+  border-collapse: collapse;
+  border: 1px solid #666666;
+  font: normal 11px verdana, arial, helvetica, sans-serif;
+  color: #363636;
+  background: #f6f6f6;
+  text-align:left;
+  font-size: 10pt;
+  margin: 0 auto;
+  
+  
+  }
+caption {
+  text-align: center;
+  font: bold 16px arial, helvetica, sans-serif;
+  background: transparent;
+  padding:6px 4px 8px 0px;
+  color: #CC00FF;
+  text-transform: uppercase;
+}
+thead, tfoot {
+background:url(images/bg1.png) repeat-x;
+text-align:left;
+height:30px;
+}
+thead th, tfoot th {
+padding:5px;
+}
+table a {
+color: #333333;
+text-decoration:none;
+}
+table a:hover {
+text-decoration:underline;
+}
+tr.odd {
+background: #f1f1f1;
+}
+tbody th, tbody td {
+padding:10px;
+padding-right: 25px; 
+
+}

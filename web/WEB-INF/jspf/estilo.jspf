@@ -1,0 +1,5 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+            out.println("<link href=\"estilos/style.css\" rel=\"stylesheet\" type=\"text/css\" title=\"Estilo\" />");
+  
+%>

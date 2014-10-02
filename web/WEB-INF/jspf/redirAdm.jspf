@@ -1,0 +1,8 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+        if (session.getAttribute("admin") == null || Integer.parseInt(session.getAttribute("admin").toString()) != 1)
+        {
+            response.sendRedirect(response.encodeRedirectURL("login.jsp"));
+            return;
+        }
+%>

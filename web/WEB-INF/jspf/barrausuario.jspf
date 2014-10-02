@@ -1,0 +1,16 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ page import="Entidades.Usuario" %>
+<%
+    String usr = "Administrador";
+    int a = Integer.parseInt(session.getAttribute("admin").toString());
+    if (a==0)
+    {
+        usr = ((Usuario)session.getAttribute("usuario")).getNombreUsuario();
+    }
+%>
+<div id="barrausr">
+    <ul>
+        <li> <strong><%=usr%></strong></li>
+        <li><a href="<%= response.encodeURL("login.jsp?ref=logout")%>">Cerrar sesión</a></li>
+    </ul>
+</div>
