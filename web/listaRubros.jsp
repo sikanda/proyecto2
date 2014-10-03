@@ -9,20 +9,79 @@
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 
+<%!
+//public Rubro getRubroByCode(String idRubro, List<Rubro> lista)
+//  {
+//      Rubro rubro = new Rubro();
+//     
+//      	  for(int i=0; i<lista.size();i++)
+//	  { 
+////              System.out.println("i es " + i);
+//		if (idRubro.equals(lista.get(i).getIdRubro()))
+//		   {
+////			   System.out.println( "entro con "+ lista.get(i).getIdRubro()); 
+//                       rubro = lista.get(i) ;
+// lista.clear();
+//		   }
+//		if (( rubro != null ) && (!lista.get(i).getSubrubros().isEmpty()))  
+//			{
+////				 System.out.println("sigue iterando con"+ lista.get(i).getIdRubro());
+//                            rubro = getRubroByCode(idRubro,lista.get(i).getSubrubros());
+//			}
+//	  }
+// 
+//	  return rubro;
+//  }
+public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
+        Rubro rubro = new Rubro();
+        for (int i = 0; i < lista.size(); i++) {
+            if (idRubro.equals(lista.get(i).getIdRubro())) {
+                rubro = lista.get(i);
+                break;
+            }
+            List<Rubro> lista2 = lista.get(i).getSubrubros();
+            for (int h = 0; h < lista2.size(); h++) {
+                if (idRubro.equals(lista2.get(h).getIdRubro())) {
+                    rubro = lista2.get(h);
+                    break;
+                }
+                List<Rubro> lista3 = lista2.get(h).getSubrubros();
+                for (int k = 0; k < lista3.size(); k++) {
+                    if (idRubro.equals(lista3.get(k).getIdRubro())) {
+                        rubro = lista3.get(k);
+                        break;
+                    }
+                    List<Rubro> lista4 = lista3.get(k).getSubrubros();
+                    for (int p = 0; p < lista4.size(); p++) {
+                        if (idRubro.equals(lista4.get(p).getIdRubro())) {
+                            rubro = lista4.get(p);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return rubro;
+    }
+%>
+
 <%
 	List<Rubro> rub = new ArrayList();
 	rub = rubroDB.getRubrosConSubrubros();
         String[] listaIds = null;
-        
         //string of IDS
-       if (request.getParameter("ids") != null){
+        if (request.getParameter("ids") != null){
            String cadena = request.getParameter("ids").toString();
            listaIds = cadena.split("_");
-           session.setAttribute("listaIds", listaIds);
+           List<Rubro> listaRubrosSelec = new ArrayList();
+
+           for (int p=0; p<listaIds.length; p++){
+                Rubro rubro = getRubroByCode(listaIds[p],rub);
+                listaRubrosSelec.add(rubro);
+           } 
+           session.setAttribute("rubrosLeaf", listaRubrosSelec);
            response.sendRedirect(response.encodeRedirectURL("pantallaDos.jsp"));
-       }
-          
-        
+        }       
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -57,15 +116,7 @@
     <div id="main">
                             <h2 id="titulo">Lista de rubros</h2>
                             <br></br>
-                           <%
-//                            if (listaIds!= null){
-//                            for (int p=0; p<listaIds.length; p++){
-//                                %>
-//                                <%=listaIds[p] %>                              
-//                                <%
-//                            }
-//                            }
-                            %> 
+
                             <br></br>
                             <button id="mostrar">Mostrar</button>
                              <form id="formulario">

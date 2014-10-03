@@ -95,14 +95,13 @@ switch($(this).text().length) {
   break;
 } 
 });
-
+//blanqueo las cants q no tienen um (not a leaf node)
    $("#myTable td.unit").each(function() {
     if ($(this).text().length === 0)
        {
          $(this).prev().html("");
-
        }
-});
+}); 
   var stot = 0;
    $("#myTable td:nth-child(7)").each(function() {
         $this = $(this);
@@ -115,7 +114,7 @@ switch($(this).text().length) {
     
     var totPerc = 0;
   $("#myTable td.unit:contains('PORC')").each(function() {
-    var inp = parseFloat($(this).prev().text());
+    var inp = $(this).prev().text();
     var result = (inp/100)*stot;
     $(this).next().next().next().text(formatCurrency(result));
     $(this).next().next().next().next().text(result);
@@ -187,10 +186,16 @@ function formatCurrency(total) {
                                   </tbody>
                               </table>
                          </div> 
+                               <div style="text-align: center">   
+                                   <br>Observaciones    <br>
+                               <textarea name="obs" style="width:550px; height:50px;"  ></textarea>       
+                                   </div>  
                                   <div style="text-align: center">
-                           <button type="button"><a href="<%= response.encodeURL("pantallaDos.jsp")%>">Atras</a></button>
+                           <button type="button"><a href="<%= response.encodeURL("pantallaDos.jsp?action=back")%>">Atras</a></button>
                         <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" />
                         </div>
+                        
+                     
                    </form>
                       </div>
                   </div>

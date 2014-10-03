@@ -1,4 +1,4 @@
-<%@tag description="recursive call to print tree" pageEncoding="UTF-8"%>
+<%@tag description="print tree - pantallaTres - rubros con perc" pageEncoding="UTF-8"%>
  <%@ taglib tagdir="/WEB-INF/tags" prefix="myTags2" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 

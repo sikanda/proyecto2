@@ -7,9 +7,14 @@
 <%
   boolean rta;
   String mensaje="";
+  String obs;
+  obs = request.getParameter("obs");
+  
 if(request.getParameter("btnGuardar")!=null) //name of your button, not id 
 {
    Presupuesto pres = (Presupuesto)session.getAttribute("presupuestoActual");
+   pres.setObservaciones(obs);
+ 
   rta = pres.save();
    if(rta)
    { mensaje = "El presupuesto se ha guardado correctamente";

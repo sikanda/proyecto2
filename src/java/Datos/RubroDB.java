@@ -19,13 +19,14 @@ public RubroDB() throws Exception{}
         List<Material>  listaMat;
         List<ManoDeObra>  listaMO;
 
-       ResultSet resultado = EjecutarQuery("select idRubro, descRubro from rubros where idrubropadre is null order by idRubro " );
+       ResultSet resultado = EjecutarQuery("select idRubro, descRubro, idUnidadMedida from rubros where idrubropadre is null order by idRubro " );
        while (resultado.next())
        {
            Rubro rub = new Rubro();
            rub.setIdRubro(resultado.getString(1));
            rub.setDescRubro(resultado.getString(2));
-
+           rub.setIdUnidadMedida(resultado.getString(3));
+           
            listaSubRub = buscaSubrubros(resultado.getString(1));
            rub.setSubrubros(listaSubRub);
            
@@ -49,11 +50,12 @@ public RubroDB() throws Exception{}
             List<Material>  listaMat;
             List<ManoDeObra>  listaMO;
             
-            ResultSet resultado = EjecutarQuery("select r.idRubro,r.descRubro,r.idRubroPadre from rubros r inner join rubros r1 on r.idRubroPadre = r1.idrubro and r.idRubroPadre = " + idRubro );
+            ResultSet resultado = EjecutarQuery("select r.idRubro,r.descRubro,r.idUnidadMedida from rubros r inner join rubros r1 on r.idRubroPadre = r1.idrubro and r.idRubroPadre = " + idRubro );
             while (resultado.next()){
                 Rubro rub = new Rubro();
                 rub.setIdRubro(resultado.getString(1));
                 rub.setDescRubro(resultado.getString(2));
+                rub.setIdUnidadMedida(resultado.getString(3));
 
                 listaSubR = buscaSubrubros(resultado.getString(1));
                 rub.setSubrubros(listaSubR);

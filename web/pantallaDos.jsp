@@ -10,6 +10,7 @@
 <%@page import="java.util.Date"%>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myTags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="myTagsBack" %>
 
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -22,16 +23,14 @@
         List<Rubro> rubPresu = new ArrayList();
         List<Rubro> rubPresuDev = new ArrayList();
         
+        Presupuesto p = new Presupuesto();
         Cliente c = new Cliente();
         c.setIdCliente(1);
-        
-        Presupuesto p = new Presupuesto();
         p.setCliente(c);
-        p.setObservaciones("TEST");
-        p.setUsuario((Usuario)session.getAttribute("usuario"));
         
-        p.setFechaCreacion(new Date());
-        
+         p.setUsuario((Usuario)session.getAttribute("usuario"));
+         p.setFechaCreacion(new Date());
+   /*    
         Rubro r1 = new Rubro();
         Rubro r2 = new Rubro();
         Rubro r3 = new Rubro();
@@ -47,11 +46,17 @@
         rubPresu.add(r4.getRubro("025"));
      
         p.setRubros(rubPresu); //voy a setearle los q esten en sesion. presupuesto tiene array de rubros leaf.
+     */    
+         p.setRubros((List<Rubro>)session.getAttribute("rubrosLeaf")); //viene de pantalla 1
         rubPresuDev = p.devolverRubrosPresupuesto();
         
-         session.setAttribute("rubrosLeaf", rubPresu); //esto me lo pasa la pantalla 1, solo rubros leaf.
+        // session.setAttribute("rubrosLeaf", rubPresu); //esto me lo pasa la pantalla 1, solo rubros leaf.
          session.setAttribute("rubrosEnArbol", rubPresuDev); //usado por la pantalla 2
          session.setAttribute("presupuestoActual", p);
+         
+//         if(request.getParameter("action") != null){
+//         System.out.println(request.getParameter("action"));
+//         }
        
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -153,9 +158,22 @@ switch($(this).text().length) {
                                       <table id="myTable" >
                                           <tbody>
                                               <tr><th style="width: 300px;">Descripcion</th><th>Cantidad</th><th>Unidad</th></tr>
-                                                      <c:forEach items="${sessionScope.rubrosEnArbol}" var="rub" >
-                                                          <myTags:displayRubros rub="${rub}"/> 
-                                                      </c:forEach>
+                                                     
+                                              
+                                              
+                                              
+                                              <c:choose>
+                                            <c:when test="${not empty param.action}">
+                                               <c:forEach items="${sessionScope.rubrosEnArbol}" var="rub" >
+                                            <myTagsBack:displayRubrosBack rub="${rub}"/> 
+                                              </c:forEach>
+                                            </c:when>
+                                             <c:otherwise>
+                                            <c:forEach items="${sessionScope.rubrosEnArbol}" var="rub" >
+                                            <myTags:displayRubros rub="${rub}"/> 
+                                              </c:forEach>
+                                            </c:otherwise>
+                                              </c:choose>
                                           </tbody>
                                       </table>
 
