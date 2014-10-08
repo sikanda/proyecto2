@@ -47,8 +47,8 @@
                             </div>
 
                             <h2 id="titulo">Lista de Proveedores</h2>
-                            <div id="tabla">
-                                    <table>
+                            <div id="tabla" >
+                                    <table class="tabla">
                                         <thead>
                                             <tr>
                                                 <th>Razón Social</th>

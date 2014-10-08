@@ -1,4 +1,5 @@
 package Entidades;
+import Datos.MaterialDB;
 
 public class Material {
     private String idMaterial;  
@@ -58,6 +59,21 @@ public class Material {
         return cantPres;
     }
 
+        public boolean updateCantMatEnRubro(String idRubro, Float cant){
+        boolean rta = true;
+        MaterialDB MDB = null;
+        try{
+                MDB = new MaterialDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                 rta = MDB.updateCantMatEnRubro(this.idMaterial, idRubro, cant) ;
+        }
+        return rta;
+    }
+    
     	@Override
 	public String toString() {
 		return this.getDescMaterial();

@@ -2,6 +2,7 @@ package Entidades;
 
 import Datos.RubroDB;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Rubro { 
@@ -16,11 +17,21 @@ public class Rubro {
     public Rubro (){}
 	
 	
-    public Rubro(String idRubro, String descRubro) {
+    public Rubro(String idRubro) {
         this.idRubro = idRubro;
-        this.descRubro = descRubro;
-        this.subrubros = new ArrayList();
-    }
+            Rubro rub = null;
+            try{
+                    RubroDB rDB = new RubroDB();
+                    rub = rDB.getRubro(idRubro); //TODO: revisar
+            }
+            catch(Exception e){}
+             this.descRubro = rub.getDescRubro();
+             this.idUnidadMedida = rub.getIdUnidadMedida();
+             this.manoDeObra = rub.getManoDeObra();
+             this.materiales = rub.getMateriales();
+             this.subrubros = rub.getSubrubros();
+	}
+    
 
        // <editor-fold defaultstate="collapsed" desc="class attributes">
    
@@ -125,7 +136,54 @@ public class Rubro {
 		catch(Exception e){}
                 return rub;
 	}
-    
+        
+        
+    public void modificarListaMat(String listaMat) {
+
+        //listaMat viene en formato idMat:cantStd  
+        try {
+            boolean flagHayMat=false;
+            boolean flagFind;
+            ArrayList<Material> matAlta = new ArrayList<Material>();
+            RubroDB rDB = new RubroDB();
+            //parts es array de idMat:cantStd 
+            String[] parts = listaMat.split(";");
+            for (int i = 0; i < parts.length; i++) {
+                //parts2[0] es id mat,  parts2[1] es cant
+                String[] parts2 = parts[i].split(":");
+                flagFind=false;
+                flagHayMat=false;
+                for (int j = 0; j < materiales.size(); j++) 
+                {
+                    //busco el mat en la lista de mats del rubro
+                    if (parts2[0].equals(materiales.get(j).getIdMaterial())) 
+                    {
+                        flagFind = true;
+                        int k=  Float.compare(Float.parseFloat(parts2[1]),(materiales.get(j).getCoefStdMat()));
+                        if (k!=0) //no quiero actualizar bd si la cant no se cambio
+                        { 
+                            materiales.get(j).setCoefStdMat(Float.parseFloat(parts2[1]));
+                            materiales.get(j).updateCantMatEnRubro(this.idRubro, Float.parseFloat(parts2[1]));
+                        }
+                    }
+                }    
+                    if (!flagFind) //no lo encontro y hay q darlo de alta
+                    {
+                       Material nuevoMaterial = new Material();
+                       nuevoMaterial.setIdMaterial(parts2[0]);
+                       nuevoMaterial.setCoefStdMat(Float.parseFloat(parts2[1]));
+                       matAlta.add(nuevoMaterial);
+                       flagHayMat=true;
+                       //agregarlo a la lista de mats del rub?
+                   }
+             }
+            if(flagHayMat)//si hay por lo menos un mat nuevo hay q darlo de alta en el rub
+            {
+                 rDB.saveMatEnRub(this.idRubro, matAlta);
+            }
+        } catch (Exception e) {}
+    }
+
   /*
         //TODO: faltan todos los otros metodos
          public boolean update(){

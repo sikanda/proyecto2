@@ -8,6 +8,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><%= globconfig.nombrePag()%> </title>
   <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+  
+ 
  	
    <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
     </head> 	
@@ -22,20 +24,25 @@
                                     </h2>
                                 </div>
 
-                                        <form id="admuser" name="admuser" >
-                                            <fieldset>
+                       
+                                           <fieldset>  
                                                 <legend><strong>Seleccione una opción  </strong></legend>
+                                            <br/>    
                                             
-                                                                                         
-                                               <a href="generarPresupuesto.jsp"> Generar Presupuesto</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Proveedores</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Herramienta</a><br>
-                                               <br>
-                                               <br>
-                                            <a href="listaRubros.jsp"> test lista rubros</a><br>
-                                             <a href="pantallaDos.jsp"> Test Pantalla DOS</a><br>
-                                      </fieldset>
-                             </form>
+<div>
+ 
+<ul  style="list-style: none; "  >
+    <li  ><a href="listaRubros.jsp" title="Presupuesto" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_dashboard.png" alt="Presupuesto"/><font color="white">Generar presupuesto</font></a></li>
+      </br>
+        <li><a href="listaProveedores.jsp" title="Proveedores" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_users.png" alt="Proveedores"/><font color="white">Proveedores</font></a></li>
+	 </br>
+        <li><a href="editarRubro.jsp" title="Herramientas" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_settings.png" alt="Herramientas"/><font color="white">Herramientas</font></a></li>
+
+</ul>
+      
+</div>       
+                                     </fieldset>   
+                 
                         </div>
                 </div>
            

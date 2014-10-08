@@ -88,6 +88,8 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
  
+<%@ include file="WEB-INF/jspf/estilo.jspf" %>
+
 <link href="dist/themes/default/style.min.css" rel="stylesheet" type="text/css" title="Estilo"/>
 <style type="text/css"> /* This makes only leaves have checkboxes */
     #jstree .jstree-open > .jstree-anchor > .jstree-checkbox, 
@@ -111,68 +113,77 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                     <br class="clear" />
                                 </div>
                         </div>
-                                   
-                                   
-    <div id="main">
-                            <h2 id="titulo">Lista de rubros</h2>
-                            <br></br>
+                <div id="main">
+                    <h2 id="titulo">Lista de rubros</h2>
 
-                            <br></br>
-                            <button id="mostrar">Mostrar</button>
-                             <form id="formulario">
-                                 <input type="hidden" id="rubrosIds" name="ids" value=""/>
-                                 <input type="submit" value="Siguiente" />
-                             </form>
-                             
-                             <div id="event_result"></div>
-                             <br></br>
-                            <div id="jstree">
-                         <ul> 
-                                            <%
-                                    List<Rubro> subrub = new ArrayList();   
-                                    List<Rubro> subrub2 = new ArrayList(); 
-                                    List<Rubro> subrub3 = new ArrayList(); 
-                                            
-                                for (int i = 0; i < rub.size(); i++) { %>
-                                   <li id="<%=rub.get(i).getIdRubro() %>"><%= rub.get(i).getDescRubro()%>
-                                       <ul>            
-                               <%
-                               subrub = rub.get(i).getSubrubros(); 
-                                for (int j = 0; j < subrub.size(); j++) {
-                                 %>
-                                        <li id="<%=subrub.get(j).getIdRubro() %>">    <%= subrub.get(j).getDescRubro() %>
-                                           <ul>  
-                                            <%
-                                            subrub2 = subrub.get(j).getSubrubros();
-                                              for (int k = 0; k < subrub2.size();k++) {
-                                             %>    
-                                             <li id="<%=subrub2.get(k).getIdRubro() %>"> <%= subrub2.get(k).getDescRubro() %>
-                                             <ul>
-                                         <%    subrub3 = subrub2.get(k).getSubrubros();
-                                         
-                                              for (int m = 0; m < subrub3.size();m++) {
-                                             %>  
-                                                 <li id="<%=subrub3.get(m).getIdRubro() %>" data-jstree='{"icon":"http://jstree.com/tree.png"}'> <%= subrub3.get(m).getDescRubro() %></li>
-                                              <% 
-                                }%>
-                                   </ul></li>                  
-                                <%    }          %>  </ul></li>
-                               <% 
-                                } %>
-                                 </ul></li>
-                                 <%   }          %>
-                         </ul>
-  
-        </div>
-<br></br>                          
-                            
-    </div>
-                                  
-                                  
+                    <div id="contenedor">
+                        <table id="tablaRubros">
+                            <tr>
+                                <td id="col1">Rubros</td>
+                                <td></td>
+                                <td id="col2">Seleccionados</td>
+                            </tr>
+                            <tr>  
+                                <td>
+                                    <div id="jstree">
+                                                     <ul> 
+                                                                        <%
+                                                                List<Rubro> subrub = new ArrayList();   
+                                                                List<Rubro> subrub2 = new ArrayList(); 
+                                                                List<Rubro> subrub3 = new ArrayList(); 
+
+                                                            for (int i = 0; i < rub.size(); i++) { %>
+                                                               <li id="<%=rub.get(i).getIdRubro() %>"><%= rub.get(i).getDescRubro()%>
+                                                                   <ul>            
+                                                           <%
+                                                           subrub = rub.get(i).getSubrubros(); 
+                                                            for (int j = 0; j < subrub.size(); j++) {
+                                                             %>
+                                                                    <li id="<%=subrub.get(j).getIdRubro() %>">    <%= subrub.get(j).getDescRubro() %>
+                                                                       <ul>  
+                                                                        <%
+                                                                        subrub2 = subrub.get(j).getSubrubros();
+                                                                          for (int k = 0; k < subrub2.size();k++) {
+                                                                         %>    
+                                                                         <li id="<%=subrub2.get(k).getIdRubro() %>"> <%= subrub2.get(k).getDescRubro() %>
+                                                                         <ul>
+                                                                     <%    subrub3 = subrub2.get(k).getSubrubros();
+
+                                                                          for (int m = 0; m < subrub3.size();m++) {
+                                                                         %>  
+                                                                             <li id="<%=subrub3.get(m).getIdRubro() %>" data-jstree='{"icon":"http://jstree.com/tree.png"}'> <%= subrub3.get(m).getDescRubro() %></li>
+                                                                          <% 
+                                                            }%>
+                                                               </ul></li>                  
+                                                            <%    }          %>  </ul></li>
+                                                           <% 
+                                                            } %>
+                                                             </ul></li>
+                                                             <%   }          %>
+                                                     </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="botones">
+                                        <button id="mostrar">Agregar</button>
+                                        <form id="formulario">
+                                            <input type="hidden" id="rubrosIds" name="ids" value=""/>
+                                            <input type="submit" value="Continuar" />
+                                        </form>                                       
+                                    </div>
+                                </td>
+                                <td id="event_result">
                                     
-</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                                 
+                                 
   <!-- include the jQuery library -->
-    <script src="dist/libs/jquery.js"> </script>
+  <script src="dist/libs/jquery.js"> </script>
   <!-- include the minified jstree source -->
   <script src="dist/jstree.min.js"></script>
 
@@ -212,7 +223,7 @@ $.each(selectedElms, function() {
         }
 });
 elem.value =selectedElmsIds.join('_'); // Change field
-$('#event_result').html('Selected:<br/> '+ selectedElmsNames.join(', '));
+$('#event_result').html(selectedElmsNames.join(', <br/>'));
 
 })
 

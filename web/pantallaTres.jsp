@@ -159,8 +159,13 @@ function formatCurrency(total) {
               
                           <div id="formu">
                               <form name="frmPresupuesto" action="pantallaCuatro.jsp" method="POST">
+                                  
+                                                 
+                         <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">  Nombre Cliente:  
+                             <input type="text"  id="nomCli" name="nomCli" style="width:570px;"  /><br/>
+                         </div>
                             <div id="tabla">                  
-                              <table id="myTable" >
+                              <table id="myTable" class="tabla" >
                                   <tbody>
                                       <tr>
                                           <th style="width: 300px;">Descripcion</th>
@@ -186,13 +191,15 @@ function formatCurrency(total) {
                                   </tbody>
                               </table>
                          </div> 
-                               <div style="text-align: center">   
-                                   <br>Observaciones    <br>
-                               <textarea name="obs" style="width:550px; height:50px;"  ></textarea>       
-                                   </div>  
-                                  <div style="text-align: center">
-                           <button type="button"><a href="<%= response.encodeURL("pantallaDos.jsp?action=back")%>">Atras</a></button>
-                        <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" />
+                               <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">   
+                                 </br>
+                               <label for="obs" >Observaciones: </label>    
+                                  <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:575px; height:50px;"></textarea>
+                                 </br>
+                               </div>  
+                                  <div style="text-align: center">        
+                           <button type="button" style="height:25px ; width: 70px;"><a href="<%= response.encodeURL("pantallaDos.jsp?action=back")%>">Atras</a></button>
+                        <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px;" />
                         </div>
                         
                      

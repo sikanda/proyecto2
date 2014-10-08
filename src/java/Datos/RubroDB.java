@@ -143,6 +143,45 @@ public RubroDB() throws Exception{}
         return r;
     }
           
+   
+        public boolean saveMatEnRub(String idR, ArrayList<Material> listaMat){ 
+        boolean rta = true;
+                Iterator itMat = listaMat.iterator();  //OJO! listaMat no tiene descripcion
+                while(itMat.hasNext())
+                {
+                    Material  ma = (Material)itMat.next();
+                    rta  = EjecutarNonQuery("insert into materialesrubro (idRubro, idMaterial, coefStdMat)  VALUES ( '" +  idR  + "' , '" + ma.getIdMaterial()  + "' , " +ma.getCoefStdMat() +   " )");
+                    if(rta )
+                    {
+                         rta = commit();
+                     }
+                     if(!(rta))
+                     {
+                         rollback();
+                     }    
+                 }
+        closeCon();
+        return rta;
+    }  
+          
+    public boolean saveMoEnRub(Rubro r, List<ManoDeObra> listaMo) {
+        boolean rta = true;
+
+        Iterator itMo = listaMo.iterator();
+        while (itMo.hasNext()) {
+            ManoDeObra mo = (ManoDeObra) itMo.next();
+            rta = EjecutarNonQuery("insert into manodeobrarubro (idRubro, idManoDeObra, coefStdMo)  VALUES ( '" + r.getIdRubro() + "' , '" + mo.getIdManoDeObra() + "' , " + mo.getCoefStdMO() + " )");
+            if (rta) {
+                rta = commit();
+            }
+            if (!(rta)) {
+                rollback();
+            }
+        }
+        closeCon();
+        return rta;
+    }
+      
           
  public boolean saveALLRub(Rubro r){ 
         boolean rta = false;

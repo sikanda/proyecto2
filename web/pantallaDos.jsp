@@ -20,7 +20,7 @@
 <%-- <jsp:useBean id="presupuestoBean" class="Entidades.Presupuesto"  scope="session"/> --%>
 
 <%
-        List<Rubro> rubPresu = new ArrayList();
+     //   List<Rubro> rubPresu = new ArrayList();
         List<Rubro> rubPresuDev = new ArrayList();
         
         Presupuesto p = new Presupuesto();
@@ -152,16 +152,10 @@ switch($(this).text().length) {
                           <h2 id="titulo">Editar cantidades</h2>
                           <div id="formu">
                               <form name="frmEditaCants" id="frmEditaCants" action="pantallaTres.jsp" method="POST" autocomplete="on">
-
-
                                   <div id="tabla">                  
-                                      <table id="myTable" >
+                                      <table id="myTable" class="tabla" >
                                           <tbody>
                                               <tr><th style="width: 300px;">Descripcion</th><th>Cantidad</th><th>Unidad</th></tr>
-                                                     
-                                              
-                                              
-                                              
                                               <c:choose>
                                             <c:when test="${not empty param.action}">
                                                <c:forEach items="${sessionScope.rubrosEnArbol}" var="rub" >
@@ -178,7 +172,7 @@ switch($(this).text().length) {
                                       </table>
 
                                   </div>
-                                  <input type="submit" value="Siguiente" />
+                                  <input  style="height:25px ; width: 70px;" type="submit" value="Siguiente" />
                                </form>
                           </div>
                       </div>
