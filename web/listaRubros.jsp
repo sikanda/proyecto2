@@ -165,10 +165,10 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                 </td>
                                 <td>
                                     <div id="botones">
-                                        <button id="mostrar">Agregar</button>
+                                        <button id="mostrar" style="height:25px; width: 70px;">Agregar</button>
                                         <form id="formulario">
                                             <input type="hidden" id="rubrosIds" name="ids" value=""/>
-                                            <input type="submit" value="Continuar" />
+                                            <input type="submit" value="Continuar" style="height:25px; width: 70px;"/>
                                         </form>                                       
                                     </div>
                                 </td>

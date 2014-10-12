@@ -11,16 +11,36 @@
 
 
 <%
-      Rubro rubroEdit = (Rubro)session.getAttribute("rubroEdit");  
+        boolean rta=true;
+        String mensaje="";
+        Rubro rubroEdit = (Rubro)session.getAttribute("rubroEdit");  
      
        String mo = request.getParameter("dataManoDeObra");     //("dataMObra");
-       String mat= request.getParameter("dataMateriales");     //("dataMat"); 
+       String mat= request.getParameter("dataMateriales");     //("dataMat");
+       
+       String desc = request.getParameter("descRubro");
+       String um = request.getParameter("unidadMedida");
+       
+       rubroEdit.setDescRubro(desc);
+       rubroEdit.setIdUnidadMedida(um);
+       //rta= rubroEdit.update();//devuelve booleano!
+       
+//       System.out.println(mat);
+//       System.out.println(mo);
        if (mat != null){
             rubroEdit.modificarListaMat(mat);
        }
-      //   if (mo!= null){
-            //rubroEdit.modificarListaMo(dataMObra);
-       //}
+         if (mo!= null){
+            rubroEdit.modificarListaMo(mo);
+       }
+         
+    if (rta) //TODO: modificar para incluir los upd de ma y mo
+        {
+            mensaje = "El rubro se ha guardado correctamente";
+            session.removeAttribute("rubroEdit");
+        } else {
+            mensaje = "Ha ocurrido un error ";
+        }
         
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,6 +70,7 @@
                           </div>
                       </div>
                       <div id="main">
+                      <h3> <%= mensaje %></h3> 
                   </div>
               </div>
           </body>

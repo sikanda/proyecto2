@@ -26,7 +26,7 @@ public ManoDeObraDB() throws Exception{}
 
   public boolean update(ManoDeObra m){
         boolean rta = false;
-		rta = EjecutarNonQuery("UPDATE manodeobra SET descManoDeObra = '" + m.getDescManoDeObra() + "', idUnidadMedida = '" + m.getIdUnidadMedida() + "', precioMo = '" + m.getPrecioMo() + "' WHERE idManoDeObra = " + m.getIdManoDeObra());
+		rta = EjecutarNonQuery("UPDATE manodeobra SET descManoDeObra = '" + m.getDescManoDeObra() + "', idUnidadMedida = '" + m.getIdUnidadMedida() + "', precioMo = '" + m.getPrecioMo() + "' WHERE idManoDeObra = '" + m.getIdManoDeObra()+"'");
          
 	if(rta){
             rta = commit();
@@ -40,7 +40,7 @@ public ManoDeObraDB() throws Exception{}
   
    public boolean delete(int idM){
         boolean rta = false;
-		rta = EjecutarNonQuery("delete from manodeobra WHERE idManoDeObra = " + idM);
+		rta = EjecutarNonQuery("delete from manodeobra WHERE idManoDeObra = '" + idM+"'");
 	if(rta){
             rta = commit();
         }
@@ -51,9 +51,9 @@ public ManoDeObraDB() throws Exception{}
         return rta;
     }
    
-       public List getManoDeObraes() throws Exception{
+       public List getManoDeObra() throws Exception{
             List listaMat = new ArrayList();
-            ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra");
+            ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra order by descManoDeObra");
             while (resultado.next()){
                 ManoDeObra mat = new ManoDeObra();
                 mat.setIdManoDeObra(resultado.getString(1));
@@ -67,10 +67,10 @@ public ManoDeObraDB() throws Exception{}
             return listaMat;
 	}
        
-      public ManoDeObra getManoDeObra(int idManoDeObra) throws Exception
+      public ManoDeObra getManoDeObra(String idManoDeObra) throws Exception
     {
         ManoDeObra mat = new ManoDeObra();
-        ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra WHERE idManoDeObra = " + idManoDeObra);
+        ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra WHERE idManoDeObra = '" + idManoDeObra +"'");
 
         while (resultado.next())
         {
@@ -83,10 +83,20 @@ public ManoDeObraDB() throws Exception{}
         return mat;
     }
       
-          public int getIdManoDeObra(){
-        int rta = EjecutarQueryInt("SELECT MAX(idManoDeObra) FROM manodeobra")+1;
-        closeCon();
-        return (rta);
+      public boolean updateCantMoEnRubro(String idMo, String idRub, Float cant)
+     {
+         boolean rta = false;
+		rta = EjecutarNonQuery("UPDATE manodeobrarubro SET  coefStdMo = '" + cant + "' WHERE idManoDeObra = '" + idMo + "' and idRubro = '" + idRub + "'");
+         
+	if(rta){
+            rta = commit();
+        }
+        if(!rta){
+            rollback();
+        }
+		closeCon();
+        return rta;
 
     }
+      
 }
