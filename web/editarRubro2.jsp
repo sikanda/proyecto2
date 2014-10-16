@@ -19,11 +19,12 @@
        String mat= request.getParameter("dataMateriales");     //("dataMat");
        
        String desc = request.getParameter("descRubro");
-       String um = request.getParameter("unidadMedida");
-       
+       String um = request.getParameter("dropUm");  //("unidadMedida"); //select unidad medida
+       //System.out.println(um);
        rubroEdit.setDescRubro(desc);
        rubroEdit.setIdUnidadMedida(um);
-       //rta= rubroEdit.update();//devuelve booleano!
+       
+       rta= rubroEdit.update();//devuelve booleano!
        
 //       System.out.println(mat);
 //       System.out.println(mo);

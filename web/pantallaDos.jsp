@@ -17,40 +17,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-<%-- <jsp:useBean id="presupuestoBean" class="Entidades.Presupuesto"  scope="session"/> --%>
 
 <%
      //   List<Rubro> rubPresu = new ArrayList();
         List<Rubro> rubPresuDev = new ArrayList();
         
         Presupuesto p = new Presupuesto();
-        Cliente c = new Cliente();
-        c.setIdCliente(1);
-        p.setCliente(c);
         
          p.setUsuario((Usuario)session.getAttribute("usuario"));
          p.setFechaCreacion(new Date());
-   /*    
-        Rubro r1 = new Rubro();
-        Rubro r2 = new Rubro();
-        Rubro r3 = new Rubro();
-        Rubro r4 = new Rubro(); 
-          
-     //   rubPresu.add(r1.getRubro("001001"));
-     //   rubPresu.add(r4.getRubro("003001001002"));
-      //  rubPresu.add(r3.getRubro("009001"));    
-
-        rubPresu.add(r3.getRubro("004017"));
-        rubPresu.add(r1.getRubro("018"));      
-        rubPresu.add(r2.getRubro("022004"));
-        rubPresu.add(r4.getRubro("025"));
-     
-        p.setRubros(rubPresu); //voy a setearle los q esten en sesion. presupuesto tiene array de rubros leaf.
-     */    
-         p.setRubros((List<Rubro>)session.getAttribute("rubrosLeaf")); //viene de pantalla 1
+   
+         p.setRubros((List<Rubro>)session.getAttribute("rubrosLeaf")); //viene de pantalla 1, solo rubros leaf.
         rubPresuDev = p.devolverRubrosPresupuesto();
         
-        // session.setAttribute("rubrosLeaf", rubPresu); //esto me lo pasa la pantalla 1, solo rubros leaf.
          session.setAttribute("rubrosEnArbol", rubPresuDev); //usado por la pantalla 2
          session.setAttribute("presupuestoActual", p);
          
@@ -84,8 +63,10 @@ $('#frmEditaCants').bind("keyup keypress", function(e) {
     if ($(this).text().length === 0)
        {
          $(this).prev().find('input:text').remove();
-
-       }
+      //  $(this).prev().prev().css("background-color","lightgray");
+         $(this).parent().css("background-color","gainsboro");
+         $(this).parent().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
+}
 });
  
 $('td:nth-child(4)').hide(); //rubros
@@ -105,7 +86,19 @@ switch($(this).text().length) {
 } 
 });
 
-
+//////test
+$("#myTable td:nth-child(5)").each(function(){
+     if ($(this).text().length === 0)
+       {
+           alert("entro");
+          if ($(this).prev().prev().text().length !== 0)  
+          {
+              //$(this).parent().css("background-color","yellow");
+              alert($(this).prev().prev().text());
+          }
+       }
+});
+//////test
  $("#myTable input.edit").keypress(function(e) {
   if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
       //parent es el td del input, next es el td de uM

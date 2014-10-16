@@ -1,4 +1,5 @@
 package Entidades;
+import Datos.ManoDeObraDB;
 
 public class ManoDeObra {
     private String idManoDeObra;  
@@ -58,6 +59,20 @@ public class ManoDeObra {
         return cantPres;
     }
 
+        public boolean updateCantMoEnRubro(String idRubro, Float cant){
+        boolean rta = true;
+        ManoDeObraDB MDB = null;
+        try{
+                MDB = new ManoDeObraDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                 rta = MDB.updateCantMoEnRubro(this.idManoDeObra, idRubro, cant) ;
+        }
+        return rta;
+    }
     	@Override
 	public String toString() {
 		return this.getDescManoDeObra();

@@ -1,6 +1,7 @@
 package Datos;
 
 import Entidades.Material;
+import Entidades.UnidadMedida;
 import java.sql.ResultSet;
 import java.util.*;
 
@@ -97,5 +98,5 @@ public MaterialDB() throws Exception{}
 		closeCon();
         return rta;
 
-    }
+    }  
 }

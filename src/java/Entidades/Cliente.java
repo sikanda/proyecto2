@@ -1,16 +1,15 @@
 package Entidades;
 
 import java.util.Date;
+import Datos.ClienteDB;
 
 public class Cliente {
     
     private Integer idCliente;
-    private String nombreCli;
-    private String apellidoCli;
+    private String nomApeCli;
     private String direCli;
     private String emailCli;
     private String telCli;
-    private Date fechaNacCli;
 
      public Cliente (){}
     
@@ -18,12 +17,8 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public void setNombreCli(String nombreCli) {
-        this.nombreCli = nombreCli;
-    }
-
-    public void setApellidoCli(String apellidoCli) {
-        this.apellidoCli = apellidoCli;
+    public void setNomApeCli(String nombreCli) {
+        this.nomApeCli = nombreCli;
     }
 
     public void setDireCli(String direCli) {
@@ -38,21 +33,12 @@ public class Cliente {
         this.telCli = telCli;
     }
 
-    public void setFechaNacCli(Date fechaNacCli) {
-        this.fechaNacCli = fechaNacCli;
-    }
- 
-
     public Integer getIdCliente() {
         return idCliente;
     }
 
-    public String getNombreCli() {
-        return nombreCli;
-    }
-
-    public String getApellidoCli() {
-        return apellidoCli;
+    public String getNomApeCli() {
+        return nomApeCli;
     }
 
     public String getDireCli() {
@@ -67,8 +53,19 @@ public class Cliente {
         return telCli;
     }
 
-    public Date getFechaNacCli() {
-        return fechaNacCli;
+    
+         public boolean save(){
+        boolean rta = true;
+        ClienteDB CDB = null;
+        try{
+                CDB = new ClienteDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = CDB.save(this); 
+        }
+        return rta;
     }
-
-}
+ }

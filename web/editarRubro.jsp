@@ -10,28 +10,7 @@
 <jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 
 <%!
-//public Rubro getRubroByCode(String idRubro, List<Rubro> lista)
-//  {
-//      Rubro rubro = new Rubro();
-//     
-//      	  for(int i=0; i<lista.size();i++)
-//	  { 
-////              System.out.println("i es " + i);
-//		if (idRubro.equals(lista.get(i).getIdRubro()))
-//		   {
-////			   System.out.println( "entro con "+ lista.get(i).getIdRubro()); 
-//                       rubro = lista.get(i) ;
-// lista.clear();
-//		   }
-//		if (( rubro != null ) && (!lista.get(i).getSubrubros().isEmpty()))  
-//			{
-////				 System.out.println("sigue iterando con"+ lista.get(i).getIdRubro());
-//                            rubro = getRubroByCode(idRubro,lista.get(i).getSubrubros());
-//			}
-//	  }
-// 
-//	  return rubro;
-//  }
+
 public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
         Rubro rubro = new Rubro();
         for (int i = 0; i < lista.size(); i++) {
@@ -84,12 +63,14 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
- 
+        
+<script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+
 <%@ include file="WEB-INF/jspf/estilo.jspf" %>
 
 <link href="dist/themes/default/style.min.css" rel="stylesheet" type="text/css" title="Estilo"/>
-<style type="text/css"> 
-    /* This makes only leaves have checkboxes */
+<style type="text/css"> /* This makes only leaves have checkboxes */
     #jstree .jstree-open > .jstree-anchor > .jstree-checkbox, 
     #jstree .jstree-closed > .jstree-anchor > .jstree-checkbox { display:none; }
 </style>
@@ -112,7 +93,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                 </div>
                         </div>
                 <div id="main">
-                    <h2 id="titulo">Seleccione rubro a editar</h2>
+                    <h2 id="titulo">Seleccione el rubro a modificar</h2>
 
                     <div id="contenedor">
                         <table id="tablaRubros">
@@ -123,60 +104,57 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                             <tr>  
                                 <td>
                                     <div id="jstree">
-                                    <ul> 
-                                                       <%
-                                               List<Rubro> subrub = new ArrayList();   
-                                               List<Rubro> subrub2 = new ArrayList(); 
-                                               List<Rubro> subrub3 = new ArrayList(); 
+                                        <ul> 
+                                            <%
+                                                List<Rubro> subrub = new ArrayList();
+                                                List<Rubro> subrub2 = new ArrayList();
+                                                           List<Rubro> subrub3 = new ArrayList();
 
-                                           for (int i = 0; i < rub.size(); i++) { %>
-                                              <li id="<%=rub.get(i).getIdRubro() %>"><%= rub.get(i).getDescRubro()%>
-                                                  <ul>            
-                                          <%
-                                          subrub = rub.get(i).getSubrubros(); 
-                                           for (int j = 0; j < subrub.size(); j++) {
-                                            %>
-                                                   <li id="<%=subrub.get(j).getIdRubro() %>">    <%= subrub.get(j).getDescRubro() %>
-                                                      <ul>  
-                                                       <%
-                                                       subrub2 = subrub.get(j).getSubrubros();
-                                                         for (int k = 0; k < subrub2.size();k++) {
-                                                        %>    
-                                                        <li id="<%=subrub2.get(k).getIdRubro() %>"> <%= subrub2.get(k).getDescRubro() %>
-                                                        <ul>
-                                                    <%    subrub3 = subrub2.get(k).getSubrubros();
+                                                           for (int i = 0; i < rub.size(); i++) {%>
+                                            <li id="<%=rub.get(i).getIdRubro()%>"><%= rub.get(i).getDescRubro()%>
+                                                <ul>            
+                                                    <%
+                                                        subrub = rub.get(i).getSubrubros();
+                                                        for (int j = 0; j < subrub.size(); j++) {
+                                                    %>
+                                                    <li id="<%=subrub.get(j).getIdRubro()%>">    <%= subrub.get(j).getDescRubro()%>
+                                                        <ul>  
+                                                            <%
+                                                                subrub2 = subrub.get(j).getSubrubros();
+                                                                for (int k = 0; k < subrub2.size(); k++) {
+                                                            %>    
+                                                            <li id="<%=subrub2.get(k).getIdRubro()%>"> <%= subrub2.get(k).getDescRubro()%>
+                                                                <ul>
+                                                                    <%    subrub3 = subrub2.get(k).getSubrubros();
 
-                                                         for (int m = 0; m < subrub3.size();m++) {
-                                                        %>  
-                                                            <li id="<%=subrub3.get(m).getIdRubro() %>" data-jstree='{"icon":"http://jstree.com/tree.png"}'> <%= subrub3.get(m).getDescRubro() %></li>
-                                                         <% 
-                                           }%>
-                                              </ul></li>                  
-                                           <%    }          %>  </ul></li>
-                                          <% 
-                                           } %>
-                                            </ul></li>
-                                            <%   }          %>
-                                    </ul>
+                                                                        for (int m = 0; m < subrub3.size(); m++) {
+                                                                    %>  
+                                                                    <li id="<%=subrub3.get(m).getIdRubro()%>" data-jstree='{"icon":"http://jstree.com/tree.png"}'> <%= subrub3.get(m).getDescRubro()%></li>
+                                                                        <%
+                                                             }%>
+                                                                </ul></li>                  
+                                                            <%    }  %>  </ul></li>
+                                                            <%
+                                              } %>
+                                                </ul></li>
+                                                <%   }%>
+                                        </ul>
                                     </div>
                                 </td>
                               <td >     <div id="botones">
-                                            <form id="formulario">
-                                               
-                                                <strong>     Usted ha seleccionado el rubro: </strong>
-                                        
-                                                 <p id="mje" name="mje" value=""> </p>
-                                            
+                                      <form id="formulario">
+                                          <strong>     Usted ha seleccionado el rubro: </strong>
+                                          <p id="mje" name="mje" value=""> </p>
                                           <br>
-                                              <br>
-                                                  <input id="rubrosIds" type="hidden" name="ids" value=""/>
-                                            <input id="btnCont" disabled = "true" type="submit" value="Continuar" style="height:25px; width: 70px;" />
-                                 
-                                            </form>                                       
+                                          <br>
+                                        <input id="rubrosIds" type="hidden" name="ids" value=""/>
+                                        <button disabled="disabled" class="btnToggle" type="button" id="btnAgregar" name="btnAgregar" style="height:25px; width: 90px;" >Alta Rubro</button>
+                                        <input disabled  class="btnToggle" id="btnCont" type="submit" value="Editar" style="height:25px; width: 70px;" />
+                                        <button disabled="disabled" class="btnToggle" type="button" id="btnBorrar" name="btnBorrar" style="height:25px; width: 70px;" >Borrar</button>
+                                        </form>                                       
                                     </div>
-                              </td>  
+                                 </td>  
                              </tr>
-                                   
                         </table>
                     </div>
                 </div>
@@ -204,15 +182,11 @@ $(function () {
                    "core" : {
                     "multiple" : false,
                     "animation" : 0
+                
                     },
                     "checkbox": { "two_state" : true }
             }) ; 
-//$('#jstree').jstree({
-//             "checkbox" : {
-//                           "keep_selected_style" : false                   
-//                          },
-//             "plugins" : [ "checkbox" ]
-//             }); 	
+	
   });            
 //bind to events triggered on the tree
 $('#jstree').on("changed.jstree", function (e, data) {
@@ -221,14 +195,14 @@ $('#jstree').on("changed.jstree", function (e, data) {
 });   
  
 $('#jstree').bind("deselect_node.jstree", function (){
-         $('#btnCont').attr("disabled", 'disabled');     
+         $('.btnToggle').attr("disabled", 'disabled'); 
+         
     });
 
 $('#jstree').bind("select_node.jstree", function (){
-           $('#btnCont').removeAttr("disabled", 'disabled');     
+           $('.btnToggle').removeAttr("disabled", 'disabled');     
     });
     
-
 
 //Stops the propagation of the selection of the nodes to their leaves
 $('#jstree').on("select_node.jstree deselect_node.jstree", function (e, data) {
@@ -241,7 +215,7 @@ $('#jstree').on("select_node.jstree deselect_node.jstree", function (e, data) {
     }
 });
 
-
+var idSelected="";
 function disparaClick(){
 var selectedElmsNames = [];
 var selectedElmsIds = [];
@@ -253,12 +227,35 @@ $.each(selectedElms, function() {
        // {
             selectedElmsNames.push(this.text);
          selectedElmsIds.push(this.id);
+         idSelected=this.id;
        // }
 });
 elem.value =selectedElmsIds.join('_'); // Change field
 $('#mje').text(selectedElmsNames);
 };
 
+ 
+    document.getElementById("btnAgregar").onclick = function () {
+        location.href = "altaSubRubro.jsp?idRub="+idSelected ;
+    };
+    
+//    var options = {
+//	buttons: {
+//		confirm: {
+//			text: 'Ok'  // Button text
+//                        }
+//                ,deny: {
+//                text: 'Cancel'  // Button text
+//                }
+//                }
+//};
+   document.getElementById("btnBorrar").onclick = function () {
+           
+   apprise('Se borrará el rubro y toda la información asociada a él y a sus subrubros',  {'confirm':true}, function(r) {
+    if(r) {   location.href = "borrarRubro.jsp?idRub="+idSelected ;    } 
+  });
+
+ };
 
 //intento q la pag atras cargue el nodo seleccionado en el arbol. fail
 //function getURLParameter(name) {

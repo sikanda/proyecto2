@@ -28,12 +28,11 @@
                                             <fieldset>
                                                 <legend><strong>Seleccione una opción </strong></legend>
                                               <a href="listaProveedores.jsp"> ABM Mano de Obra</a><br>                                           
-                                               <a href="listaProveedores.jsp"> ABM Rubro</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Subrubro</a><br>
+                                               <a href="listaProveedores.jsp"> ABM Rubro/Subrubro</a><br>
                                                <a href="listaProveedores.jsp"> ABM Usuario</a><br>
                                                <a href="listaProveedores.jsp"> ABM Empleado</a><br>
                                                <a href="listaProveedores.jsp"> ABM Material</a><br>
-
+                                               <a href="listaProveedores.jsp"> ABM Unidad Medida</a><br>
                                              
                                       </fieldset>
                              </form>

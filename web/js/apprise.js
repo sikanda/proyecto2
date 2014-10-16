@@ -51,8 +51,8 @@ function apprise(string, args, callback)
     	{
 		if(args['confirm'] || args['input'])
 			{ 
-			$('.aButtons').append('<button value="ok">Ok</button>');
-			$('.aButtons').append('<button value="cancel">Cancel</button>'); 
+			$('.aButtons').append('<button value="ok">Aceptar</button>');
+			$('.aButtons').append('<button value="cancel">Cancelar</button>'); 
 			}
 		else if(args['verify'])
 			{

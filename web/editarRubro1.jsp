@@ -3,6 +3,7 @@
 <%@ page import="Entidades.Rubro"%>
 <%@ page import="Entidades.Material"%>
 <%@ page import="Entidades.ManoDeObra"%>
+<%@ page import="Entidades.UnidadMedida"%>
 
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
@@ -14,6 +15,7 @@
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="materialDB" scope="page" class="Datos.MaterialDB" />
 <jsp:useBean id="manoDeObraDB" scope="page" class="Datos.ManoDeObraDB" />
+<jsp:useBean id="unidadMedidaDB" scope="page" class="Datos.UnidadMedidaDB" />
 <%-- <jsp:useBean id="presupuestoBean" class="Entidades.Presupuesto"  scope="session"/> --%>
 
 <%
@@ -28,6 +30,9 @@
       
             List<ManoDeObra> manoDeObra = new ArrayList();
             manoDeObra = manoDeObraDB.getManoDeObra();
+            
+            List<UnidadMedida> unidadesM = new ArrayList();
+            unidadesM = unidadMedidaDB.getUnidadesDeMedida();
        
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -58,13 +63,16 @@ input {
   //  padding-left:10px;
 }
 select  {
- display: inline-block;
+// display: inline-block;
   float:  right;
 }
 label  {
  //display: inline-block;
 font-size: 14px;
  vertical-align: middle;
+}
+select:disabled  {
+color: #666; opacity: 1;    background: #EBEBE4;
 }
   </style>
 
@@ -225,19 +233,26 @@ $('#btnGuardar').click(function() {
          dataMo +=cantMo;
      });    
    
-     $('#dataManoDeObra').val(dataMo);    
+   if (dataMa === ""){dataMa = "vacio";}
+   if (dataMo === ""){dataMo = "vacio";}
+    $('#dataManoDeObra').val(dataMo);    
     $('#dataMateriales').val(dataMa);
     
 });
  
+ $("#dropUm").val($("#unidadMedida").val() );
+ 
 if( $('#unidadMedida').val() ==="" )
 {  
-    $('#unidadMedida').attr("disabled", 'disabled'); }
+$('select[name="dropUm"]').find('option:contains("Rubro general")').attr("selected",true);
+$('#dropUm').attr("disabled", 'disabled');
+}
+
 });
 
 function Delete(){ var par = $(this).parent().parent(); //tr
      par.remove(); };
-function Edit(){ var par = $(this).parent().parent(); //tr
+function Edit()  { var par = $(this).parent().parent(); //tr
  var tdDesc = par.children("td:nth-child(1)");
  var tdUnit = par.children("td:nth-child(2)");
  var tdPrecio = par.children("td:nth-child(3)"); 
@@ -252,7 +267,7 @@ function Edit(){ var par = $(this).parent().parent(); //tr
  $(".btnEdit").bind("click", Edit); 
  $(".btnDelete").bind("click", Delete); 
  };
-function Save(){ 
+function Save()  { 
  var par = $(this).parent().parent(); //tr 
  var tdDesc = par.children("td:nth-child(1)");
  var tdUnit = par.children("td:nth-child(2)");
@@ -274,7 +289,7 @@ $(".btnDelete").bind("click", Delete);
 </script>
     </head>
           <body>
-               <!-- DIALOG MANO DE OBRA START -->
+ <!-- DIALOG MANO DE OBRA START -->
               <div id="dialog-form-mo" name="dialog-form-mo" title="Elegir Mano de Obra"   >
                   <form name="frmDialogMo" id="frmDialogMo">
                       <div >
@@ -360,9 +375,18 @@ $(".btnDelete").bind("click", Delete);
                             <label for="descRubro" >Descripcion   </label>
                            <input type="text"  id="descRubro" name="descRubro" style="width:400px;" value="${sessionScope.rubroEdit.descRubro}" /><br/>   
                          
-                           <label for="unidadMedida" >Unidad de medida </label> 
-                          <input type="text"  id="unidadMedida" name="unidadMedida" style="width:400px;" value="${sessionScope.rubroEdit.idUnidadMedida}" /><br/>
-                         
+         <input type="hidden"  id="unidadMedida" name="unidadMedida"  value="${sessionScope.rubroEdit.idUnidadMedida}" />
+                               <label for="dropUm">Unidad de Medida</label>
+                               <select id="dropUm" name="dropUm" style="width:405px;"   >
+                        <% for (int i = 0; i < unidadesM.size(); i++) {%>
+
+                            <option value="<%= unidadesM.get(i).getIdUnidadMedida()%>">
+                            <%= unidadesM.get(i).getDescUnidadMedida()%>
+                              </option>
+                                 <% }%> 
+                          </select>  
+                          
+                          
                        </div>   
                          <c:if test="${not empty sessionScope.rubroEdit.idUnidadMedida}">    
                             <p style="  margin-left: 100px; margin-bottom: 1px;  text-align: left ">Materiales</p>
@@ -375,7 +399,6 @@ $(".btnDelete").bind("click", Delete);
                                         <th>Precio</th>
                                         <th>Cant. Estandar</th>
                                           <th>Acciones</th> 
-                                          <!--  <th>Codigo</th> oculto!! por jquery-->
                                     </tr>
                                             <c:forEach items="${sessionScope.rubroEdit.materiales}" var="mat" >
                                         <tr >
@@ -401,8 +424,7 @@ $(".btnDelete").bind("click", Delete);
                                       <table id="tablaManoDeObra" class="tabla">
                                           <tbody>
                                               <tr>
-                                               <!--    <th>Codigo</th> oculto!! por jquery-->
-                                                  <th style="width: 300px;">Descripcion</th>
+                                                <th style="width: 300px;">Descripcion</th>
                                                   <th>Unidad</th>
                                                   <th>Precio</th>
                                                   <th>Cant. Estandar</th>

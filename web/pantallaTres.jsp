@@ -161,8 +161,14 @@ function formatCurrency(total) {
                               <form name="frmPresupuesto" action="pantallaCuatro.jsp" method="POST">
                                   
                                                  
-                         <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">  Nombre Cliente:  
-                             <input type="text"  id="nomCli" name="nomCli" style="width:570px;"  /><br/>
+                         <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left; margin-right: 160px; margin-top:-10px; "> 
+                            <label for="nomCli" >   Nombre Cliente:  </label>
+                             <input type="text"  id="nomCli" name="nomCli" style="width:500px; float:right;"  /><br/>
+                             
+                             <label for="direCli" >Dirección: </label>
+                            <input type="text" id="direCli" name="direCli" style="width:500px; float:right;  "  /><br/>
+                                 <label for="telCli">Teléfono:</label>
+                            <input type="text" id="telCli"  name="telCli" style="width:500px; float:right;"  /><br/>
                          </div>
                             <div id="tabla">                  
                               <table id="myTable" class="tabla" >
@@ -194,7 +200,7 @@ function formatCurrency(total) {
                                <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">   
                                  </br>
                                <label for="obs" >Observaciones: </label>    
-                                  <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:575px; height:50px;"></textarea>
+                                  <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:530px; height:50px;"></textarea>
                                  </br>
                                </div>  
                                   <div style="text-align: center">        

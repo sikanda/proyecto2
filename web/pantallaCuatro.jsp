@@ -1,22 +1,33 @@
+<%@page import="Entidades.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page import="Entidades.Presupuesto"%>
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-
+<jsp:useBean id="clienteDB" scope="page" class="Datos.ClienteDB" />
 
 <%
-  boolean rta;
+  boolean rta, rtaCli;
   String mensaje="";
-  String obs;
-  obs = request.getParameter("obs");
+  String obs = request.getParameter("obs");
+  String nomCli = request.getParameter("nomCli");
+  String direCli = request.getParameter("direCli");
+  String telCli = request.getParameter("telCli");
   
 if(request.getParameter("btnGuardar")!=null) //name of your button, not id 
 {
    Presupuesto pres = (Presupuesto)session.getAttribute("presupuestoActual");
    pres.setObservaciones(obs);
+   
+        Cliente c = new Cliente();
+        c.setIdCliente(clienteDB.getIdCliente());
+        c.setNomApeCli(nomCli);
+        c.setDireCli(direCli);
+        c.setTelCli(telCli);
+        rtaCli= c.save();
+        pres.setCliente(c);
  
   rta = pres.save();
-   if(rta)
+   if(rta && rtaCli)
    { mensaje = "El presupuesto se ha guardado correctamente";
          session.removeAttribute("rubrosEnArbol");
          session.removeAttribute("rubrosLeaf");
