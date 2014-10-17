@@ -86,19 +86,6 @@ switch($(this).text().length) {
 } 
 });
 
-//////test
-$("#myTable td:nth-child(5)").each(function(){
-     if ($(this).text().length === 0)
-       {
-           alert("entro");
-          if ($(this).prev().prev().text().length !== 0)  
-          {
-              //$(this).parent().css("background-color","yellow");
-              alert($(this).prev().prev().text());
-          }
-       }
-});
-//////test
  $("#myTable input.edit").keypress(function(e) {
   if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
       //parent es el td del input, next es el td de uM
@@ -136,7 +123,7 @@ $("#myTable td:nth-child(5)").each(function(){
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
                               </ul>
                               <br class="clear" />
                           </div>

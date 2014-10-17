@@ -100,6 +100,8 @@ switch($(this).text().length) {
     if ($(this).text().length === 0)
        {
          $(this).prev().html("");
+         $(this).parent().css("background-color","gainsboro");
+         $(this).parent().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
        }
 }); 
   var stot = 0;
@@ -149,7 +151,7 @@ function formatCurrency(total) {
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
                               </ul>
                               <br class="clear" />
                           </div>

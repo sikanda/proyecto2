@@ -1,17 +1,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%@ page import="Entidades.Proveedor"%>
+<%@ page import="Entidades.Material"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-<jsp:useBean id="proveedorDB" scope="page" class="Datos.ProveedorDB" />
+<jsp:useBean id="materialDB" scope="page" class="Datos.MaterialDB" />
 
 <%
-	List<Proveedor> proveedores = new ArrayList();
-	proveedores = proveedorDB.getProveedores();
+	List<Material> materiales = new ArrayList();
+	materiales = materialDB.getMateriales();
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -33,7 +33,7 @@
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                                 <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>proveedores</a></p></li>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>materiales</a></p></li>
                                    </ul>
                                     <br class="clear" />
                                 </div>
@@ -42,33 +42,33 @@
 
                             <div id="opciones">
                                 <p>
-                                    <a href="<%= response.encodeURL("nuevoProveedor.jsp")%>">Agregar Proveedor</a>
+                                    <a href="<%= response.encodeURL("nuevoMaterial.jsp")%>">Agregar Material</a>
                                 </p>
                             </div>
 
-                            <h2 id="titulo">Lista de Proveedores</h2>
+                            <h2 id="titulo">Lista de Materiales</h2>
                             <div id="tabla" >
                                     <table class="tabla">
                                         <thead>
                                             <tr>
-                                                <th>Razón Social</th>
-                                                <th>Dirección</th>
-                                                <th>Telefono</th>
-                                                <th>E-mail</th>
+                                           <!--     <th>Id Material</th>   -->
+                                                <th>Descripcion</th>
+                                                <th>Unidad Medida</th>
+                                                <th>Precio</th>
                                                 <th colspan="2" align="center">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <%
-                                for (int i = 0; i < proveedores.size(); i++) {
+                                for (int i = 0; i < materiales.size(); i++) {
                                           %>
                                             <tr>
-                                                <td style="text-align:center"><%= proveedores.get(i).getRazonSocial()%></td>
-                                                <td style="text-align:center"><%= proveedores.get(i).getDireProv()%></td>
-                                                <td style="text-align:center"><%= proveedores.get(i).getEmailProv()%></td>
-                                                <td style="text-align:center"><%= proveedores.get(i).getTelProv()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>">Borrar</a></td>
+                                       <!--          <td style="text-align:center">< //%= materiales.get(i).getIdMaterial()%></td>   -->
+                                                <td  ><%= materiales.get(i).getDescMaterial()%></td>
+                                                <td style="text-align:center"><%= materiales.get(i).getIdUnidadMedida()%></td>
+                                                 <td style="text-align:center"><%= materiales.get(i).getPrecioMa()%></td>
+                                                <td><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>">Modificar</a></td>
+                                                <td><a href="<%= response.encodeURL("borrarMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>">Borrar</a></td>
                                             </tr>
                                             <%
                                      }

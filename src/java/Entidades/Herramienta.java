@@ -2,12 +2,12 @@ package Entidades;
 
 public class Herramienta {
     
-    private int idHerramienta;
+    private String idHerramienta;
     private String descHerramienta; 
     
     public Herramienta (){}
         
-    public void setIdHerramienta(int idHerramienta) {
+    public void setIdHerramienta(String idHerramienta) {
         this.idHerramienta = idHerramienta;
     }
 
@@ -15,7 +15,7 @@ public class Herramienta {
         this.descHerramienta = descHerramienta;
     }
 
-    public int getIdHerramienta() {
+    public String getIdHerramienta() {
         return idHerramienta;
     }
 

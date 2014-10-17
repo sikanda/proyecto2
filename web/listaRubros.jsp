@@ -108,7 +108,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                                 <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>rubros</a></p></li>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
                                    </ul>
                                     <br class="clear" />
                                 </div>

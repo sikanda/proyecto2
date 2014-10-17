@@ -27,12 +27,12 @@
                                         <form id="admlogin" name="admlogin" >
                                             <fieldset>
                                                 <legend><strong>Seleccione una opción </strong></legend>
-                                              <a href="listaProveedores.jsp"> ABM Mano de Obra</a><br>                                           
-                                               <a href="listaProveedores.jsp"> ABM Rubro/Subrubro</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Usuario</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Empleado</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Material</a><br>
-                                               <a href="listaProveedores.jsp"> ABM Unidad Medida</a><br>
+                                              <a href="listaManoDeObra.jsp"> ABM Mano de Obra</a><br>                                           
+                                               <a href="editarRubro.jsp"> ABM Rubro/Subrubro</a><br>
+                                               <a href="listaUsuarios.jsp"> ABM Usuario</a><br>
+                                               <a href="listaEmpleados.jsp"> ABM Empleado</a><br>
+                                               <a href="listaMateriales.jsp"> ABM Material</a><br>
+                                               <a href="listaUnidadesMedida.jsp"> ABM Unidad Medida</a><br>
                                              
                                       </fieldset>
                              </form>

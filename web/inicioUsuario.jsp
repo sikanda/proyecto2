@@ -36,10 +36,9 @@
                                             </br>
                                             <li><a href="listaProveedores.jsp" title="Proveedores" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_users.png" alt="Proveedores"/><font color="white">Proveedores</font></a></li>
                                             </br>
-                                            <li><a href="editarRubro.jsp" title="Herramientas" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_settings.png" alt="Herramientas"/><font color="white">Herramientas</font></a></li>
+                                            <li><a href="listaHerramientas.jsp" title="Herramientas" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_settings.png" alt="Herramientas"/><font color="white">Herramientas</font></a></li>
 
-
-                                        </ul>
+                                         </ul>
 
                                     </div>       
                                 </fieldset>   
