@@ -1,54 +1,60 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="Entidades.Herramienta"%>
+<%@ page import="Entidades.ManoDeObra"%>
 
 
-<%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-<jsp:useBean id="herramientaDB" scope="page" class="Datos.HerramientaDB" />
+<jsp:useBean id="manoDeObraDB" scope="page" class="Datos.ManoDeObraDB" />
 
 <%
-	String idHerram = "";
-        String descHerram = "";
+	String desc = "";
+        String descUm = "";
+        float precio = 0;
         String titulo2 = "";
 
        if (request.getParameter("id") != null  && request.getParameter("accion")== null  ){
             try{
-                Herramienta herr = herramientaDB.getHerramienta(request.getParameter("id"));
-                descHerram = herr.getDescHerramienta();
+                ManoDeObra mo = manoDeObraDB.getManoDeObra(request.getParameter("id"));
+                desc = mo.getDescManoDeObra();
+                descUm = mo.getIdUnidadMedida();
+                precio =  mo.getPrecioMo();
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
+                response.sendRedirect(response.encodeRedirectURL("listaManoDeObra.jsp"));
             }
         }
 
 
         if (request.getParameter("accion") != null){
-                descHerram = request.getParameter("txtDescHerramienta").toString();
+                desc = request.getParameter("txtDesc").toString();
+                 descUm = request.getParameter("txtDescUm").toString();
+                  precio = Float.parseFloat(  request.getParameter("txtPrecio").toString());
              
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;
-                            Herramienta herr = null;
+                            ManoDeObra mo = null;
                             if(request.getParameter("accion").contentEquals("update")){
-                                herr = new Herramienta();
-                                herr.setIdHerramienta(request.getParameter("id"));
-                                herr.setDescHerramienta(descHerram);
-                                rta = herr.update();
+                                mo = new ManoDeObra();
+                                mo.setIdManoDeObra(request.getParameter("id"));
+                                mo.setIdUnidadMedida(descUm);
+                                mo.setPrecioMo(precio);
+                                rta = mo.update();
                             }
                             else{
-                                herr = new Herramienta(descHerram);
-                                rta = herr.save();
+                                mo = new ManoDeObra(descUm,precio);
+                                rta = mo.save();
                             }
                             if (rta)
                             {
-                              response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
+                              response.sendRedirect(response.encodeRedirectURL("listaManoDeObra.jsp"));
                                 
                             }
                            else {
-                              response.sendRedirect(response.encodeRedirectURL("inicioUsuario.jsp"));
+                              response.sendRedirect(response.encodeRedirectURL("inicioAdmin.jsp"));
                                //TODO: ver si se agrega una pag de error. 
                             }
 					}
@@ -80,7 +86,7 @@
                     <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                     <div id="nav">
                         <ul>
-                            <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaHerramientas.jsp")%>">Herramientas</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                            <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaManoDeObra.jsp")%>">Mano de obra</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
                         </ul>
                         <br class="clear" />
                     </div>
@@ -88,9 +94,9 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nueva Herramienta.";
+            <% String titulo = "Agregar nueva Mano de Obra.";
                 if (request.getParameter("id") != null || request.getParameter("accion") != null){
-                    titulo ="Modificar Herramienta";
+                    titulo ="Modificar Mano de Obra";
                 }%>
             <h2 id="titulo"><%=titulo%></h2>
             
@@ -101,14 +107,15 @@
         }
         %>
         <div id="formu">
-        <form name="frmHerramienta" action="<%= response.encodeURL("nuevaHerramienta.jsp?accion=" + param)%>" method="POST">
+        <form name="frmManoDeObra" action="<%= response.encodeURL("nuevaManoDeObra.jsp?accion=" + param)%>" method="POST">
             <fieldset>
-                    <legend><strong>Datos herramienta</strong></legend>
-               <!--     <label for="txtidHerramienta"></label>
-                        <input type="text" id="txtrazonsocial" name="txtidHerramienta" value="<//%= idHerram %>"/>
-                    <br /> -->
-                    <label for="txtDescHerramienta"> Descripción: </label>
-                        <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" style="width: 270px;" value="<%= descHerram %>"/>
+                    <legend><strong>Datos mano de obra</strong></legend>
+                    <label for="txtDesc"> Descripción: </label>
+                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"/>
+                        <label for="txtDescUm"> Unidad de medida: </label>
+                        <input type="text" id="txtDescUm" name="txtDescUm" value="<%= descUm %>"/>
+                        <label for="txtPrecio"> Precio: </label>
+                        <input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio %>"/>
                     <br /><br />
                     <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
             </fieldset>

@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.util.Date;
+import Datos.EmpleadoDB;
 
 
 public class Empleado {
@@ -11,7 +12,28 @@ public class Empleado {
     private String emailEmp;
     private String telEmp;
     private Date fechaNacEmp;
-
+    
+        public Empleado (){}
+        public Empleado (String apellido, String nombre,String dir,String mail,String tel) 
+    {  
+        boolean rta = true;
+        try{
+            EmpleadoDB EDB = new EmpleadoDB();
+            idEmpleado = EDB.getIdEmpleado();
+            }
+        catch(Exception e)
+            {rta = false;}
+        if (rta)
+        {
+		this.apellidoEmp = apellido;
+                this.nombreEmp = nombre;
+		this.direEmp = dir;
+		this.telEmp = tel;
+		this.emailEmp = mail;
+        }
+     }
+    
+    
     public Integer getIdEmpleado() {
         return idEmpleado;
     }
@@ -67,4 +89,35 @@ public class Empleado {
     public void setFechaNacEmp(Date fechaNacEmp) {
         this.fechaNacEmp = fechaNacEmp;
     }
+    
+       public boolean update(){
+        boolean rta = true;
+        EmpleadoDB EDB = null;
+        try{
+                EDB = new EmpleadoDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = EDB.update(this);
+        }
+        return rta;
+    }
+
+     public boolean save(){
+        boolean rta = true;
+        EmpleadoDB EDB = null;
+        try{
+                EDB = new EmpleadoDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = EDB.save(this);
+        }
+        return rta;
+    }
+       
 }

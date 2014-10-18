@@ -10,10 +10,19 @@ public class Usuario {
     public Usuario (){}
 	
 	
-    public Usuario(Integer idUsuario, String nombreUsu, String pass) {
-        this.idUsuario = idUsuario;
+    public Usuario( String nombreUsu, String pass) {
+         boolean rta = true;
+        try{
+            UsuarioDB EDB = new UsuarioDB();
+            this.idUsuario = EDB.getIdUsuario();
+            }
+        catch(Exception e)
+            {rta = false;}
+        if (rta)
+        {
         this.nombreUsuario = nombreUsu;
         this.pass = pass;
+         }
     }
 
     public Integer getIdUsuario() {
@@ -40,8 +49,8 @@ public class Usuario {
         this.pass = pass;
     }
 
-  /*
-        //TODO: faltan todos los otros metodos
+ 
+  
          public boolean update(){
         boolean rta = true;
         UsuarioDB UDB = null;
@@ -71,6 +80,6 @@ public class Usuario {
         }
         return rta;
     }
-    */
+ 
      
 }

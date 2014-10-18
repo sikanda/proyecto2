@@ -1,53 +1,57 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="Entidades.Herramienta"%>
+<%@ page import="Entidades.Usuario"%>
 
 
-<%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-<jsp:useBean id="herramientaDB" scope="page" class="Datos.HerramientaDB" />
+<jsp:useBean id="usuarioDB" scope="page" class="Datos.UsuarioDB" />
 
 <%
-	String idHerram = "";
-        String descHerram = "";
+        String nombreUser = "";
+        String pass = "";
         String titulo2 = "";
 
        if (request.getParameter("id") != null  && request.getParameter("accion")== null  ){
             try{
-                Herramienta herr = herramientaDB.getHerramienta(request.getParameter("id"));
-                descHerram = herr.getDescHerramienta();
+                Usuario user = usuarioDB.getUsuario(Integer.parseInt(request.getParameter("id")));
+                nombreUser = user.getNombreUsuario();
+                pass = user.getPass();
+                
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
+                response.sendRedirect(response.encodeRedirectURL("listaUsuarios.jsp"));
             }
         }
 
 
         if (request.getParameter("accion") != null){
-                descHerram = request.getParameter("txtDescHerramienta").toString();
+                nombreUser = request.getParameter("txtNomUs").toString();
+                pass = request.getParameter("txtPass").toString();
              
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;
-                            Herramienta herr = null;
+                            Usuario user = null;
                             if(request.getParameter("accion").contentEquals("update")){
-                                herr = new Herramienta();
-                                herr.setIdHerramienta(request.getParameter("id"));
-                                herr.setDescHerramienta(descHerram);
-                                rta = herr.update();
+                                user = new Usuario();
+                                user.setIdUsuario(Integer.parseInt(request.getParameter("id")));
+                                user.setNombreUsuario(nombreUser);  
+                                user.setPass(pass);
+                                rta = user.update();
                             }
                             else{
-                                herr = new Herramienta(descHerram);
-                                rta = herr.save();
+                                user = new Usuario(nombreUser,pass);
+                                rta = user.save();
                             }
                             if (rta)
                             {
-                              response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
+                              response.sendRedirect(response.encodeRedirectURL("listaUsuarios.jsp"));
                                 
                             }
-                           else {
+                           else { //error
                               response.sendRedirect(response.encodeRedirectURL("inicioUsuario.jsp"));
                                //TODO: ver si se agrega una pag de error. 
                             }
@@ -80,7 +84,7 @@
                     <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                     <div id="nav">
                         <ul>
-                            <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaHerramientas.jsp")%>">Herramientas</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                            <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaUsuarios.jsp")%>">Usuarios</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
                         </ul>
                         <br class="clear" />
                     </div>
@@ -88,9 +92,9 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nueva Herramienta.";
+            <% String titulo = "Agregar nuevo Usuario.";
                 if (request.getParameter("id") != null || request.getParameter("accion") != null){
-                    titulo ="Modificar Herramienta";
+                    titulo ="Modificar Usuario";
                 }%>
             <h2 id="titulo"><%=titulo%></h2>
             
@@ -101,16 +105,14 @@
         }
         %>
         <div id="formu">
-        <form name="frmHerramienta" action="<%= response.encodeURL("nuevaHerramienta.jsp?accion=" + param)%>" method="POST">
+        <form name="frmUsuario" action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
             <fieldset>
-                    <legend><strong>Datos herramienta</strong></legend>
-               <!--     <label for="txtidHerramienta"></label>
-                        <input type="text" id="txtrazonsocial" name="txtidHerramienta" value="<//%= idHerram %>"/>
-                    <br /> -->
-                    <label for="txtDescHerramienta"> Descripción: </label>
-                        <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" style="width: 270px;" value="<%= descHerram %>"/>
-                    <br /><br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                    <legend><strong>Datos Usuario</strong></legend>
+                    <label for="txtNomUs"> Nombre Usuario </label>
+                        <input type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/>
+                        <label for="txtPass"> Contraseña </label>
+                        <input type="text" id="txtPass" name="txtPass"  value="<%= pass %>"/>
+                   <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
             </fieldset>
         </form>
         </div>

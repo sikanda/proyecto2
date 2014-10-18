@@ -4,7 +4,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
-<%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="usuarioDB" scope="page" class="Datos.UsuarioDB" />
@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+                     <script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(5)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //idUs q se borra
+           // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará el usuario',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarUsuario.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -33,7 +51,7 @@
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                                 <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>usuarios</a></p></li>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>usuarios</a></p></li>
                                    </ul>
                                     <br class="clear" />
                                 </div>
@@ -51,8 +69,8 @@
                                     <table class="tabla">
                                         <thead>
                                             <tr>
-                                                <th>Id Usuario</th>
-                                                <th>Nombre Usuario</th>
+                                               <!-- <th>Id Usuario</th>   -->
+                                                <th>Nombre</th>
                                                 <th>Contraseña</th>
                                                 <th colspan="2" align="center">Acciones</th>
                                             </tr>
@@ -62,11 +80,11 @@
                                 for (int i = 0; i < usuarios.size(); i++) {
                                           %>
                                             <tr>
-                                                <td style="text-align:center"><%= usuarios.get(i).getIdUsuario()%></td>
-                                                <td style="text-align:center"><%= usuarios.get(i).getNombreUsuario()%></td>
+                                               <td style="text-align:center"><%= usuarios.get(i).getNombreUsuario()%></td>
                                                 <td style="text-align:center"><%= usuarios.get(i).getPass()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoUsuario.jsp?id=" + usuarios.get(i).getIdUsuario())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarUsuario.jsp?id=" + usuarios.get(i).getIdUsuario())%>">Borrar</a></td>
+                                                <td><a href="<%= response.encodeURL("nuevoUsuario.jsp?id=" + usuarios.get(i).getIdUsuario())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                               <td><img src='images/trash.png' class='btnDelete'></td>
+                                                <td><%= usuarios.get(i).getIdUsuario()%></td>
                                             </tr>
                                             <%
                                      }

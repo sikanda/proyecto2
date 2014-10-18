@@ -4,7 +4,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
-<%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="manoDeObraDB" scope="page" class="Datos.ManoDeObraDB" />
@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+   <script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(6)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //id  q se borra
+           // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará la mano de obra',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarManoDeObra.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -42,7 +60,7 @@
 
                             <div id="opciones">
                                 <p>
-                                    <a href="<%= response.encodeURL("nuevoMaterial.jsp")%>">Agregar Mano de obra</a>
+                                    <a href="<%= response.encodeURL("nuevaManoDeObra.jsp")%>">Agregar Mano de obra</a>
                                 </p>
                             </div>
 
@@ -62,13 +80,13 @@
                                             <%
                                 for (int i = 0; i < arrayManoDeObra.size(); i++) {
                                           %>
-                                            <tr>
-                                         <!--       <td style="text-align:center"><//%= arrayManoDeObra.get(i).getIdManoDeObra()%></td>   -->
+                                            <tr>  
                                                 <td ><%= arrayManoDeObra.get(i).getDescManoDeObra()%></td>
                                                 <td style="text-align:center"><%= arrayManoDeObra.get(i).getIdUnidadMedida()%></td>
                                                  <td style="text-align:center"><%= arrayManoDeObra.get(i).getPrecioMo()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarMaterial.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>">Borrar</a></td>
+                                                <td><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                    <td><img src='images/trash.png' class='btnDelete'></td>
+                                                <td><%= arrayManoDeObra.get(i).getIdManoDeObra()%></td>   
                                             </tr>
                                             <%
                                      }

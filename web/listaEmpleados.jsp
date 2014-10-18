@@ -4,7 +4,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
-<%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="empleadoDB" scope="page" class="Datos.EmpleadoDB" />
@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+                     <script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(8)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //idProv q se borra
+           // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará el empleado',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarEmpleado.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -51,13 +69,13 @@
                                     <table class="tabla">
                                         <thead>
                                             <tr>
-                                             <!--   <th>Id Empleado</th>   -->
+                                             <!--    <th>Id Empleado</th>   -->
                                                 <th>Nombre</th>
                                                 <th>Apellido</th>
                                                 <th>Dirección</th>
                                                 <th>Telefono</th>
                                                 <th>E-mail</th>
-                                                 <th>Fecha nac.</th>
+                                            <!--      <th>Fecha nac.</th>-->
                                                 <th colspan="2" align="center">Acciones</th>
                                             </tr>
                                         </thead>
@@ -66,15 +84,15 @@
                                 for (int i = 0; i < empleados.size(); i++) {
                                           %>
                                             <tr>
-                                          <!--        <td style="text-align:center">< // %= empleados.get(i).getIdEmpleado()%></td> -->
-                                                <td style="text-align:center"><%= empleados.get(i).getNombreEmp()%></td>
+                                           <td style="text-align:center"><%= empleados.get(i).getNombreEmp()%></td>
                                                 <td style="text-align:center"><%= empleados.get(i).getApellidoEmp()%></td>
                                                 <td style="text-align:center"><%= empleados.get(i).getDireEmp()%></td>
                                                  <td style="text-align:center"><%= empleados.get(i).getTelEmp()%></td>
                                                 <td style="text-align:center"><%= empleados.get(i).getEmailEmp()%></td>
-                                               <td style="text-align:center"><%= empleados.get(i).getFechaNacEmp()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoEmpleado.jsp?id=" + empleados.get(i).getIdEmpleado())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarEmpleado.jsp?id=" + empleados.get(i).getIdEmpleado())%>">Borrar</a></td>
+                                           <!--    <td style="text-align:center"><//%= empleados.get(i).getFechaNacEmp()%></td>  -->
+                                                <td><a href="<%= response.encodeURL("nuevoEmpleado.jsp?id=" + empleados.get(i).getIdEmpleado())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                              <td><img src='images/trash.png' class='btnDelete'></td>
+                                                <td style="text-align:center"><%= empleados.get(i).getIdEmpleado()%></td>  
                                             </tr>
                                             <%
                                      }

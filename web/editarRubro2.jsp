@@ -6,7 +6,7 @@
 <%@ page import="Entidades.Presupuesto"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 
 
@@ -65,7 +65,7 @@
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
                               </ul>
                               <br class="clear" />
                           </div>

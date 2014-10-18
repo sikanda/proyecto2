@@ -4,7 +4,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
-<%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
+<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="materialDB" scope="page" class="Datos.MaterialDB" />
@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+<script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(6)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //id  q se borra
+           // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará el material',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarMaterial.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -63,12 +81,12 @@
                                 for (int i = 0; i < materiales.size(); i++) {
                                           %>
                                             <tr>
-                                       <!--          <td style="text-align:center">< //%= materiales.get(i).getIdMaterial()%></td>   -->
-                                                <td  ><%= materiales.get(i).getDescMaterial()%></td>
+                                            <td><%= materiales.get(i).getDescMaterial()%></td>
                                                 <td style="text-align:center"><%= materiales.get(i).getIdUnidadMedida()%></td>
                                                  <td style="text-align:center"><%= materiales.get(i).getPrecioMa()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>">Borrar</a></td>
+                                                <td><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                 <td><img src='images/trash.png' class='btnDelete'></td> 
+                                                <td style="text-align:center"><%= materiales.get(i).getIdMaterial()%></td>   
                                             </tr>
                                             <%
                                      }

@@ -10,6 +10,22 @@ public class ManoDeObra {
     private float precioMo;
     
     public ManoDeObra (){}
+    
+        public ManoDeObra (String um,Float prec) 
+    {  
+        boolean rta = true;
+        try{
+            ManoDeObraDB MDB = new ManoDeObraDB();
+            idManoDeObra = MDB.getIdManoDeObra();
+            }
+        catch(Exception e)
+            {rta = false;}
+        if (rta)
+        {
+		this.idUnidadMedida = um;
+		this.precioMo = prec;
+        }
+     }
 
     public void setIdManoDeObra(String idManoDeObra) {
         this.idManoDeObra = idManoDeObra;
@@ -73,6 +89,38 @@ public class ManoDeObra {
         }
         return rta;
     }
+        
+             public boolean update(){
+        boolean rta = true;
+          ManoDeObraDB MDB = null;
+        try{
+                MDB = new ManoDeObraDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = MDB.update(this);
+        }
+        return rta;
+    }
+
+     public boolean save(){
+        boolean rta = true;
+        ManoDeObraDB MDB = null;
+        try{
+                MDB = new ManoDeObraDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = MDB.save(this);
+        }
+        return rta;
+    }
+     
+     
     	@Override
 	public String toString() {
 		return this.getDescManoDeObra();

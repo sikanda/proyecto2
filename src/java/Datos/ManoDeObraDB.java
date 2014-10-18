@@ -38,7 +38,7 @@ public ManoDeObraDB() throws Exception{}
         return rta;
     }
   
-   public boolean delete(int idM){
+   public boolean delete(String idM){
         boolean rta = false;
 		rta = EjecutarNonQuery("delete from manodeobra WHERE idManoDeObra = '" + idM+"'");
 	if(rta){
@@ -96,6 +96,30 @@ public ManoDeObraDB() throws Exception{}
         }
 		closeCon();
         return rta;
+
+    }
+      
+       public String getIdManoDeObra() throws Exception{
+        int nuevoId=0;
+        String retorno;
+        ResultSet resultado = EjecutarQuery("SELECT MAX(idManoDeObra) FROM manodeobra") ;
+           while (resultado.next())
+        {
+            if(resultado.getString(1) != null)
+            { 
+                nuevoId = Integer.parseInt(resultado.getString(1).substring(2,6))+1;
+            }
+            else
+            {
+                nuevoId = 0001; //si no respeta los ceros mandar 1000
+            }
+           
+        }
+          retorno= "MO" + nuevoId ;
+           
+        resultado.close();
+        closeCon();
+        return retorno;
 
     }
       

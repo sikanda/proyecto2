@@ -39,9 +39,9 @@ public MaterialDB() throws Exception{}
         return rta;
     }
   
-   public boolean delete(int idM){
+   public boolean delete(String idM){
         boolean rta = false;
-		rta = EjecutarNonQuery("delete from materiales WHERE idMaterial = " + idM);
+		rta = EjecutarNonQuery("delete from materiales WHERE idMaterial = '" + idM + "'");
 	if(rta){
             rta = commit();
         }
@@ -98,5 +98,29 @@ public MaterialDB() throws Exception{}
 		closeCon();
         return rta;
 
-    }  
+    } 
+          
+        public String getIdMaterial() throws Exception{
+        int nuevoId=0;
+        String retorno;
+        ResultSet resultado = EjecutarQuery("SELECT MAX(idMaterial) FROM materiales") ;
+           while (resultado.next())
+        {
+            if(resultado.getString(1) != null)
+            { 
+                nuevoId = Integer.parseInt(resultado.getString(1).substring(5,8))+1;
+            }
+            else
+            {
+                nuevoId = 551;
+            }
+           
+        }
+          retorno= "MA001" + nuevoId ;
+           
+        resultado.close();
+        closeCon();
+        return retorno;
+
+    }
 }

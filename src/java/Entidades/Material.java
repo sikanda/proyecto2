@@ -11,6 +11,21 @@ public class Material {
     
     public Material (){}
 
+     public Material (String um,Float prec) 
+    {  
+        boolean rta = true;
+        try{
+            MaterialDB MDB = new MaterialDB();
+            idMaterial = MDB.getIdMaterial();
+            }
+        catch(Exception e)
+            {rta = false;}
+        if (rta)
+        {
+		this.idUnidadMedida = um;
+		this.precioMa = prec;
+        }
+     }
     public void setIdMaterial(String idMaterial) {
         this.idMaterial = idMaterial;
     }
@@ -74,6 +89,37 @@ public class Material {
         return rta;
     }
     
+        
+        public boolean update(){
+        boolean rta = true;
+          MaterialDB MDB = null;
+        try{
+                MDB = new MaterialDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = MDB.update(this);
+        }
+        return rta;
+    }
+
+     public boolean save(){
+        boolean rta = true;
+        MaterialDB MDB = null;
+        try{
+                MDB = new MaterialDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = MDB.save(this);
+        }
+        return rta;
+    }
+     
     	@Override
 	public String toString() {
 		return this.getDescMaterial();
