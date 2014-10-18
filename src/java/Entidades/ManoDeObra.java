@@ -11,18 +11,19 @@ public class ManoDeObra {
     
     public ManoDeObra (){}
     
-        public ManoDeObra (String um,Float prec) 
+        public ManoDeObra (String desc, String um,Float prec) 
     {  
         boolean rta = true;
         try{
             ManoDeObraDB MDB = new ManoDeObraDB();
-            idManoDeObra = MDB.getIdManoDeObra();
+            this.idManoDeObra = MDB.getIdManoDeObra();
             }
         catch(Exception e)
             {rta = false;}
         if (rta)
         {
-		this.idUnidadMedida = um;
+                this.descManoDeObra = desc;
+                this.idUnidadMedida = um;
 		this.precioMo = prec;
         }
      }

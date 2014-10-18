@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+           <script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(5)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //id q se borra
+            // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará la unidad de medida',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarUnidadMedida.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -61,8 +79,9 @@
                                             <tr>
                                                 <td style="text-align:center"><%= umeds.get(i).getIdUnidadMedida()%></td>
                                                 <td style="text-align:center"><%= umeds.get(i).getDescUnidadMedida()%></td>
-                                               <td><a href="<%= response.encodeURL("nuevaUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>">Borrar</a></td>
+                                               <td><a href="<%= response.encodeURL("nuevaUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                  <td><img src='images/trash.png' class='btnDelete'></td>
+                                                 <td style="text-align:center"><%= umeds.get(i).getIdUnidadMedida()%></td>
                                             </tr>
                                             <%
                                  }  

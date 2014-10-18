@@ -13,7 +13,7 @@ public ManoDeObraDB() throws Exception{}
      public boolean save(ManoDeObra m){ 
         boolean rta = false;
 		//ver si afecta en algo los '' de los float
-        	rta = EjecutarNonQuery("insert into manodeobra (descManoDeObra, idUnidadMedida, precioMo)  VALUES ( '" + m.getDescManoDeObra()  + "' , '" + m.getIdUnidadMedida() + "' , '" + m.getPrecioMo() +  "' )");
+        	rta = EjecutarNonQuery("insert into manodeobra (idManoDeObra, descManoDeObra, idUnidadMedida, precioMo)  VALUES ( '" + m.getIdManoDeObra()  + "' , '" + m.getDescManoDeObra()  + "' , '" + m.getIdUnidadMedida() + "' , '" + m.getPrecioMo() +  "' )");
                 if(rta){
             rta = commit();
         }
@@ -111,11 +111,11 @@ public ManoDeObraDB() throws Exception{}
             }
             else
             {
-                nuevoId = 0001; //si no respeta los ceros mandar 1000
+                nuevoId = 1; 
             }
            
         }
-          retorno= "MO" + nuevoId ;
+          retorno= "MO" + String.format("%04d",nuevoId) ;
            
         resultado.close();
         closeCon();

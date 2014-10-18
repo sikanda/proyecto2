@@ -13,8 +13,8 @@ public class Usuario {
     public Usuario( String nombreUsu, String pass) {
          boolean rta = true;
         try{
-            UsuarioDB EDB = new UsuarioDB();
-            this.idUsuario = EDB.getIdUsuario();
+            UsuarioDB UDB = new UsuarioDB();
+            this.idUsuario = UDB.getIdUsuario();
             }
         catch(Exception e)
             {rta = false;}

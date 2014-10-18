@@ -40,12 +40,13 @@
                             if(request.getParameter("accion").contentEquals("update")){
                                 mo = new ManoDeObra();
                                 mo.setIdManoDeObra(request.getParameter("id"));
+                                mo.setDescManoDeObra(desc);
                                 mo.setIdUnidadMedida(descUm);
                                 mo.setPrecioMo(precio);
                                 rta = mo.update();
                             }
                             else{
-                                mo = new ManoDeObra(descUm,precio);
+                                mo = new ManoDeObra(desc,descUm,precio);
                                 rta = mo.save();
                             }
                             if (rta)
@@ -111,9 +112,9 @@
             <fieldset>
                     <legend><strong>Datos mano de obra</strong></legend>
                     <label for="txtDesc"> Descripción: </label>
-                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"/>
+                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"/></br>
                         <label for="txtDescUm"> Unidad de medida: </label>
-                        <input type="text" id="txtDescUm" name="txtDescUm" value="<%= descUm %>"/>
+                        <input type="text" id="txtDescUm" name="txtDescUm" value="<%= descUm %>"/></br>
                         <label for="txtPrecio"> Precio: </label>
                         <input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio %>"/>
                     <br /><br />

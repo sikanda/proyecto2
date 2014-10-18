@@ -60,7 +60,7 @@
         if (request.getParameter("id") != null || request.getParameter("accion") != null){
                     titulo2 ="modificar";
                 } else{
-                           titulo2 ="nueva";
+                           titulo2 ="nuevo";
                        }
 %>
 
@@ -108,10 +108,13 @@
         <form name="frmUsuario" action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
             <fieldset>
                     <legend><strong>Datos Usuario</strong></legend>
-                    <label for="txtNomUs"> Nombre Usuario </label>
+                    <label for="txtNomUs"> Nombre  </label>
                         <input type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/>
+                        </br>
                         <label for="txtPass"> Contraseña </label>
                         <input type="text" id="txtPass" name="txtPass"  value="<%= pass %>"/>
+                      
+                          </br>
                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
             </fieldset>
         </form>

@@ -11,18 +11,19 @@ public class Material {
     
     public Material (){}
 
-     public Material (String um,Float prec) 
+     public Material (String desc, String um,Float prec) 
     {  
         boolean rta = true;
         try{
             MaterialDB MDB = new MaterialDB();
-            idMaterial = MDB.getIdMaterial();
+            this.idMaterial = MDB.getIdMaterial();
             }
         catch(Exception e)
             {rta = false;}
         if (rta)
         {
 		this.idUnidadMedida = um;
+                this.descMaterial = desc;
 		this.precioMa = prec;
         }
      }

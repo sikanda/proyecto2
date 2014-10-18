@@ -14,7 +14,7 @@ public MaterialDB() throws Exception{}
      public boolean save(Material m){ 
         boolean rta = false;
 		//ver si afecta en algo los '' de los float
-        	rta = EjecutarNonQuery("insert into materiales (descMaterial, idUnidadMedida, precioMa)  VALUES ( '" + m.getDescMaterial()  + "' , '" + m.getIdUnidadMedida() + "' , '" + m.getPrecioMa() +  "' )");
+        	rta = EjecutarNonQuery("insert into materiales (idMaterial, descMaterial, idUnidadMedida, precioMa)  VALUES ( '" + m.getIdMaterial()  + "' , '" + m.getDescMaterial()  + "' , '" + m.getIdUnidadMedida() + "' , '" + m.getPrecioMa() +  "' )");
                 if(rta){
             rta = commit();
         }
@@ -27,7 +27,7 @@ public MaterialDB() throws Exception{}
 
   public boolean update(Material m){
         boolean rta = false;
-		rta = EjecutarNonQuery("UPDATE materiales SET descMaterial = '" + m.getDescMaterial() + "', idUnidadMedida = '" + m.getIdUnidadMedida() + "', precioMa = '" + m.getPrecioMa() + "' WHERE idMaterial = " + m.getIdMaterial());
+		rta = EjecutarNonQuery("UPDATE materiales SET descMaterial = '" + m.getDescMaterial() + "', idUnidadMedida = '" + m.getIdUnidadMedida() + "', precioMa = '" + m.getPrecioMa() + "' WHERE idMaterial = '" + m.getIdMaterial()+"'");
          
 	if(rta){
             rta = commit();
@@ -108,15 +108,15 @@ public MaterialDB() throws Exception{}
         {
             if(resultado.getString(1) != null)
             { 
-                nuevoId = Integer.parseInt(resultado.getString(1).substring(5,8))+1;
+                nuevoId = Integer.parseInt(resultado.getString(1).substring(2,8))+1;
             }
             else
             {
-                nuevoId = 551;
+                nuevoId = 1;
             }
            
         }
-          retorno= "MA001" + nuevoId ;
+          retorno= "MA" + String.format("%06d",nuevoId) ;
            
         resultado.close();
         closeCon();
