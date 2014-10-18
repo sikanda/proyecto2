@@ -83,6 +83,7 @@ public ProveedorDB() throws Exception{}
 
         }
         resultado.close();
+        closeCon();
         return prov;
     }
       

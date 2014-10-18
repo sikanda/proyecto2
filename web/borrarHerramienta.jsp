@@ -1,13 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="Entidades.Proveedor"%>
+<%@ page import="Entidades.Herramienta"%>
 
 
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-<jsp:useBean id="proveedorDB" scope="page" class="Datos.ProveedorDB" />
+<jsp:useBean id="herramientaDB" scope="page" class="Datos.HerramientaDB" />
 
 <%
 	String mensajeE = "";
@@ -15,15 +15,15 @@
         if (request.getParameter("id") != null ){
             try{
                      
-             boolean rta =   proveedorDB.delete(Integer.parseInt(request.getParameter("id")));
+             boolean rta =   herramientaDB.delete(request.getParameter("id"));
              
              if (rta){
-             mensajeE = "El proveedor ha sido borrado exitosamente";
+             mensajeE = "La herramienta ha sido borrada exitosamente";
              }
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
+                response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
             }
         }
 
@@ -52,7 +52,7 @@
                                 </div>
                  <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaProveedores.jsp")%>">Proveedores</a><%=globconfig.separador()%> borrar</p></li>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaHerramientas.jsp")%>">Herramientas</a><%=globconfig.separador()%> borrar</p></li>
                                     </ul>
                                     <br class="clear" />
                                 </div>
@@ -61,12 +61,11 @@
             <div id="main">
 
 
-            <% String titulo = "Borrar Proveedor";
-                %>
+            <% String titulo = "Borrar Herramienta"; %>
             <h2 id="titulo"><%=titulo%></h2>
 
         <div id="formu">
-        <form name="frmproveedor" action="<%= response.encodeURL("listaProveedores.jsp")%>" method="POST">
+        <form name="frmborrarherr" action="<%= response.encodeURL("listaHerramientas.jsp")%>" method="POST">
             <fieldset>
                    
                     <% if(!mensajeE.isEmpty()){ %>
@@ -74,8 +73,8 @@
                         <%= mensajeE %>
                     </div>
                     <% } %>
-                    </br>
-                    <input type="submit" value="Continuar" style="height:25px; width: 70px;"/>
+</br>
+                    <input type="submit" value="Continuar" style="height:25px; width: 70px;" />
             </fieldset>
         </form>
         </div>

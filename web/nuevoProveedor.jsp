@@ -14,10 +14,10 @@
         String mail = "";
         String telefono = "";
 	String direccion = "";
-	String mensajeE = "";
         String titulo2 = "";
 
-        if (request.getParameter("id") != null && request.getParameter("ae") == null ){
+        //levanta los campos en form para modificar
+        if (request.getParameter("id") != null  && request.getParameter("accion")== null  ){
             try{
                 Proveedor prov = proveedorDB.getProveedor(Integer.parseInt(request.getParameter("id")));
                 razonSocial = prov.getRazonSocial();
@@ -32,19 +32,16 @@
         }
 
 
-        if (request.getParameter("ae") != null){
+        if (request.getParameter("accion") != null){
                 razonSocial = request.getParameter("txtrazonsocial").toString();
                 mail = request.getParameter("txtmail").toString();
                 telefono = request.getParameter("txttelefono").toString();
                 direccion = request.getParameter("txtdireccion").toString();
-                if (request.getParameter("ae").contentEquals("t") || request.getParameter("ae").contentEquals("u")){
-			if(razonSocial.trim().isEmpty() || direccion.trim().isEmpty()|| mail.trim().isEmpty()){
-				mensajeE = "Por favor, verifique los datos ingresados del proveedor.";
-			}
-			else{
-                            boolean rta = false;
+               if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
+		        boolean rta = false;
                             Proveedor pro = null;
-                            if(request.getParameter("ae").contentEquals("u")){
+                            if(request.getParameter("accion").contentEquals("update")){
+                                //update
                                 pro = new Proveedor();
                                 pro.setIdProveedor(Integer.parseInt(request.getParameter("id")));
                                 pro.setDireProv(direccion);
@@ -53,27 +50,20 @@
                                 pro.setTelProv(telefono);
                                 rta = pro.update();
                             }
-                            else{
+                            else{ //nuevo
                                 pro = new Proveedor(razonSocial,direccion,mail,telefono);
                                 rta = pro.save();
                             }
                             if (rta)
                             {
-                                if(request.getParameter("ae").contentEquals("t")){
-                                    session.setAttribute("proveedor", pro);
-                                    response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
-                                }
-                                else{
-                                    response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
-                                }
-                            }
+                                response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
 			}
 		}
 	}
-        if (request.getParameter("id") != null || request.getParameter("ae") != null){
-                    titulo2 ="modificar Proveedor";
+        if (request.getParameter("id") != null  || request.getParameter("accion") != null){
+                    titulo2 ="modificar";
                 } else{
-                           titulo2 ="nuevo Proveedor";
+                           titulo2 ="nuevo";
                        }
 %>
 
@@ -97,7 +87,7 @@
                     <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                     <div id="nav">
                         <ul>
-                            <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaProveedores.jsp?al=t")%>">Proveedores</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                            <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaProveedores.jsp")%>">Proveedores</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
                         </ul>
                         <br class="clear" />
                     </div>
@@ -105,27 +95,22 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nuevo Proveedor.";
-                if (request.getParameter("id") != null || request.getParameter("ae") != null){
-                    titulo ="Modificar Proveedor";
+            <% String titulo = "Agregar nuevo proveedor";
+                if (request.getParameter("id") != null || request.getParameter("accion") != null){ 
+                    titulo ="Modificar proveedor";
                 }%>
             <h2 id="titulo"><%=titulo%></h2>
             
 
-                <% String param = "t";
+          <%    String param = "nuevo";
         if(request.getParameter("id") != null){
-            param = "u&id=" + request.getParameter("id");
+            param = "update&id=" + request.getParameter("id");
         }
-        %>
+        %> 
         <div id="formu">
-        <form name="frmproveedor" action="<%= response.encodeURL("nuevoProveedor.jsp?ae=" + param)%>" method="POST">
-            <fieldset>
-                    <legend><strong>Datos del proveedor:</strong></legend>
-                    <% if(!mensajeE.isEmpty()){ %>
-                    <div id="mensaje">
-                        <%= mensajeE %>
-                    </div>
-                    <% } %>
+        <form name="frmproveedor" action="<%= response.encodeURL("nuevoProveedor.jsp?accion=" + param)%>" method="POST">   
+               <fieldset>
+                    <legend><strong>Datos del proveedor:</strong></legend>       
                     <span>Razon Social</span>
                     <label for="txtrazonsocial"><input type="text" id="txtrazonsocial" name="txtrazonsocial" value="<%= razonSocial %>"/></label>
                     <br />
@@ -138,7 +123,7 @@
                      <span>Telefono</span>
                     <label for="txttelefono"><input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/></label>
                      <br />
-                    <input type="submit" value="Guardar" />
+                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
             </fieldset>
         </form>
         </div>

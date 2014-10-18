@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+ <script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(4)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //idHerr q se borra
+            // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará la herramienta',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarHerramienta.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -49,8 +67,8 @@
                                     <table class="tabla">
                                         <thead>
                                             <tr>
-                                             <!--  <th style="text-align:center">Codigo</th>   -->
-                                                <th style="text-align:center">Descripcion</th>
+                                           <!--   <th >Codigo</th>  -->
+                                                <th >Descripcion</th>
                                                 <th colspan="2" align="center">Acciones</th>
                                             </tr>
                                         </thead>
@@ -59,10 +77,10 @@
                                 for (int i = 0; i < herramientas.size(); i++) {
                                          %>
                                             <tr>
-                                             <!--   <td style="text-align:center"><//%= herramientas.get(i).getIdHerramienta()%></td>    -->
-                                                <td style="text-align:center"><%= herramientas.get(i).getDescHerramienta()%></td>
-                                               <td><a href="<%= response.encodeURL("nuevaHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>">Borrar</a></td>
+                                              <td ><%= herramientas.get(i).getDescHerramienta()%></td>
+                                                <td><a href="<%= response.encodeURL("nuevaHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                <td><img src='images/trash.png' class='btnDelete'></td>
+                                             <td><%= herramientas.get(i).getIdHerramienta()%></td> 
                                             </tr>
                                             <%
                                  }  

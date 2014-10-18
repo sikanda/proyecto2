@@ -13,7 +13,7 @@ public HerramientaDB() throws Exception{}
      public boolean save(Herramienta h){ 
         boolean rta = false;
 		//ver si afecta en algo los '' de los float
-        	rta = EjecutarNonQuery("insert into herramientas (descHerramienta)  VALUES ( '" + h.getDescHerramienta()  +  "' )");
+        	rta = EjecutarNonQuery("insert into herramientas (idHerramienta, descHerramienta)  VALUES ( '"+ h.getIdHerramienta()+"' , '" + h.getDescHerramienta()  +  "' )");
                 if(rta){
             rta = commit();
         }
@@ -26,7 +26,7 @@ public HerramientaDB() throws Exception{}
 
   public boolean update(Herramienta h){
         boolean rta = false;
-		rta = EjecutarNonQuery("UPDATE herramientas SET descHerramienta = '" + h.getDescHerramienta() + "' WHERE idHerramienta = " + h.getIdHerramienta());
+		rta = EjecutarNonQuery("UPDATE herramientas SET descHerramienta = '" + h.getDescHerramienta() + "' WHERE idHerramienta = '" + h.getIdHerramienta()+"'");
          
 	if(rta){
             rta = commit();
@@ -38,9 +38,9 @@ public HerramientaDB() throws Exception{}
         return rta;
     }
   
-   public boolean delete(int idH){
+   public boolean delete(String idH){
         boolean rta = false;
-		rta = EjecutarNonQuery("delete from herramientas WHERE idHerramienta = " + idH);
+		rta = EjecutarNonQuery("delete from herramientas WHERE idHerramienta = '" + idH +"'");
 	if(rta){
             rta = commit();
         }
@@ -65,24 +65,42 @@ public HerramientaDB() throws Exception{}
             return listaHe;
 	}
        
-      public Herramienta getHerramienta(int idHerramienta) throws Exception
+      public Herramienta getHerramienta(String idHerramienta) throws Exception
     {
         Herramienta he = new Herramienta();
-        ResultSet resultado = EjecutarQuery("SELECT  idHerramienta, descHerramienta FROM herramientas WHERE idHerramienta = " + idHerramienta);
+        ResultSet resultado = EjecutarQuery("SELECT  descHerramienta FROM herramientas WHERE idHerramienta = '" + idHerramienta + "'");
 
         while (resultado.next())
         {
-			he.setIdHerramienta(resultado.getString(1));
-			he.setDescHerramienta(resultado.getString(2));
+			he.setIdHerramienta(idHerramienta);
+			he.setDescHerramienta(resultado.getString(1));
         }
         resultado.close();
+        closeCon();
         return he;
     }
       
-          public int getIdHerramienta(){
-        int rta = EjecutarQueryInt("SELECT MAX(idHerramienta) FROM herramientas")+1;
+      public String getIdHerramienta() throws Exception{
+        int nuevoId=0;
+        String retorno;
+        ResultSet resultado = EjecutarQuery("SELECT MAX(idHerramienta) FROM herramientas") ;
+           while (resultado.next())
+        {
+            if(resultado.getString(1) != null)
+            { 
+                nuevoId = Integer.parseInt(resultado.getString(1).substring(2,8))+1;
+            }
+            else
+            {
+                nuevoId = 1001;
+            }
+           
+        }
+          retorno= "HE00" + nuevoId ;
+           
+        resultado.close();
         closeCon();
-        return (rta);
+        return retorno;
 
     }
 }

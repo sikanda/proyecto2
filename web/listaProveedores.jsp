@@ -18,6 +18,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+           <script src="js/jquery-1.6.4.min.js" ></script>
+ <script type="text/javascript" src="js/apprise.js"></script>
+<link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script>
+$(function() {
+   $('td:nth-child(7)').hide(); //oculto id 
+     $(".btnDelete").bind("click", function(e){
+             var par = $(this).parent(); //td
+             var pr= par.next();  //idProv q se borra
+           // alert(pr.text());
+            e.preventDefault(); 
+            apprise('Se borrará el proveedor',  {'confirm':true}   , function(r) {
+              if(r) {  
+                  window.location = "borrarProveedor.jsp?id=" + pr.text() ; }}
+          );
+        });
+});
+</script>
     </head>
     <body>
       <div id="bg">
@@ -62,14 +80,15 @@
                                             <%
                                 for (int i = 0; i < proveedores.size(); i++) {
                                           %>
-                                            <tr>
-                                                <td style="text-align:center"><%= proveedores.get(i).getRazonSocial()%></td>
-                                                <td style="text-align:center"><%= proveedores.get(i).getDireProv()%></td>
-                                                <td style="text-align:center"><%= proveedores.get(i).getEmailProv()%></td>
-                                                <td style="text-align:center"><%= proveedores.get(i).getTelProv()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>">Modificar</a></td>
-                                                <td><a href="<%= response.encodeURL("borrarProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>">Borrar</a></td>
-                                            </tr>
+                                    <tr>
+                                       <td style="text-align:center"><%= proveedores.get(i).getRazonSocial()%></td>
+                                        <td style="text-align:center"><%= proveedores.get(i).getDireProv()%></td>
+                                        <td style="text-align:center"><%= proveedores.get(i).getTelProv()%></td>
+                                        <td style="text-align:center"><%= proveedores.get(i).getEmailProv()%></td>
+                                        <td><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                       <td><img src='images/trash.png' class='btnDelete'></td>
+                                       <td><%= proveedores.get(i).getIdProveedor()%></td>
+                                    </tr>
                                             <%
                                      }
                                             %>
