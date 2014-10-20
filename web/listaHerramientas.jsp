@@ -29,7 +29,7 @@ $(function() {
              var pr= par.next();  //idHerr q se borra
             // alert(pr.text());
             e.preventDefault(); 
-            apprise('Se borrará la herramienta',  {'confirm':true}   , function(r) {
+            apprise('¿Está seguro que desea borrar la herramienta?',  {'confirm':true}   , function(r) {
               if(r) {  
                   window.location = "borrarHerramienta.jsp?id=" + pr.text() ; }}
           );
@@ -90,6 +90,7 @@ $(function() {
                             </div>
             </div>
             </div>
+           <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

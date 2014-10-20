@@ -105,7 +105,7 @@
         <div id="formu">
         <form name="frmUnidadMedida" action="<%= response.encodeURL("nuevaUnidadMedida.jsp?accion=" + param)%>" method="POST">
             <fieldset>
-                    <legend><strong>Datos Unidades Medida</strong></legend>
+                    <legend><strong>Datos Unidad Medida</strong></legend>
                  <label for="txtId">Codigo: </label>
                         <input type="text" id="txtId" name="txtId" value="<%= id  %>"/>
                     <br />  
@@ -118,6 +118,7 @@
         </div>
          </div>
         </div>
+                     <%@ include file="WEB-INF/jspf/firma.jspf" %>
       </div>
     </body>
 </html>

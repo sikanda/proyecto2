@@ -5,6 +5,7 @@ public class Material {
     private String idMaterial;  
     private String descMaterial;   
     private String idUnidadMedida; 
+    private String descUnidadMedida; 
     private float coefStdMat;
     private float cantPres;  
     private float precioMa;
@@ -73,6 +74,14 @@ public class Material {
 
     public float getCantPres() {
         return cantPres;
+    }
+    
+        public String getDescUnidadMedida() {
+        return descUnidadMedida;
+    }
+
+    public void setDescUnidadMedida(String descUnidadMedida) {
+        this.descUnidadMedida = descUnidadMedida;
     }
 
         public boolean updateCantMatEnRubro(String idRubro, Float cant){

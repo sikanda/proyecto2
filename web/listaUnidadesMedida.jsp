@@ -29,7 +29,7 @@ $(function() {
              var pr= par.next();  //id q se borra
             // alert(pr.text());
             e.preventDefault(); 
-            apprise('Se borrará la unidad de medida',  {'confirm':true}   , function(r) {
+            apprise('¿Está seguro que desea borrar la unidad de medida?',  {'confirm':true}   , function(r) {
               if(r) {  
                   window.location = "borrarUnidadMedida.jsp?id=" + pr.text() ; }}
           );
@@ -91,6 +91,7 @@ $(function() {
                             </div>
             </div>
             </div>
+                                        <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

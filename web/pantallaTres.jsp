@@ -15,7 +15,7 @@
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
-
+<jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 
 <%
         List<Rubro> arrayRub = (List<Rubro>)session.getAttribute("rubrosLeaf");//necesito si o si los leaf para esto
@@ -56,11 +56,16 @@
         }
         ArrayList<Rubro> rubrosAll = new ArrayList<Rubro>();
         ArrayList<Rubro> rubrosPerc = new ArrayList<Rubro>();
+        List bdPerc = rubroDB.getRubrosPorc();
+        
        List<Rubro> todosLosRubros = (List<Rubro>)session.getAttribute("rubrosEnArbol"); 
-         for(Rubro r : todosLosRubros){
-        if(r.getIdRubro().equals("022")|| r.getIdRubro().equals("023")|| r.getIdRubro().equals("024")|| r.getIdRubro().equals("018")|| r.getIdRubro().equals("025"))
-        {
+        // for(Rubro r : todosLosRubros){     //son los padres aca
+           for(Rubro r : arrayRub){   
+        //if(r.getIdRubro().equals("022")|| r.getIdRubro().equals("023")|| r.getIdRubro().equals("024")|| r.getIdRubro().equals("018")|| r.getIdRubro().equals("025"))
+       if (bdPerc.contains(r.getIdRubro()))
+         {
             rubrosPerc.add(r);
+            System.out.println("es perc" + r.getIdRubro());
         }else{
            rubrosAll.add(r); 
         }
@@ -214,6 +219,8 @@ function formatCurrency(total) {
                    </form>
                       </div>
                   </div>
+                         </div>
+                           <%@ include file="WEB-INF/jspf/firma.jspf" %>
               </div>
           </body>
 </html>

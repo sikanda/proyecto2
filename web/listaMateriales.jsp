@@ -29,7 +29,7 @@ $(function() {
              var pr= par.next();  //id  q se borra
            // alert(pr.text());
             e.preventDefault(); 
-            apprise('Se borrará el material',  {'confirm':true}   , function(r) {
+            apprise('¿Está seguro que desea borrar el material?',  {'confirm':true}   , function(r) {
               if(r) {  
                   window.location = "borrarMaterial.jsp?id=" + pr.text() ; }}
           );
@@ -82,7 +82,7 @@ $(function() {
                                           %>
                                             <tr>
                                             <td><%= materiales.get(i).getDescMaterial()%></td>
-                                                <td style="text-align:center"><%= materiales.get(i).getIdUnidadMedida()%></td>
+                                                <td><%= materiales.get(i).getDescUnidadMedida() %></td>
                                                  <td style="text-align:center"><%= materiales.get(i).getPrecioMa()%></td>
                                                 <td><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
                                                  <td><img src='images/trash.png' class='btnDelete'></td> 
@@ -96,6 +96,7 @@ $(function() {
                             </div>
             </div>
             </div>
+                                         <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

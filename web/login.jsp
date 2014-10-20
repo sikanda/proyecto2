@@ -80,7 +80,7 @@ if (request.getParameter("ref") != null) {
                                                 <legend><strong>Ingrese sus datos</strong></legend>
                                                 <span id="label">Nombre de usuario:</span>
                                                 <br />
-                                                <label for="txtusuario"><input type="text" id="txtusuario" name="txtusuario" value = "pepe"/></label>
+                                                <label for="txtusuario"><input type="text" id="txtusuario" name="txtusuario" value = "admin"/></label>
                                                 <br />
                                                 <span id="label">Contraseña:</span>
                                                 <br />

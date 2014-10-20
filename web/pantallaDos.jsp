@@ -156,6 +156,8 @@ switch($(this).text().length) {
                                </form>
                           </div>
                       </div>
+                              </div>
+                                 <%@ include file="WEB-INF/jspf/firma.jspf" %>
                   </div>
           </body>
 </html>

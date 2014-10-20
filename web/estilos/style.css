@@ -298,6 +298,21 @@ ul {
 	padding: 10px;
 }
 
+#optionMenu{
+	width: 50%;
+	margin-left: auto;
+        margin-right: auto;
+}
+
+#optionMenu ul{
+        list-style: none;
+        padding: 3px;
+}
+
+#optionMenu li{
+        list-style: none;
+        padding: 3px;
+}
 #imgEdif{
 	float:left;
 	margin: 0;

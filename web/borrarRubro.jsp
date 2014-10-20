@@ -23,7 +23,7 @@
            }
             catch(Exception e)
             {
-                 mensajeE = "Ha ocurrido un error al borrar el Rubro";
+                 mensajeE = "Ha ocurrido un error";
             }
         }
 
@@ -53,9 +53,28 @@
                           </div>
                       </div>
                       <div id="main">
-                          <h3> <%= mensajeE %></h3> 
+                               <% String titulo = "Borrar rubro";
+                %>
+            <h2 id="titulo"><%=titulo%></h2>
+
+        <div id="formu">
+        <form name="frmborrrub" action="<%= response.encodeURL("inicioAdmin.jsp")%>" method="POST">
+            <fieldset>
+                   
+                    <% if(!mensajeE.isEmpty()){ %>
+                    <div id="mensaje">
+                        <%= mensajeE %>
+                    </div>
+                    <% } %>
+                    </br>
+                    <input type="submit" value="Continuar" style="height:25px; width: 70px;"/>
+            </fieldset>
+        </form>
+        </div>
                   </div>
               </div>
+                     <%@ include file="WEB-INF/jspf/firma.jspf" %>
+
             </div>
           </body>
 </html>

@@ -1,57 +1,51 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page import="Entidades.Rubro"%>
-<%@ page import="Entidades.Material"%>
-<%@ page import="Entidades.ManoDeObra"%>
-<%@ page import="Entidades.Presupuesto"%>
-<%@ page import="java.util.List"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 
 
 <%
-        boolean rta=true;
-        String mensaje="";
-        Rubro rubroEdit = (Rubro)session.getAttribute("rubroEdit");  
-     
-       String mo = request.getParameter("dataManoDeObra");     //("dataMObra");
-       String mat= request.getParameter("dataMateriales");     //("dataMat");
+  boolean rta  ;
+  String mensaje="";
+  String unidadMedida = request.getParameter("dropUm");
+  String descRubro = request.getParameter("descRubro");
+
+  String mo = request.getParameter("dataManoDeObra");     //("dataMObra");
+  String mat= request.getParameter("dataMateriales");     //("dataMat");
+
+  
+if(request.getParameter("btnGuardar")!=null) //name of your button, not id 
+{
+   Rubro rub = (Rubro)session.getAttribute("nuevoRubro");
+   
+    rub.setDescRubro(descRubro);
+    rub.setIdUnidadMedida(unidadMedida);
+ 
+       rta= rub.save(); 
        
-       String desc = request.getParameter("descRubro");
-       String um = request.getParameter("dropUm");  //("unidadMedida"); //select unidad medida
-       //System.out.println(um);
-       rubroEdit.setDescRubro(desc);
-       rubroEdit.setIdUnidadMedida(um);
-       
-       rta= rubroEdit.update();//devuelve booleano!
-       
-//       System.out.println(mat);
-//       System.out.println(mo);
        if (mat != null){
-            rubroEdit.modificarListaMat(mat);
+            rub.modificarListaMat(mat);
        }
          if (mo!= null){
-            rubroEdit.modificarListaMo(mo);
+            rub.modificarListaMo(mo);
        }
          
-    if (rta) //TODO: modificar para incluir los upd de ma y mo
-        {
-            mensaje = "El rubro se ha guardado correctamente";
-            session.removeAttribute("rubroEdit");
-        } else {
-            mensaje = "Ha ocurrido un error ";
-        }
-        
+   if(rta  )
+   { mensaje = "El rubro se ha guardado correctamente";
+         session.removeAttribute("nuevoRubro");
+   }
+   else
+    { mensaje = "Ha ocurrido un error ";}
+   
+   
+}
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
-          <script src="js/jquery-1.6.4.min.js" ></script>	
-
-
+     
     </head>
           <body>
               <div id="bg">
@@ -65,18 +59,18 @@
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>guardar</p></li>
                               </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                            <% String titulo = "Editar rubro";
+                             <% String titulo = "Guardar Rubro";
                 %>
             <h2 id="titulo"><%=titulo%></h2>
 
         <div id="formu">
-        <form name="frmedrub" action="<%= response.encodeURL("inicioAdmin.jsp")%>" method="POST">
+        <form name="frmaddrub2" action="<%= response.encodeURL("inicioAdmin.jsp")%>" method="POST">
             <fieldset>
                    
                     <% if(!mensaje.isEmpty()){ %>
@@ -91,5 +85,8 @@
         </div>
                   </div>
               </div>
+                     <%@ include file="WEB-INF/jspf/firma.jspf" %>
+
+            </div>
           </body>
 </html>

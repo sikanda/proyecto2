@@ -26,10 +26,10 @@ $(function() {
    $('td:nth-child(8)').hide(); //oculto id 
      $(".btnDelete").bind("click", function(e){
              var par = $(this).parent(); //td
-             var pr= par.next();  //idProv q se borra
+             var pr= par.next();  //idemp q se borra
            // alert(pr.text());
             e.preventDefault(); 
-            apprise('Se borrará el empleado',  {'confirm':true}   , function(r) {
+            apprise('¿Está seguro que desea borrar el empleado?',  {'confirm':true}   , function(r) {
               if(r) {  
                   window.location = "borrarEmpleado.jsp?id=" + pr.text() ; }}
           );
@@ -102,6 +102,7 @@ $(function() {
                             </div>
             </div>
             </div>
+                                         <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

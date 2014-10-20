@@ -52,7 +52,7 @@
                                 </div>
                  <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaUnidadesMedida.jsp")%>">Unidades de medida</a><%=globconfig.separador()%> borrar</p></li>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaUnidadesMedida.jsp")%>">Unidad de medida</a><%=globconfig.separador()%> borrar</p></li>
                                     </ul>
                                     <br class="clear" />
                                 </div>
@@ -80,7 +80,7 @@
         </div>
          </div>
                      </div>
-
+ <%@ include file="WEB-INF/jspf/firma.jspf" %>
          </div>
     </body>
 </html>

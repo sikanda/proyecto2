@@ -111,25 +111,25 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                                            List<Rubro> subrub3 = new ArrayList();
 
                                                            for (int i = 0; i < rub.size(); i++) {%>
-                                            <li id="<%=rub.get(i).getIdRubro()%>"><%= rub.get(i).getDescRubro()%>
+                                            <li id="<%=rub.get(i).getIdRubro()%>" class="<%=rub.get(i).getIdUnidadMedida()%>"><%= rub.get(i).getDescRubro()%>
                                                 <ul>            
                                                     <%
                                                         subrub = rub.get(i).getSubrubros();
                                                         for (int j = 0; j < subrub.size(); j++) {
                                                     %>
-                                                    <li id="<%=subrub.get(j).getIdRubro()%>">    <%= subrub.get(j).getDescRubro()%>
+                                                    <li id="<%=subrub.get(j).getIdRubro()%>" class="<%=subrub.get(j).getIdUnidadMedida()%>">    <%= subrub.get(j).getDescRubro()%>
                                                         <ul>  
                                                             <%
                                                                 subrub2 = subrub.get(j).getSubrubros();
                                                                 for (int k = 0; k < subrub2.size(); k++) {
                                                             %>    
-                                                            <li id="<%=subrub2.get(k).getIdRubro()%>"> <%= subrub2.get(k).getDescRubro()%>
+                                                            <li id="<%=subrub2.get(k).getIdRubro()%>" class="<%=subrub2.get(k).getIdUnidadMedida()%>"> <%= subrub2.get(k).getDescRubro()%>
                                                                 <ul>
                                                                     <%    subrub3 = subrub2.get(k).getSubrubros();
 
                                                                         for (int m = 0; m < subrub3.size(); m++) {
                                                                     %>  
-                                                                    <li id="<%=subrub3.get(m).getIdRubro()%>" data-jstree='{"icon":"http://jstree.com/tree.png"}'> <%= subrub3.get(m).getDescRubro()%></li>
+                                                                    <li id="<%=subrub3.get(m).getIdRubro()%>" class="<%=subrub3.get(m).getIdUnidadMedida()%>" data-jstree='{"icon":"http://jstree.com/tree.png"}'> <%= subrub3.get(m).getDescRubro()%></li>
                                                                         <%
                                                              }%>
                                                                 </ul></li>                  
@@ -148,7 +148,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                           <br>
                                           <br>
                                         <input id="rubrosIds" type="hidden" name="ids" value=""/>
-                                        <button disabled="disabled" class="btnToggle" type="button" id="btnAgregar" name="btnAgregar" style="height:25px; width: 90px;" >Alta Rubro</button>
+                                        <button disabled="disabled" class="notleaf" type="button" id="btnAgregar" name="btnAgregar" style="height:25px; width: 90px;" >Alta Rubro</button>
                                         <input disabled  class="btnToggle" id="btnCont" type="submit" value="Editar" style="height:25px; width: 70px;" />
                                         <button disabled="disabled" class="btnToggle" type="button" id="btnBorrar" name="btnBorrar" style="height:25px; width: 70px;" >Borrar</button>
                                         </form>                                       
@@ -169,7 +169,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
 <script>
 $(function () {
     $('#jstree').jstree({ 
-            "plugins" : [ "themes","checkbox", "ui"],
+            "plugins" : [ "themes",  "ui"],   // "themes","checkbox", "ui"
               "themes" : {
                 "theme" : "classic",
                 "dots" : true,
@@ -190,20 +190,35 @@ $(function () {
   });            
 //bind to events triggered on the tree
 $('#jstree').on("changed.jstree", function (e, data) {
+if (data.node.children.length)  //>0 = true, tiene hijos lo habilito
+{     $('.notleaf').removeAttr("disabled", 'disabled');  } 
+else 
+{    $('.notleaf').attr("disabled", 'disabled'); }
   console.log(data.selected);
   disparaClick();    
 });   
  
-$('#jstree').bind("deselect_node.jstree", function (){
-         $('.btnToggle').attr("disabled", 'disabled'); 
-         
-    });
+//$('#jstree').bind("deselect_node.jstree", function (){
+//         $('.btnToggle').attr("disabled", 'disabled'); 
+//         $('.notleaf').attr("disabled", 'disabled'); 
+//         
+//    });
 
-$('#jstree').bind("select_node.jstree", function (){
-           $('.btnToggle').removeAttr("disabled", 'disabled');     
+//$('#jstree').bind("select_node.jstree", function (){
+//   $('.notleaf').removeAttr("disabled", 'disabled');    
+//   $('.btnToggle').removeAttr("disabled", 'disabled');     
+//    });
+    
+$('#jstree').on("select_node.jstree", function (e,data){
+  if(data.node.children.length) { $('.notleaf').removeAttr("disabled", 'disabled');    }
+      $('.btnToggle').removeAttr("disabled", 'disabled');     
     });
     
-
+    $('#jstree').on("deselect_node.jstree", function (e,data){
+         $('.btnToggle').attr("disabled", 'disabled'); 
+         $('.notleaf').attr("disabled", 'disabled'); 
+    });
+    
 //Stops the propagation of the selection of the nodes to their leaves
 $('#jstree').on("select_node.jstree deselect_node.jstree", function (e, data) {
     if(data.node.children.length) {
@@ -236,22 +251,12 @@ $('#mje').text(selectedElmsNames);
 
  
     document.getElementById("btnAgregar").onclick = function () {
-        location.href = "altaSubRubro.jsp?idRub="+idSelected ;
+        location.href = "agregarRubro.jsp?idRub="+idSelected ;
     };
     
-//    var options = {
-//	buttons: {
-//		confirm: {
-//			text: 'Ok'  // Button text
-//                        }
-//                ,deny: {
-//                text: 'Cancel'  // Button text
-//                }
-//                }
-//};
    document.getElementById("btnBorrar").onclick = function () {
            
-   apprise('Se borrará el rubro y toda la información asociada a él y a sus subrubros',  {'confirm':true}, function(r) {
+   apprise('¿Está seguro que desea borrar el rubro y su información asociada?',  {'confirm':true}, function(r) {
     if(r) {   location.href = "borrarRubro.jsp?idRub="+idSelected ;    } 
   });
 
@@ -265,7 +270,7 @@ $('#mje').text(selectedElmsNames);
 // // $('#jstree').jstree('select_node',  paramAct );
 // $.jstree.focused().select_node(paramAct); 
   </script>
-            </div>
+            <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

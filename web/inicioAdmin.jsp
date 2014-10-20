@@ -13,32 +13,39 @@
     </head>
     <body>
         <div id="bg">
-                <div id="outer">
-                 
-                        <div id="headerlogin">
-        <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>                      
-                           
-                                <div id="logologin">
-                                    <h2>
-                                          Sistema de presupuesto de obras civiles
-                                    </h2>
-                           </div>
- 
-                                        <form id="admlogin" name="admlogin" >
-                                            <fieldset>
-                                                <legend><strong>Seleccione una opción </strong></legend>
-                                              <a href="listaManoDeObra.jsp"> ABM Mano de Obra</a><br>                                           
-                                               <a href="editarRubro.jsp"> ABM Rubro/Subrubro</a><br>
-                                               <a href="listaUsuarios.jsp"> ABM Usuario</a><br>
-                                               <a href="listaEmpleados.jsp"> ABM Empleado</a><br>
-                                               <a href="listaMateriales.jsp"> ABM Material</a><br>
-                                               <a href="listaUnidadesMedida.jsp"> ABM Unidad Medida</a><br>
-                                             
-                                      </fieldset>
-                             </form>
+                <div id="outer">                 
+                        <div id="header">
+                            <div id="logo">
+                                    <h1>
+                                            <a href="#"><%= globconfig.nombrePag()%></a>
+                                    </h1>
+                            </div>
+                            <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>                      
+                            <div id="nav">
+                                    <ul>
+                                        <li><p class="posicion">inicio</p></li>
+                                    </ul>
+                                    <br class="clear" />
+                            </div>
+                        </div>
+                        <div id="main">
+                            <h3>Menú de Administrador</h3>
+                                        
+                                            <fieldset id="optionMenu">
+                                            <legend><strong>Seleccione una opción </strong></legend>
+                                            <ul>
+                                                <li><a href="listaManoDeObra.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin2.png" />Mano de Obra</a></li><br>                                           
+                                                <li><a href="editarRubro.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin5.png" />Rubros/Subrubros</a></li><br>
+                                                <li><a href="listaUsuarios.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin1.png" />Usuarios</a></li><br>
+                                                <li><a href="listaEmpleados.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin3.png" />Empleados</a></li><br>
+                                                <li><a href="listaMateriales.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin4.png" />Materiales</a></li><br>
+                                                <li><a href="listaUnidadesMedida.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin2.png" />Unidades de Medida</a></li>
+                                            </ul>
+                                            </fieldset>
+                                        
                         </div>
                 </div>
-           
+                                       <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

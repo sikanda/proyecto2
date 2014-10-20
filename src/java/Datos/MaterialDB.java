@@ -54,13 +54,15 @@ public MaterialDB() throws Exception{}
    
        public List getMateriales() throws Exception{
             List listaMat = new ArrayList();
-            ResultSet resultado = EjecutarQuery("SELECT  idMaterial, descMaterial, idUnidadMedida, precioMa FROM materiales order by descMaterial");
+            //ResultSet resultado = EjecutarQuery("SELECT  idMaterial, descMaterial, idUnidadMedida, precioMa FROM materiales order by descMaterial");
+            ResultSet resultado = EjecutarQuery("SELECT  idMaterial, descMaterial, m.idUnidadMedida, descUnidadMedida, precioMa FROM materiales m inner join unidadesmedida u on u.idUnidadMedida = m.idUnidadMedida order by descMaterial");
             while (resultado.next()){
                 Material mat = new Material();
                 mat.setIdMaterial(resultado.getString(1));
                 mat.setDescMaterial(resultado.getString(2));
                 mat.setIdUnidadMedida(resultado.getString(3));
-                mat.setPrecioMa(resultado.getFloat(4));
+                mat.setDescUnidadMedida(resultado.getString(4));
+                mat.setPrecioMa(resultado.getFloat(5));
             
                 listaMat.add(mat);
             }

@@ -5,6 +5,7 @@ public class ManoDeObra {
     private String idManoDeObra;  
     private String descManoDeObra;   
     private String idUnidadMedida; 
+    private String descUnidadMedida; 
     private float coefStdMO;
     private float cantPres;  
     private float precioMo;
@@ -76,6 +77,14 @@ public class ManoDeObra {
         return cantPres;
     }
 
+    public String getDescUnidadMedida() {
+        return descUnidadMedida;
+    }
+
+    public void setDescUnidadMedida(String descUnidadMedida) {
+        this.descUnidadMedida = descUnidadMedida;
+    }
+    
         public boolean updateCantMoEnRubro(String idRubro, Float cant){
         boolean rta = true;
         ManoDeObraDB MDB = null;

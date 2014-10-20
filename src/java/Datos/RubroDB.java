@@ -251,17 +251,23 @@ public RubroDB() throws Exception{}
     public boolean update(Rubro r){
           //no estoy actualizando el rubro padre.
         boolean rta = false;
-        String stringUM;
+        String stringUM="";
         if (r.getIdUnidadMedida() != null)
         {
             stringUM = "'"+ r.getIdUnidadMedida()+ "'"; //evito el 'null'
+            
+            if(r.getIdUnidadMedida().equals("RG")) //else //le saque el else pq nunca es nulo al venir de un combo
+           {
+               stringUM = "null";
+           }    
+
         }
         else
         {
             stringUM =  r.getIdUnidadMedida();
         }
         
-            rta = EjecutarNonQuery("UPDATE rubros SET descRubro = '" + r.getDescRubro() + "', idUnidadMedida = " + stringUM + " WHERE idRubro = '" + r.getIdRubro() +"'");
+           rta = EjecutarNonQuery("UPDATE rubros SET descRubro = '" + r.getDescRubro() + "', idUnidadMedida = " + stringUM + " WHERE idRubro = '" + r.getIdRubro() +"'");
 
         if(rta){
             rta = commit();
@@ -274,8 +280,7 @@ public RubroDB() throws Exception{}
     }
  
 //    //borra rubro y tablas relac. no toca presupuesto
- public boolean delete(String idR)
- { 
+    public boolean delete(String idR) { 
 	boolean rta = false;
 	boolean rta1,rta2,rta3;
         boolean rta4 = true;
@@ -343,4 +348,73 @@ public RubroDB() throws Exception{}
 	return rta;
     }
 	
+    public Rubro generarIdSubrubro(String idRubroPadre)throws Exception   
+    {
+        Rubro r = new Rubro();
+        int nuevoId=0;
+        String nuevoIdRubro;
+        int lenPadre = idRubroPadre.length();
+    
+        ResultSet resultado = EjecutarQuery("select max(idRubro) from rubros where idRubroPadre = '" + idRubroPadre + "'") ;
+           while (resultado.next())
+        {
+            if(resultado.getString(1) != null)
+            { 
+                nuevoId = Integer.parseInt(resultado.getString(1).substring(lenPadre,lenPadre+3))+1;
+            }
+            else
+            {
+                nuevoId = 1;
+            }
+           
+        }
+           nuevoIdRubro = idRubroPadre + String.format("%03d",nuevoId) ;
+          r.setIdRubro(nuevoIdRubro);
+           
+        resultado.close();
+        closeCon();
+        return r;
+ 
+    }
+        //usado por agregar Rubro para alta rubro
+    public boolean save(Rubro r){
+        boolean rta = false;
+        String stringUM="";
+        String idHijo = r.getIdRubro();
+        String idPadre = r.getIdRubro().substring(0,(idHijo.length()-3) );
+        if (r.getIdUnidadMedida() != null)
+        {
+            stringUM = "'"+ r.getIdUnidadMedida()+ "'"; //evito el 'null'
+       
+            if(r.getIdUnidadMedida().equals("RG")) //else //le saque el else pq nunca es nulo al venir de un combo
+            {
+                stringUM = "null";
+            }
+         }
+        else
+        {
+            stringUM =  r.getIdUnidadMedida();
+        }
+            rta = EjecutarNonQuery("INSERT INTO rubros (idRubro,descRubro,idRubroPadre,idUnidadMedida) VALUES (  '" + idHijo +"' ,'"  + r.getDescRubro() +"' ,'"  + idPadre+ "' ," + stringUM +")");
+
+        if(rta){
+            rta = commit(); 
+        }
+        if(!rta){
+            rollback();
+        }
+                closeCon();
+        return rta;
+    }
+    
+       /*metodo q devuelve los rubros q tienen um porc. usado presupuesto*/ 
+    public List getRubrosPorc() throws Exception{
+        List listaPorc = new ArrayList();
+        ResultSet resultado = EjecutarQuery("select idRubro from rubros where idunidadmedida = 'PORC'" );
+        while (resultado.next()){
+          
+         listaPorc.add(resultado.getString(1));
+        }
+        return listaPorc;
+    } 
 }

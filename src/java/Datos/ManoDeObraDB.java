@@ -51,36 +51,38 @@ public ManoDeObraDB() throws Exception{}
         return rta;
     }
    
-       public List getManoDeObra() throws Exception{
-            List listaMat = new ArrayList();
-            ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra order by descManoDeObra");
+       public List getManoDeObra() throws Exception{  //lista mano de obra
+            List listaMo = new ArrayList();
+            //ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra order by descManoDeObra");
+           ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, m.idUnidadMedida, descUnidadMedida, precioMo FROM manodeobra m inner join unidadesmedida u on u.idUnidadMedida = m.idUnidadMedida order by descManoDeObra");
             while (resultado.next()){
-                ManoDeObra mat = new ManoDeObra();
-                mat.setIdManoDeObra(resultado.getString(1));
-                mat.setDescManoDeObra(resultado.getString(2));
-                mat.setIdUnidadMedida(resultado.getString(3));
-                mat.setPrecioMo(resultado.getFloat(4));
+                ManoDeObra mo = new ManoDeObra();
+                mo.setIdManoDeObra(resultado.getString(1));
+                mo.setDescManoDeObra(resultado.getString(2));
+                mo.setIdUnidadMedida(resultado.getString(3));
+                mo.setDescUnidadMedida(resultado.getString(4));
+                mo.setPrecioMo(resultado.getFloat(5));
             
-                listaMat.add(mat);
+                listaMo.add(mo);
             }
             closeCon();
-            return listaMat;
+            return listaMo;
 	}
        
       public ManoDeObra getManoDeObra(String idManoDeObra) throws Exception
     {
-        ManoDeObra mat = new ManoDeObra();
+        ManoDeObra mo = new ManoDeObra();
         ResultSet resultado = EjecutarQuery("SELECT  idManoDeObra, descManoDeObra, idUnidadMedida, precioMo FROM manodeobra WHERE idManoDeObra = '" + idManoDeObra +"'");
 
         while (resultado.next())
         {
-			mat.setIdManoDeObra(resultado.getString(1));
-			mat.setDescManoDeObra(resultado.getString(2));
-			mat.setIdUnidadMedida(resultado.getString(3));
-			mat.setPrecioMo(resultado.getFloat(4));
+                    mo.setIdManoDeObra(resultado.getString(1));
+                    mo.setDescManoDeObra(resultado.getString(2));
+                    mo.setIdUnidadMedida(resultado.getString(3));
+                    mo.setPrecioMo(resultado.getFloat(4));
         }
         resultado.close();
-        return mat;
+        return mo;
     }
       
       public boolean updateCantMoEnRubro(String idMo, String idRub, Float cant)

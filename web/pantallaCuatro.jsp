@@ -60,15 +60,35 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a></p></li>
-                              </ul>
+                                    <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
+                            </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                          <h3> <%= mensaje %></h3> 
+                          
+            <% String titulo = "Generar Presupuesto";
+                %>
+            <h2 id="titulo"><%=titulo%></h2>
+
+        <div id="formu">
+        <form name="frmpresup" action="<%= response.encodeURL("inicioUsuario.jsp")%>" method="POST">
+            <fieldset>
+                   
+                    <% if(!mensaje.isEmpty()){ %>
+                    <div id="mensaje">
+                        <%= mensaje %>
+                    </div>
+                    <% } %>
+                    </br>
+                    <input type="submit" value="Continuar" style="height:25px; width: 70px;"/>
+            </fieldset>
+        </form>
+        </div>
                   </div>
               </div>
+                     <%@ include file="WEB-INF/jspf/firma.jspf" %>
             </div>
           </body>
 </html>
+

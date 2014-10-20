@@ -16,15 +16,15 @@
 <jsp:useBean id="materialDB" scope="page" class="Datos.MaterialDB" />
 <jsp:useBean id="manoDeObraDB" scope="page" class="Datos.ManoDeObraDB" />
 <jsp:useBean id="unidadMedidaDB" scope="page" class="Datos.UnidadMedidaDB" />
+<jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 <%-- <jsp:useBean id="presupuestoBean" class="Entidades.Presupuesto"  scope="session"/> --%>
 
 <%
-           // Rubro r1 = new Rubro("007011");  //007011
-           // session.setAttribute("rubroEdit", r1);
-
-             Rubro r1 = (Rubro)session.getAttribute("rubroEdit");  //supongo q ya lo seteo la otra pag
+             String idPadre = request.getParameter("idRub");  //padre del q se quiere dar de alta
            //System.out.println(r1);
-
+            Rubro nuevoHijin = rubroDB.generarIdSubrubro(idPadre);
+                    
+            System.out.println ("dando de alta rubro" + nuevoHijin.getIdRubro());       
             List<Material> materiales = new ArrayList();
             materiales = materialDB.getMateriales();
       
@@ -33,6 +33,8 @@
             
             List<UnidadMedida> unidadesM = new ArrayList();
             unidadesM = unidadMedidaDB.getUnidadesDeMedida();
+            
+            session.setAttribute("nuevoRubro", nuevoHijin);
        
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -209,7 +211,7 @@ $.ajax({
  //////////////////////////////////////////////////////////////////////////////////////   
 
  //evitar q se submita el form con enter
-$('#frmEditRubro').bind("keyup keypress", function(e) {
+$('#frmAddRubro').bind("keyup keypress", function(e) {
   var code = e.keyCode || e.which; 
   if (code  === 13) {               
     e.preventDefault();
@@ -239,14 +241,16 @@ $('#btnGuardar').click(function() {
     $('#dataMateriales').val(dataMa);
     
 });
-// alert($("#unidadMedida").val() );
- $("#dropUm").val($("#unidadMedida").val() );
  
-if( $('#unidadMedida').val() ==="" )
-{  
-$('select[name="dropUm"]').find('option:contains("Rubro general")').attr("selected",true);
-$('#dropUm').attr("disabled", 'disabled');
-}
+ //$("#dropUm").val($("#unidadMedida").val() );
+ 
+//if( $('#unidadMedida').val() ==="" )
+//{  
+//$('select[name="dropUm"]').find('option:contains("Rubro general")').attr("selected",true);
+//$('#dropUm').attr("disabled", 'disabled');
+//}
+
+$("#dropUm").val($("#dropUm option:first").val());
 
 $("#dropUm").change(function() { 
 if($("#dropUm").val() ==="RG" || $("#dropUm").val() ==="PORC")
@@ -260,6 +264,7 @@ else
    $("#divContenedorMo").show(500); 
 }
 });
+
 });
 
 function Delete(){ var par = $(this).parent().parent(); //tr
@@ -369,25 +374,25 @@ $(".btnDelete").bind("click", Delete);
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>nuevo</a></p></li>
                               </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                          <h2 id="titulo">Editar rubro</h2>
+                          <h2 id="titulo">Alta rubro</h2>
                           <div id="formu">
-                              <form name="frmEditRubro" id="frmEditRubro" method="POST" action="editarRubro2.jsp" >
-                        
+                              <form name="frmAddRubro" id="frmAddRubro" method="POST" action="agregarRubro2.jsp" >
+                       
                        <div style="  padding-right:130px; margin-left: 100px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">
                            
                               <label for="idRubro" >Id. Rubro  </label>
-                              <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.rubroEdit.idRubro}" /><br/>  
+                              <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.nuevoRubro.idRubro}"  /><br/>  
                            
                             <label for="descRubro" >Descripcion   </label>
-                           <input type="text"  id="descRubro" name="descRubro" style="width:400px;" value="${sessionScope.rubroEdit.descRubro}" /><br/>   
+                           <input type="text"  id="descRubro" name="descRubro" style="width:400px;"   /><br/>   
                          
-         <input type="hidden"  id="unidadMedida" name="unidadMedida"  value="${sessionScope.rubroEdit.idUnidadMedida}" />
+                        <input type="hidden"  id="unidadMedida" name="unidadMedida"   />
                                <label for="dropUm">Unidad de Medida</label>
                                <select id="dropUm" name="dropUm" style="width:405px;"   >
                         <% for (int i = 0; i < unidadesM.size(); i++) {%>
@@ -397,10 +402,10 @@ $(".btnDelete").bind("click", Delete);
                               </option>
                                  <% }%> 
                           </select>  
-                      </div> 
                           
-                        <div id="divContenedorMa"  >    
-                         <c:if test="${not empty sessionScope.rubroEdit.idUnidadMedida}">    
+                          
+                       </div>   
+                        <div id="divContenedorMa" > 
                             <p style="  margin-left: 100px; margin-bottom: 1px;  text-align: left ">Materiales</p>
                          
                             <table id="tablaMateriales" class="tabla">
@@ -412,26 +417,15 @@ $(".btnDelete").bind("click", Delete);
                                         <th>Cant. Estandar</th>
                                           <th>Acciones</th> 
                                     </tr>
-                                            <c:forEach items="${sessionScope.rubroEdit.materiales}" var="mat" >
-                                        <tr >
-                                           
-                                            <td><c:out value= "${mat.descMaterial}"/></td> 
-                                            <td><c:out value= "${mat.idUnidadMedida}"/></td> 
-                                            <td><c:out value= "${mat.precioMa}" /></td>  
-                                            <td><c:out value= "${mat.coefStdMat}" /></td>  
-                                            <td><img src='images/iconEdit.png' class='btnEdit'>&nbsp;&nbsp;<img src='images/trash.png' class='btnDelete'> </td>
-                                             <td class="aidi"><c:out value= "${mat.idMaterial}"/></td> 
-                                         </tr>
-                                            </c:forEach>
-                                  
+                                   
                                  </tbody>
                             </table>
                             <tr ><td colspan="6">   <button type="button" id="btnAddMa" style="height:25px ; width: 70px;"> Agregar</button></td>  </tr>
-                         </c:if>
+                      
                         </div>
                           </br> 
                           <div id="divContenedorMo"  >  
-                               <c:if test="${not empty sessionScope.rubroEdit.idUnidadMedida}">
+           
                                       <p style="  margin-left: 100px; margin-bottom: 1px; text-align: left ">Mano de Obra</p>
                                       <table id="tablaManoDeObra" class="tabla">
                                           <tbody>
@@ -442,29 +436,16 @@ $(".btnDelete").bind("click", Delete);
                                                   <th>Cant. Estandar</th>
                                                    <th>Acciones</th>
                                               </tr>
-                                                      <c:forEach items="${sessionScope.rubroEdit.manoDeObra}" var="mo" >
-                                                  <tr >
-                                                     
-                                                      <td><c:out value= "${mo.descManoDeObra}"/></td> 
-                                                      <td><c:out value= "${mo.idUnidadMedida}"/></td> 
-                                                      <td><c:out value= "${mo.precioMo}" /></td> 
-                                                      <td><c:out value= "${mo.coefStdMO}" /></td>
-                                                       <td><img src='images/iconEdit.png' class='btnEdit'>&nbsp;&nbsp;<img src='images/trash.png' class='btnDelete'> </td>
-                                                    <td class="aidi"><c:out value= "${mo.idManoDeObra}"/></td>
-                                                  </tr>
-                                              </c:forEach>
-                                          </tbody>
+                                           </tbody>
                                       </table>
                                          <tr ><td colspan="6">   <button type="button" id="btnAddMo" style="height:25px ; width: 70px;"> Agregar</button></td>  </tr>
-                                    </c:if>
+               
                                   </div>        
                           
                            <div style="text-align: center">   
                                       </br>
                            <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<%= response.encodeURL("editarRubro.jsp")%>">Atras</a></button>
-                        <!--  <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<//%= response.encodeURL("editarRubro.jsp?action="+ r1.getIdRubro() )%>">Atras</a></button>-->
-                        
-                           <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px; float:none ; padding-right:0px;" />
+                          <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px; float:none ; padding-right:0px;" />
                        
                              <input type="hidden" id="dataMateriales" name="dataMateriales" />
                              <input type="hidden" id="dataManoDeObra" name="dataManoDeObra"/>
@@ -473,8 +454,7 @@ $(".btnDelete").bind("click", Delete);
                           </div>
                       </div>
                   </div>
-                      <%@ include file="WEB-INF/jspf/firma.jspf" %>
-  
-                          </div>
+                           <%@ include file="WEB-INF/jspf/firma.jspf" %>
+                            </div>
           </body>
 </html>

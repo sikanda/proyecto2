@@ -29,7 +29,7 @@ $(function() {
              var pr= par.next();  //id  q se borra
            // alert(pr.text());
             e.preventDefault(); 
-            apprise('Se borrará la mano de obra',  {'confirm':true}   , function(r) {
+            apprise('¿Está seguro que desea borrar la mano de obra?',  {'confirm':true}   , function(r) {
               if(r) {  
                   window.location = "borrarManoDeObra.jsp?id=" + pr.text() ; }}
           );
@@ -82,7 +82,7 @@ $(function() {
                                           %>
                                             <tr>  
                                                 <td ><%= arrayManoDeObra.get(i).getDescManoDeObra()%></td>
-                                                <td style="text-align:center"><%= arrayManoDeObra.get(i).getIdUnidadMedida()%></td>
+                                                <td style="text-align:center"><%= arrayManoDeObra.get(i).getDescUnidadMedida()%></td>
                                                  <td style="text-align:center"><%= arrayManoDeObra.get(i).getPrecioMo()%></td>
                                                 <td><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
                                                     <td><img src='images/trash.png' class='btnDelete'></td>
@@ -96,6 +96,7 @@ $(function() {
                             </div>
             </div>
             </div>
+      <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>
     </body>
 </html>

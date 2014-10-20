@@ -311,7 +311,7 @@ public class Rubro {
         return rta;
     }
          
-   /*
+
      public boolean save(){
         boolean rta = true;
         RubroDB RDB = null;
@@ -326,7 +326,7 @@ public class Rubro {
         }
         return rta;
     }
- */
+
     
     
     		@Override

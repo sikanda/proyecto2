@@ -165,10 +165,10 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                 </td>
                                 <td>
                                     <div id="botones">
-                                        <button id="mostrar" style="height:25px; width: 70px;">Agregar</button>
+                                        <button id="agregar" style="height:25px; width: 70px;">Agregar</button>
                                         <form id="formulario">
                                             <input type="hidden" id="rubrosIds" name="ids" value=""/>
-                                            <input type="submit" value="Continuar" style="height:25px; width: 70px;"/>
+                                            <input disabled type="submit" value="Continuar" id ="btnCont" style="height:25px; width: 70px;"/>
                                         </form>                                       
                                     </div>
                                 </td>
@@ -211,7 +211,7 @@ $('#jstree').on("select_node.jstree deselect_node.jstree", function (e, data) {
     }
 })
 
-$('#mostrar').on('click', function (){
+$('#agregar').on('click', function (){
 var selectedElmsNames = [];
 var selectedElmsIds = [];
 var elem = document.getElementById("rubrosIds");
@@ -223,14 +223,21 @@ $.each(selectedElms, function() {
         }
 });
 elem.value =selectedElmsIds.join('_'); // Change field
-$('#event_result').html(selectedElmsNames.join(', <br/>'));
+$('#event_result').html(selectedElmsNames.join('<br/>'));
+ 
+if (elem.value.length > 0) 
+{ //enable
+    $('#btnCont').removeAttr("disabled", 'disabled'); 
+    }else { //disable
+       $('#btnCont').attr("disabled", 'disabled'); 
+        };
+});
 
-})
 
 
-;
   </script>
+                   <%@ include file="WEB-INF/jspf/firma.jspf" %>
             </div>
-        </div>
+
     </body>
 </html>
