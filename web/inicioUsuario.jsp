@@ -35,7 +35,7 @@
                                     <fieldset id="optionMenu">  
                                     <legend><strong>Seleccione una opción  </strong></legend>
                                     <br/> 
-                                    <ul>
+                                    <ul class="niceMenu" >
                                             <li><a href="listaRubros.jsp" title="Presupuesto" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_dashboard.png" alt="Presupuesto"/>Generar presupuesto</font></a></li>
                                             </br>
                                             <li><a href="listaProveedores.jsp" title="Proveedores" style="height:51px;line-height:51px;"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/icon_users.png" alt="Proveedores"/>Proveedores</font></a></li>

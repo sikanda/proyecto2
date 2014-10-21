@@ -33,14 +33,6 @@
                                         
                             <fieldset id="optionMenu">
                             <legend><strong>Seleccione una opción </strong></legend>
-<!--                         <ul class="niceMenu" style=" text-align: left ;  margin-left: 140px " >
-                                <li><a href="listaManoDeObra.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin.png" />Mano de Obra</a></li><br>                                           
-                                <li><a href="editarRubro.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin.png" />Rubros/Subrubros</a></li><br>
-                                <li><a href="listaUsuarios.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin.png" />Usuarios</a></li><br>
-                                <li><a href="listaEmpleados.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin.png" />Empleados</a></li><br>
-                                <li><a href="listaMateriales.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin.png" />Materiales</a></li><br>
-                                <li><a href="listaUnidadesMedida.jsp"><img style="resize: none; overflow-y: hidden;vertical-align:middle;" src="images/pin.png" />Unidades de Medida</a></li>
-                            </ul>-->
                             <ul class="niceMenu"  >
                             <li><a href="listaManoDeObra.jsp"><img src="images/pin.png" />Mano de Obra</a></li>                                         
                             <li><a href="editarRubro.jsp"><img  src="images/pin.png" />Rubros/Subrubros</a></li>

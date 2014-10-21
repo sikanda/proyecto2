@@ -5,7 +5,11 @@ public class Config {
     private final String adminID = "admin";
     private final String adminPass = "1234";
     private final String separador = "&#8594;";
-  
+    public enum TipoABM {
+
+         Herr,Prov,Ma,Mo,Rub,User,Um,Emp
+       }
+
 
     public String nombrePag()
     {
@@ -27,9 +31,7 @@ public class Config {
         return separador;
     }
     
-
-
-    public static String generarMD5(java.util.Date date) throws Exception
+       public static String generarMD5(java.util.Date date) throws Exception
     {
         java.security.MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
         digest.update(date.toString().getBytes());

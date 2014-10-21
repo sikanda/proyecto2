@@ -18,11 +18,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
- <script src="js/jquery-1.6.4.min.js" ></script>
+ <script src="dist/libs/jquery.js" ></script>
  <script type="text/javascript" src="js/apprise.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
 <script>
 $(function() {
+    var typ = "Herr";
    $('td:nth-child(4)').hide(); //oculto id 
      $(".btnDelete").bind("click", function(e){
              var par = $(this).parent(); //td
@@ -31,10 +32,24 @@ $(function() {
             e.preventDefault(); 
             apprise('¿Está seguro que desea borrar la herramienta?',  {'confirm':true}   , function(r) {
               if(r) {  
-                  window.location = "borrarHerramienta.jsp?id=" + pr.text() ; }}
-          );
-        });
-});
+                 // window.location = "borrarHerramienta.jsp?id=" + pr.text() ; 
+                  $.ajax({
+                  url: 'popupBorrar.jsp',
+                  type: 'GET',
+                  // data:  {ident : pr.text()},  //works fine
+                  data:  {ident : pr.text(), objeto:typ},
+                  success: function() {
+                //apprise ('La herramienta ha sido borrada exitosamente');  
+                     location.reload();  
+                  },
+                  error: function(e) {
+                   apprise ('Ha ocurrido un error');
+                  }
+                }); //ajax
+                }//if r   
+         }); //apprise
+     }); //click
+  }); //fn
 </script>
     </head>
     <body>
