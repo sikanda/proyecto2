@@ -65,8 +65,8 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Empleados</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
                                              <!--    <th>Id Empleado</th>   -->
@@ -76,7 +76,7 @@ $(function() {
                                                 <th>Telefono</th>
                                                 <th>E-mail</th>
                                             <!--      <th>Fecha nac.</th>-->
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -84,15 +84,15 @@ $(function() {
                                 for (int i = 0; i < empleados.size(); i++) {
                                           %>
                                             <tr>
-                                           <td style="text-align:center"><%= empleados.get(i).getNombreEmp()%></td>
-                                                <td style="text-align:center"><%= empleados.get(i).getApellidoEmp()%></td>
-                                                <td style="text-align:center"><%= empleados.get(i).getDireEmp()%></td>
-                                                 <td style="text-align:center"><%= empleados.get(i).getTelEmp()%></td>
-                                                <td style="text-align:center"><%= empleados.get(i).getEmailEmp()%></td>
-                                           <!--    <td style="text-align:center"><//%= empleados.get(i).getFechaNacEmp()%></td>  -->
-                                                <td><a href="<%= response.encodeURL("nuevoEmpleado.jsp?id=" + empleados.get(i).getIdEmpleado())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                              <td><img src='images/trash.png' class='btnDelete'></td>
-                                                <td style="text-align:center"><%= empleados.get(i).getIdEmpleado()%></td>  
+                                           <td ><%= empleados.get(i).getNombreEmp()%></td>
+                                                <td ><%= empleados.get(i).getApellidoEmp()%></td>
+                                                <td ><%= empleados.get(i).getDireEmp()%></td>
+                                                 <td ><%= empleados.get(i).getTelEmp()%></td>
+                                                <td ><%= empleados.get(i).getEmailEmp()%></td>
+                                           <!--    <td><//%= empleados.get(i).getFechaNacEmp()%></td>  -->
+                                                <td class="imege"><a href="<%= response.encodeURL("nuevoEmpleado.jsp?id=" + empleados.get(i).getIdEmpleado())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                              <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
+                                                <td ><%= empleados.get(i).getIdEmpleado()%></td>  
                                             </tr>
                                             <%
                                      }

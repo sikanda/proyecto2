@@ -109,7 +109,7 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nueva Mano de Obra.";
+            <% String titulo = "Agregar nueva mano de obra";
                 if (request.getParameter("id") != null || request.getParameter("accion") != null){
                     titulo ="Modificar Mano de Obra";
                 }%>
@@ -122,11 +122,12 @@
         }
         %>
         <div id="formu">
-        <form name="frmManoDeObra" action="<%= response.encodeURL("nuevaManoDeObra.jsp?accion=" + param)%>" method="POST">
+        <form name="frmManoDeObra" class="formAbm"  action="<%= response.encodeURL("nuevaManoDeObra.jsp?accion=" + param)%>" method="POST">
             <fieldset>
                     <legend><strong>Datos mano de obra</strong></legend>
+                     <div>
                     <label for="txtDesc"> Descripción: </label>
-                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"/></br>
+                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"  /></br>
                      <!--   <label for="txtDescUm"> Unidad de medida: </label>
                         <input type="text" id="txtDescUm" name="txtDescUm" value="<//%= descUm %>"/></br>  -->
                         
@@ -145,8 +146,9 @@
                      </br>  
                         <label for="txtPrecio"> Precio: </label>
                         <input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio %>"/>
-                    <br /><br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                    <br />
+                    <input type="submit" value="Guardar"  />
+                     </div>
             </fieldset>
         </form>
         </div>

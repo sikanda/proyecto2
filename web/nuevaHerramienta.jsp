@@ -88,7 +88,7 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nueva Herramienta.";
+            <% String titulo = "Agregar nueva Herramienta";
                 if (request.getParameter("id") != null || request.getParameter("accion") != null){
                     titulo ="Modificar Herramienta";
                 }%>
@@ -101,16 +101,18 @@
         }
         %>
         <div id="formu">
-        <form name="frmHerramienta" action="<%= response.encodeURL("nuevaHerramienta.jsp?accion=" + param)%>" method="POST">
+        <form name="frmHerramienta" class="formAbm" action="<%= response.encodeURL("nuevaHerramienta.jsp?accion=" + param)%>" method="POST">
             <fieldset>
                     <legend><strong>Datos herramienta</strong></legend>
                <!--     <label for="txtidHerramienta"></label>
                         <input type="text" id="txtrazonsocial" name="txtidHerramienta" value="<//%= idHerram %>"/>
                     <br /> -->
-                    <label for="txtDescHerramienta"> Descripción: </label>
+               <div>    
+               <label for="txtDescHerramienta"> Descripción: </label>
                         <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" style="width: 270px;" value="<%= descHerram %>"/>
-                    <br /><br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                    <br />
+                    <input type="submit" value="Guardar"  />
+               </div>
             </fieldset>
         </form>
         </div>

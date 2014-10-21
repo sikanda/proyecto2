@@ -65,14 +65,14 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Usuarios</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
                                                <!-- <th>Id Usuario</th>   -->
                                                 <th>Nombre</th>
                                                 <th>Contraseña</th>
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th colspan="2" >Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -80,10 +80,10 @@ $(function() {
                                 for (int i = 0; i < usuarios.size(); i++) {
                                           %>
                                             <tr>
-                                               <td style="text-align:center"><%= usuarios.get(i).getNombreUsuario()%></td>
-                                                <td style="text-align:center"><%= usuarios.get(i).getPass()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoUsuario.jsp?id=" + usuarios.get(i).getIdUsuario())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                               <td><img src='images/trash.png' class='btnDelete'></td>
+                                               <td ><%= usuarios.get(i).getNombreUsuario()%></td>
+                                                <td ><%= usuarios.get(i).getPass()%></td>
+                                                <td  class="imege"><a href="<%= response.encodeURL("nuevoUsuario.jsp?id=" + usuarios.get(i).getIdUsuario())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                               <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
                                                 <td><%= usuarios.get(i).getIdUsuario()%></td>
                                             </tr>
                                             <%

@@ -114,7 +114,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                 </div>
                         </div>
                 <div id="main">
-                    <h2 id="titulo">Lista de rubros</h2>
+                    <h2 id="titulo">Seleccione los rubros deseados</h2>
 
                     <div id="contenedor">
                         <table id="tablaRubros">

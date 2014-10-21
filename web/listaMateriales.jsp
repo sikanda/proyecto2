@@ -65,15 +65,15 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Materiales</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
                                            <!--     <th>Id Material</th>   -->
                                                 <th>Descripcion</th>
                                                 <th>Unidad Medida</th>
                                                 <th>Precio</th>
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -81,12 +81,12 @@ $(function() {
                                 for (int i = 0; i < materiales.size(); i++) {
                                           %>
                                             <tr>
-                                            <td><%= materiales.get(i).getDescMaterial()%></td>
-                                                <td><%= materiales.get(i).getDescUnidadMedida() %></td>
-                                                 <td style="text-align:center"><%= materiales.get(i).getPrecioMa()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                 <td><img src='images/trash.png' class='btnDelete'></td> 
-                                                <td style="text-align:center"><%= materiales.get(i).getIdMaterial()%></td>   
+                                            <td  style="width:255px;"><%= materiales.get(i).getDescMaterial()%></td>
+                                                <td style="width:105px;"><%= materiales.get(i).getDescUnidadMedida() %></td>
+                                                 <td><%= materiales.get(i).getPrecioMa()%></td>
+                                                <td  class="imege"><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                 <td  class="imege"><img src='images/trash.png' class='btnDelete'></td> 
+                                                <td><%= materiales.get(i).getIdMaterial()%></td>   
                                             </tr>
                                             <%
                                      }

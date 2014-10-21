@@ -108,23 +108,25 @@
         }
         %> 
         <div id="formu">
-        <form name="frmproveedor" action="<%= response.encodeURL("nuevoProveedor.jsp?accion=" + param)%>" method="POST">   
+        <form name="frmproveedor" class="formAbm" action="<%= response.encodeURL("nuevoProveedor.jsp?accion=" + param)%>" method="POST">   
                <fieldset>
                     <legend><strong>Datos del proveedor:</strong></legend>       
-                   <label for="txtrazonsocial"> Razon Social</label>
+                    <div>
+                    <label for="txtrazonsocial"> Razón Social:</label>
                     <input type="text" id="txtrazonsocial" name="txtrazonsocial" value="<%= razonSocial %>"/>
                     <br />
                       <label for="txtdireccion">  Dirección</label>
                  <input type="text" id="txtdireccion" name="txtdireccion" value="<%= direccion %>"/>
                     <br />
-                     <label for="txtmail"> Email</label>
+                     <label for="txtmail"> Email:</label>
                    <input type="text" id="txtmail" name="txtmail" value="<%= mail %>"/>
                     <br />
-                     <label for="txttelefono"> Telefono</label>
+                     <label for="txttelefono"> Teléfono:</label>
                    <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/>
                      <br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
-            </fieldset>
+                    <input type="submit" value="Guardar" />
+                    </div>
+               </fieldset>
         </form>
         </div>
          </div>

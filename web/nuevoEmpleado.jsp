@@ -118,34 +118,36 @@
         }
         %> 
         <div id="formu">
-        <form name="frmempleado" action="<%= response.encodeURL("nuevoEmpleado.jsp?accion=" + param)%>" method="POST">   
+        <form name="frmempleado" class="formAbm" action="<%= response.encodeURL("nuevoEmpleado.jsp?accion=" + param)%>" method="POST">   
                <fieldset>
-                    <legend><strong>Datos del empleado:</strong></legend>   
-                    <label for="txtnombre"> Nombre</label>
+                    <legend><strong>Datos del empleado</strong></legend>  
+                    <div>
+                    <label for="txtnombre"> Nombre:</label>
                     <input type="text" id="txtnombre" name="txtnombre" value="<%= nombre %>"/>
                     <br />
-                <label for="txtapellido"> Apellido</label>
+                <label for="txtapellido"> Apellido:</label>
                     <input type="text" id="txtapellido" name="txtapellido" value="<%= apellido %>"/>
                     <br />
-                      <label for="txtdireccion">  Dirección</label>
+                      <label for="txtdireccion">  Dirección:</label>
                  <input type="text" id="txtdireccion" name="txtdireccion" value="<%= direccion %>"/>
                     <br />
-                     <label for="txtmail"> Email</label>
+                     <label for="txtmail"> Email:</label>
                    <input type="text" id="txtmail" name="txtmail" value="<%= mail %>"/>
                     <br />
-                     <label for="txttelefono"> Telefono</label>
+                     <label for="txttelefono"> Teléfono:</label>
                    <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/>
                      <br />
        <!--               <label for="txtfechanac"> Fecha Nac.</label>
                        <input type="text" id="txtfechanac" name="txtfechanac" value="<//%= fechanac %>"/>  -->
-                     <br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                     
+                    <input type="submit" value="Guardar"  />
+                    </div>
             </fieldset>
         </form>
         </div>
          </div>
         </div>
-                      <%@ include file="WEB-INF/jspf/firma.jspf" %>
+        <%@ include file="WEB-INF/jspf/firma.jspf" %>
       </div>
     </body>
 </html>

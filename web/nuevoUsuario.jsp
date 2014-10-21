@@ -92,7 +92,7 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nuevo Usuario.";
+            <% String titulo = "Agregar nuevo Usuario";
                 if (request.getParameter("id") != null || request.getParameter("accion") != null){
                     titulo ="Modificar Usuario";
                 }%>
@@ -105,17 +105,19 @@
         }
         %>
         <div id="formu">
-        <form name="frmUsuario" action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
+        <form name="frmUsuario" class="formAbm"  action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
             <fieldset>
-                    <legend><strong>Datos Usuario</strong></legend>
-                    <label for="txtNomUs"> Nombre  </label>
+                    <legend><strong>Datos del usuario</strong></legend>
+                    <div>
+                    <label for="txtNomUs"> Nombre:  </label>
                         <input type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/>
                         </br>
-                        <label for="txtPass"> Contraseña </label>
+                        <label for="txtPass"> Contraseña: </label>
                         <input type="text" id="txtPass" name="txtPass"  value="<%= pass %>"/>
                       
                           </br>
-                   <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                   <input type="submit" value="Guardar"  />
+                     </div>
             </fieldset>
         </form>
         </div>

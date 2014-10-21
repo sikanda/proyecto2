@@ -65,15 +65,15 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Proveedores</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
                                                 <th>Razón Social</th>
                                                 <th>Dirección</th>
                                                 <th>Telefono</th>
                                                 <th>E-mail</th>
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -81,12 +81,12 @@ $(function() {
                                 for (int i = 0; i < proveedores.size(); i++) {
                                           %>
                                     <tr>
-                                       <td style="text-align:center"><%= proveedores.get(i).getRazonSocial()%></td>
-                                        <td style="text-align:center"><%= proveedores.get(i).getDireProv()%></td>
-                                        <td style="text-align:center"><%= proveedores.get(i).getTelProv()%></td>
-                                        <td style="text-align:center"><%= proveedores.get(i).getEmailProv()%></td>
-                                        <td><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                       <td><img src='images/trash.png' class='btnDelete'></td>
+                                       <td style="width:180px;"><%= proveedores.get(i).getRazonSocial()%></td>
+                                        <td style="width:110px;"><%= proveedores.get(i).getDireProv()%></td>
+                                        <td><%= proveedores.get(i).getTelProv()%></td>
+                                        <td  style="width:90px;"><%= proveedores.get(i).getEmailProv()%></td>
+                                        <td class="imege"><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                       <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
                                        <td><%= proveedores.get(i).getIdProveedor()%></td>
                                     </tr>
                                             <%

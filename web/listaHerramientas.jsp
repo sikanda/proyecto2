@@ -63,13 +63,13 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Herramientas</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
                                            <!--   <th >Codigo</th>  -->
                                                 <th >Descripcion</th>
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th colspan="2" >Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -77,9 +77,9 @@ $(function() {
                                 for (int i = 0; i < herramientas.size(); i++) {
                                          %>
                                             <tr>
-                                              <td ><%= herramientas.get(i).getDescHerramienta()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevaHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                <td><img src='images/trash.png' class='btnDelete'></td>
+                                              <td style="width:270px;" ><%= herramientas.get(i).getDescHerramienta()%></td>
+                                                <td class="imege"><a href="<%= response.encodeURL("nuevaHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
                                              <td><%= herramientas.get(i).getIdHerramienta()%></td> 
                                             </tr>
                                             <%

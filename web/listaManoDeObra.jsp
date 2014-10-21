@@ -65,15 +65,15 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Mano de obra</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
                                              <!--   <th>Id Material</th>  -->
                                                 <th>Descripcion</th>
                                                 <th>Unidad Medida</th>
                                                 <th>Precio</th>
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -81,11 +81,11 @@ $(function() {
                                 for (int i = 0; i < arrayManoDeObra.size(); i++) {
                                           %>
                                             <tr>  
-                                                <td ><%= arrayManoDeObra.get(i).getDescManoDeObra()%></td>
-                                                <td style="text-align:center"><%= arrayManoDeObra.get(i).getDescUnidadMedida()%></td>
-                                                 <td style="text-align:center"><%= arrayManoDeObra.get(i).getPrecioMo()%></td>
-                                                <td><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                    <td><img src='images/trash.png' class='btnDelete'></td>
+                                                <td  style="width:205px;"><%= arrayManoDeObra.get(i).getDescManoDeObra()%></td>
+                                                <td style="width:95px;"><%= arrayManoDeObra.get(i).getDescUnidadMedida()%></td>
+                                                 <td><%= arrayManoDeObra.get(i).getPrecioMo()%></td>
+                                                <td class="imege"><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                    <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
                                                 <td><%= arrayManoDeObra.get(i).getIdManoDeObra()%></td>   
                                             </tr>
                                             <%

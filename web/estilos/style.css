@@ -103,6 +103,7 @@ ul {
 	text-align: center;
 	color: #34564f;
 	padding: 32px 0 0 0;
+        font-size: 12px;
 }
 
 #copyright a {
@@ -127,7 +128,7 @@ ul {
 	text-align: center;
 	position: relative;
 	padding: 24px;
-	height: 600px;
+ height: 650px; 
 	width: 932px;
 	background: #34564f;
 	color: #fff;
@@ -158,6 +159,7 @@ ul {
 	margin:auto;
 	width: 190;
 	text-align: center;
+	margin: 10 px;
 }
 
 #login input.button {	
@@ -403,16 +405,61 @@ padding:10px;
 padding-right: 25px; 
 
 }
-/*
-    .ui-dialog-title{
-    font-size: 160% !important;
-    text-align: center !important;
+
+.formAbm input[type=text] {
+  float:   right;
+  width: 200px;
+
 }
-   .ui-button-text {
-    font-size: 10px !important;
-    padding: 1px 1px 1px 1px !important;
+.formAbm input[type=submit] {
+  height:25px; 
+  width: 70px;
+  margin: 5px;
 }
-.ui-dialog-titlebar-close {
-  visibility: hidden !important;
+.formAbm  select  {
+  float:  right;
 }
-*/
+.formAbm label  {
+font-size: 14px;
+  float:   left;
+  margin-right: 10px;
+}
+.formAbm div {
+    margin: 10px;
+}
+
+ .tablaABM {
+  border-collapse: collapse;
+  border: 1px solid #666666;
+  font: normal 11px verdana, arial, helvetica, sans-serif;
+  color: #363636;
+  background: #f6f6f6;
+  text-align:left;
+  font-size: 10pt;
+  margin: 0 auto;   
+  }
+  .tablaABM td{
+      width: 70px;
+  }
+  .tablaABM td.imege {
+      width: 7px;
+       margin: 0px;
+  }
+ 
+ .tablaABM th {
+  font: normal 11px verdana, arial, helvetica, sans-serif;
+  color: white;
+  background: #117848;
+  text-align:left;
+  font-size: 10pt;
+  margin: 0 auto;   
+  font-size: 14px;
+  }
+  .niceMenu{
+      text-align: left ;  
+      margin-left: 140px ;
+      resize: none; 
+      overflow-y: hidden;
+      vertical-align:middle; 
+  }
+ 

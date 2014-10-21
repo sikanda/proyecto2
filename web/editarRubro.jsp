@@ -210,6 +210,14 @@ else
 //    });
     
 $('#jstree').on("select_node.jstree", function (e,data){
+    
+//     var i, j, r = [];
+//    for(i = 0, j = data.selected.length; i < j; i++) {
+//      alert(data.instance.get_node(data.selected[i]).text);
+//    }
+      
+      
+          
   if(data.node.children.length) { $('.notleaf').removeAttr("disabled", 'disabled');    }
       $('.btnToggle').removeAttr("disabled", 'disabled');     
     });

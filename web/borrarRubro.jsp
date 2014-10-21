@@ -58,16 +58,17 @@
             <h2 id="titulo"><%=titulo%></h2>
 
         <div id="formu">
-        <form name="frmborrrub" action="<%= response.encodeURL("inicioAdmin.jsp")%>" method="POST">
+        <form name="frmborrrub" class="formAbm" action="<%= response.encodeURL("editarRubro.jsp")%>" method="POST">
             <fieldset>
-                   
+                 <div>  
                     <% if(!mensajeE.isEmpty()){ %>
                     <div id="mensaje">
                         <%= mensajeE %>
                     </div>
                     <% } %>
                     </br>
-                    <input type="submit" value="Continuar" style="height:25px; width: 70px;"/>
+                    <input type="submit" value="Continuar" />
+            </div>
             </fieldset>
         </form>
         </div>

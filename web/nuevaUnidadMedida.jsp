@@ -103,16 +103,18 @@
         }
         %>
         <div id="formu">
-        <form name="frmUnidadMedida" action="<%= response.encodeURL("nuevaUnidadMedida.jsp?accion=" + param)%>" method="POST">
+        <form name="frmUnidadMedida" class="formAbm" action="<%= response.encodeURL("nuevaUnidadMedida.jsp?accion=" + param)%>" method="POST">
             <fieldset>
-                    <legend><strong>Datos Unidad Medida</strong></legend>
-                 <label for="txtId">Codigo: </label>
+                    <legend><strong>Datos unidad de medida</strong></legend>
+                     <div>
+                 <label for="txtId">Código: </label>
                         <input type="text" id="txtId" name="txtId" value="<%= id  %>"/>
                     <br />  
                     <label for="txtDesc"> Descripción: </label>
-                        <input type="text" id="txtDesc" name="txtDesc"  value="<%= descU %>"/>
-                    <br /><br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                        <input type="text" id="txtDesc" name="txtDesc"   value="<%= descU %>"/>
+                    <br />
+                    <input type="submit" value="Guardar"  />
+                     </div>
             </fieldset>
         </form>
         </div>

@@ -109,7 +109,7 @@
 
             <div id="main">
 
-            <% String titulo = "Agregar nuevo Material ";
+            <% String titulo = "Agregar nuevo material ";
                 if (request.getParameter("id") != null || request.getParameter("accion") != null){
                     titulo ="Modificar Material";
                 }%>
@@ -122,11 +122,12 @@
         }
         %>
         <div id="formu">
-        <form name="frmMaterial" action="<%= response.encodeURL("nuevoMaterial.jsp?accion=" + param)%>" method="POST">
+        <form name="frmMaterial" class="formAbm" action="<%= response.encodeURL("nuevoMaterial.jsp?accion=" + param)%>" method="POST">
             <fieldset>
                     <legend><strong>Datos material</strong></legend>
+                    <div>
                     <label for="txtDesc"> Descripción: </label>
-                        <input type="text" id="txtDesc" name="txtDesc"  style="width: 270px;" value="<%= desc %>"/></br>
+                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"/></br>
                      <!--    <label for="txtDescUm"> Unidad de medida: </label>
                        <input type="text" id="txtDescUm" name="txtDescUm" value="<//%= descUm %>"/></br>  -->
                         
@@ -144,9 +145,10 @@
                      </br>   
                         
                         <label for="txtPrecio"> Precio: </label>
-                        <input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio %>"/></br>
+                        <input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio %>"/>
                     <br />
-                    <input type="submit" value="Guardar" style="height:25px; width: 70px;" />
+                    <input type="submit" value="Guardar" />
+           </div>
             </fieldset>
         </form>
         </div>

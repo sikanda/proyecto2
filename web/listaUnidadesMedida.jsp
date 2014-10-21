@@ -63,13 +63,13 @@ $(function() {
                             </div>
 
                             <h2 id="titulo">Lista de Unidades de medida</h2>
-                            <div id="tabla" >
-                                    <table class="tabla">
+                            <div id="tablaABM" >
+                                    <table class="tablaABM">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:center">Codigo</th>
-                                                <th style="text-align:center">Descripcion</th>
-                                                <th colspan="2" align="center">Acciones</th>
+                                                <th>Código</th>
+                                                <th>Descripción</th>
+                                                <th colspan="2">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -77,11 +77,11 @@ $(function() {
                                 for (int i = 0; i < umeds.size(); i++) {
                                          %>
                                             <tr>
-                                                <td style="text-align:center"><%= umeds.get(i).getIdUnidadMedida()%></td>
-                                                <td style="text-align:center"><%= umeds.get(i).getDescUnidadMedida()%></td>
-                                               <td><a href="<%= response.encodeURL("nuevaUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                  <td><img src='images/trash.png' class='btnDelete'></td>
-                                                 <td style="text-align:center"><%= umeds.get(i).getIdUnidadMedida()%></td>
+                                                <td><%= umeds.get(i).getIdUnidadMedida()%></td>
+                                                <td style="width: 200px;"><%= umeds.get(i).getDescUnidadMedida()%></td>
+                                               <td class="imege"><a href="<%= response.encodeURL("nuevaUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
+                                                  <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
+                                                 <td><%= umeds.get(i).getIdUnidadMedida()%></td>
                                             </tr>
                                             <%
                                  }  
