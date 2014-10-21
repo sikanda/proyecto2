@@ -19,7 +19,7 @@ public ClienteDB() throws Exception{}
         
     public boolean save(Cliente c){ 
        boolean rta = false;
-               rta = EjecutarNonQuery("insert into clientes ( nomApeCli, direCli, telCli,emailCli)  VALUES ( '" + c.getNomApeCli()  + "' , '" + c.getDireCli() + "' , '" + c.getTelCli() + "' , '" + c.getEmailCli() +  "' )");
+               rta = EjecutarNonQuery("insert into clientes ( idCliente, nomApeCli, direCli, telCli,emailCli)  VALUES ( "  + c.getIdCliente() + ", '"+ c.getNomApeCli()  + "' , '" + c.getDireCli() + "' , '" + c.getTelCli() + "' , '" + c.getEmailCli() +  "' )");
                if(rta){
            rta = commit();
        }

@@ -7,6 +7,7 @@
 <jsp:useBean id="materialDB" scope="page" class="Datos.MaterialDB" />
 <jsp:useBean id="manoDeObraDB" scope="page" class="Datos.ManoDeObraDB" />
 <jsp:useBean id="usuarioDB" scope="page" class="Datos.UsuarioDB" />
+<jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 
 
 <%
@@ -39,6 +40,9 @@
                           break;
                         case Emp:
                           rta = empleadoDB.delete(Integer.parseInt(ident));
+                          break;
+                         case Rub:
+                          rta = rubroDB.delete(ident);
                           break;
                    }
                    if (rta) {

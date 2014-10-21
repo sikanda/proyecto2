@@ -185,7 +185,29 @@ $(function () {
                 
                     },
                     "checkbox": { "two_state" : true }
-            }) ; 
+            }) ; //jstree
+     
+  var typ="Rub";
+ $("#btnBorrar").click(function(e){
+  var idee = $("#rubrosIds").val(); // alert(idee); 
+       e.preventDefault();  
+ //alert(idSelected);
+       apprise('¿Está seguro que desea borrar el rubro y su información asociada?',  {'confirm':true}   , function(r) {
+         if(r) {  
+      $.ajax({
+             url: 'popupBorrar.jsp',
+             type: 'GET',
+             data:  {ident : idee, objeto:typ},
+             success: function() {
+                location.reload();  
+             },
+             error: function(e) {
+              apprise ('Ha ocurrido un error');
+             }
+           }); //ajax 
+           }//if r   
+    }); //apprise
+}); //click
 	
   });            
 //bind to events triggered on the tree
@@ -198,27 +220,8 @@ else
   disparaClick();    
 });   
  
-//$('#jstree').bind("deselect_node.jstree", function (){
-//         $('.btnToggle').attr("disabled", 'disabled'); 
-//         $('.notleaf').attr("disabled", 'disabled'); 
-//         
-//    });
-
-//$('#jstree').bind("select_node.jstree", function (){
-//   $('.notleaf').removeAttr("disabled", 'disabled');    
-//   $('.btnToggle').removeAttr("disabled", 'disabled');     
-//    });
-    
 $('#jstree').on("select_node.jstree", function (e,data){
-    
-//     var i, j, r = [];
-//    for(i = 0, j = data.selected.length; i < j; i++) {
-//      alert(data.instance.get_node(data.selected[i]).text);
-//    }
-      
-      
-          
-  if(data.node.children.length) { $('.notleaf').removeAttr("disabled", 'disabled');    }
+if(data.node.children.length) { $('.notleaf').removeAttr("disabled", 'disabled');    }
       $('.btnToggle').removeAttr("disabled", 'disabled');     
     });
     
@@ -230,12 +233,9 @@ $('#jstree').on("select_node.jstree", function (e,data){
 //Stops the propagation of the selection of the nodes to their leaves
 $('#jstree').on("select_node.jstree deselect_node.jstree", function (e, data) {
     if(data.node.children.length) {
-        e.preventDefault(); // may not be necessary
+        e.preventDefault(); 
         e.stopImmediatePropagation();
-        // uncomment below if you wish to have the parent item open/close the tree when double clicked
-        //return data.instance.toggle_node(data.node);
-       
-    }
+ }
 });
 
 var idSelected="";
@@ -262,21 +262,7 @@ $('#mje').text(selectedElmsNames);
         location.href = "agregarRubro.jsp?idRub="+idSelected ;
     };
     
-   document.getElementById("btnBorrar").onclick = function () {
-           
-   apprise('¿Está seguro que desea borrar el rubro y su información asociada?',  {'confirm':true}, function(r) {
-    if(r) {   location.href = "borrarRubro.jsp?idRub="+idSelected ;    } 
-  });
 
- };
-
-//intento q la pag atras cargue el nodo seleccionado en el arbol. fail
-//function getURLParameter(name) {
-//  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
-//}
-//var paramAct = getURLParameter('action');
-// // $('#jstree').jstree('select_node',  paramAct );
-// $.jstree.focused().select_node(paramAct); 
   </script>
             <%@ include file="WEB-INF/jspf/firma.jspf" %>
         </div>

@@ -76,7 +76,7 @@
             <h2 id="titulo"><%=titulo%></h2>
 
         <div id="formu">
-        <form name="frmedrub" action="<%= response.encodeURL("inicioAdmin.jsp")%>" method="POST">
+        <form name="frmedrub" action="<%= response.encodeURL("editarRubro.jsp")%>" method="POST">
             <fieldset>
                    
                     <% if(!mensaje.isEmpty()){ %>
