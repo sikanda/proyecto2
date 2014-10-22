@@ -132,6 +132,17 @@ switch($(this).text().length) {
    
 $("#myTable td.unit:contains('PORC')").text("%"); 
 
+$('td:nth-child(6)').css({
+  'text-align':'right',
+  'margin-right':'10px'});
+  
+$('td:nth-child(5)').css({
+  'text-align':'right',
+  'margin-right':'10px'});
+  
+  $('td:nth-child(2)').css({
+  'text-align':'justify',
+  'margin-right':'10px'});
 });
 
 function formatCurrency(total) {

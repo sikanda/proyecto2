@@ -70,7 +70,7 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
             <h2 id="titulo"><%=titulo%></h2>
 
         <div id="formu">
-        <form name="frmaddrub2" action="<%= response.encodeURL("inicioAdmin.jsp")%>" method="POST">
+        <form name="frmaddrub2" action="<%= response.encodeURL("editarRubro.jsp")%>" method="POST">
             <fieldset>
                    
                     <% if(!mensaje.isEmpty()){ %>
