@@ -29,8 +29,8 @@
 
 
         if (request.getParameter("accion") != null){
-                nombreUser = request.getParameter("txtNomUs").toString();
-                pass = request.getParameter("txtPass").toString();
+                nombreUser = new String(request.getParameter("txtNomUs").getBytes("iso-8859-1"), "UTF-8"); //request.getParameter("txtNomUs").toString();
+                pass = new String(request.getParameter("txtPass").getBytes("iso-8859-1"), "UTF-8"); //request.getParameter("txtPass").toString();
              
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;

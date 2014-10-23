@@ -27,7 +27,7 @@
 
 
         if (request.getParameter("accion") != null){
-                descHerram = request.getParameter("txtDescHerramienta").toString();
+                descHerram =  new String(request.getParameter("txtDescHerramienta").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtDescHerramienta").toString();
              
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;

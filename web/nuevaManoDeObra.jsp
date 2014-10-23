@@ -36,7 +36,7 @@
 
 
         if (request.getParameter("accion") != null){
-                desc = request.getParameter("txtDesc").toString();
+                desc = new String(request.getParameter("txtDesc").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtDesc").toString();
                  descUm = request.getParameter("txtDescUm").toString();
                   precio = Float.parseFloat(  request.getParameter("txtPrecio").toString());
              
@@ -76,7 +76,7 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
                 <script src="dist/libs/jquery.js" ></script>	
@@ -122,7 +122,7 @@
         }
         %>
         <div id="formu">
-        <form name="frmManoDeObra" class="formAbm"  action="<%= response.encodeURL("nuevaManoDeObra.jsp?accion=" + param)%>" method="POST">
+            <form name="frmManoDeObra" class="formAbm"  action="<%= response.encodeURL("nuevaManoDeObra.jsp?accion=" + param)%>" method="POST">
             <fieldset>
                     <legend><strong>Datos mano de obra</strong></legend>
                      <div>

@@ -33,10 +33,10 @@
 
 
         if (request.getParameter("accion") != null){
-                razonSocial = request.getParameter("txtrazonsocial").toString();
+                razonSocial = new String(request.getParameter("txtrazonsocial").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtrazonsocial").toString();
                 mail = request.getParameter("txtmail").toString();
                 telefono = request.getParameter("txttelefono").toString();
-                direccion = request.getParameter("txtdireccion").toString();
+                direccion = new String(request.getParameter("txtdireccion").getBytes("iso-8859-1"), "UTF-8"); //request.getParameter("txtdireccion").toString();
                if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 		        boolean rta = false;
                             Proveedor pro = null;

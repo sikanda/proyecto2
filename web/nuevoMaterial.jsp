@@ -36,7 +36,7 @@
 
 
         if (request.getParameter("accion") != null){
-                desc = request.getParameter("txtDesc").toString();
+                desc = new String(request.getParameter("txtDesc").getBytes("iso-8859-1"), "UTF-8"); // request.getParameter("txtDesc").toString();
                  descUm = request.getParameter("txtDescUm").toString();
                   precio = Float.parseFloat(  request.getParameter("txtPrecio").toString());
              

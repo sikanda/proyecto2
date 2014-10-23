@@ -28,8 +28,8 @@
 
 
         if (request.getParameter("accion") != null){
-                id = request.getParameter("txtId").toString();
-                descU = request.getParameter("txtDesc").toString();
+                id = new String(request.getParameter("txtId").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtId").toString();
+                descU =  new String(request.getParameter("txtDesc").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtDesc").toString();
              
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;

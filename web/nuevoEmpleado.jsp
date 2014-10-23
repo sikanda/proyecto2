@@ -41,9 +41,9 @@
                // fechanac =  request.getParameter("txtfechanac") .toString();
                 mail = request.getParameter("txtmail").toString();
                 telefono = request.getParameter("txttelefono").toString();
-                direccion = request.getParameter("txtdireccion").toString();
-                apellido = request.getParameter("txtapellido").toString();
-                nombre = request.getParameter("txtnombre").toString();
+                direccion = new String(request.getParameter("txtdireccion").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtdireccion").toString();
+                apellido = new String(request.getParameter("txtapellido").getBytes("iso-8859-1"), "UTF-8"); //request.getParameter("txtapellido").toString();
+                nombre =  new String(request.getParameter("txtnombre").getBytes("iso-8859-1"), "UTF-8"); //request.getParameter("txtnombre").toString();
                 
                if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 		        boolean rta = false;
