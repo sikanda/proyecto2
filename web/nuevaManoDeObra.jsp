@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page import="Entidades.ManoDeObra"%>
 <%@ page import="Entidades.UnidadMedida"%>
 <%@ page import="java.util.List"%>
@@ -74,17 +73,33 @@
 %>
 
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
-                <script src="dist/libs/jquery.js" ></script>	
+        <script src="dist/libs/jquery.js" ></script>
+         <script type="text/javascript" src="js/jquery.popupwindow.js"></script>       
         <script>
             $(function() { 
                // alert($("#unidadMedida").val() );
              $("#txtDescUm").val($("#unidadMedida").val() );
               $("#txtDescUm option[value='RG']").remove();
+              
+           $('#help').click(function (event) {
+           $.popupWindow('helpPages/listaManoDeObra_h.html', {
+             width: 900,
+              height: 600,
+            center: 'parent'
+          });
+     });
+        $('#helpGen').click(function (event) {
+           $.popupWindow('helpPages/ayudaGeneral.html', {
+             width: 900,
+              height: 600,
+            center: 'parent'
+          });
+     });
               });
         </script>
     </head>
@@ -102,6 +117,7 @@
                     <div id="nav">
                         <ul>
                             <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaManoDeObra.jsp")%>">Mano de obra</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                        <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                         </ul>
                         <br class="clear" />
                     </div>

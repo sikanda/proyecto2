@@ -20,11 +20,12 @@
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
  <script src="dist/libs/jquery.js" ></script>
  <script type="text/javascript" src="js/apprise.js"></script>
+<script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
 <script>
 $(function() {
     var typ = "Herr";
-   $('td:nth-child(4)').hide(); //oculto id 
+   $('td:nth-child(5)').hide(); //oculto id 
      $(".btnDelete").bind("click", function(e){
              var par = $(this).parent(); //td
              var pr= par.next();  //idHerr q se borra
@@ -49,6 +50,20 @@ $(function() {
                 }//if r   
          }); //apprise
      }); //click
+        $('#help').click(function (event) {
+        $.popupWindow('helpPages/listaHerramientas_h.html', {
+              width: 900,
+               height: 600,
+             center: 'parent'
+       });
+    });
+     $('#helpGen').click(function (event) {
+        $.popupWindow('helpPages/ayudaGeneral.html', {
+              width: 900,
+               height: 600,
+             center: 'parent'
+       });
+    });  
   }); //fn
 </script>
     </head>
@@ -66,7 +81,8 @@ $(function() {
                                 <div id="nav">
                                     <ul>
                                         <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>herramientas</a></p></li>
-                                   </ul>
+                                      <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                    </ul>
                                     <br class="clear" />
                                 </div>
                         </div>
@@ -84,6 +100,7 @@ $(function() {
                                             <tr>
                                            <!--   <th >Codigo</th>  -->
                                                 <th >Descripcion</th>
+                                                <th >Cantidad</th>
                                                 <th colspan="2" >Acciones</th>
                                             </tr>
                                         </thead>
@@ -93,8 +110,9 @@ $(function() {
                                          %>
                                             <tr>
                                               <td style="width:270px;" ><%= herramientas.get(i).getDescHerramienta()%></td>
-                                                <td class="imege"><a href="<%= response.encodeURL("nuevaHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
+                                              <td ><%= herramientas.get(i).getCant()%></td>
+                                                <td class="imege"><a href="<%= response.encodeURL("nuevaHerramienta.jsp?id=" + herramientas.get(i).getIdHerramienta())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
+                                                <td class="imege"><img src='images/trash.png' class='btnDelete' title="Borrar"></td>
                                              <td><%= herramientas.get(i).getIdHerramienta()%></td> 
                                             </tr>
                                             <%

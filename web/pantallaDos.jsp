@@ -43,7 +43,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
-          <script src="js/jquery-1.6.4.min.js" ></script>	
+          <script src="js/jquery-1.6.4.min.js" ></script>
+          <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
  <script type="text/javascript" src="js/apprise.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
 
@@ -60,31 +61,50 @@ $('#frmEditaCants').bind("keyup keypress", function(e) {
 });
 
    $("#myTable td.unit").each(function() {
-    if ($(this).text().length === 0)
+    if ($(this).text().length === 0)  ///unidad es nula
        {
          $(this).prev().find('input:text').remove();
-      //  $(this).prev().prev().css("background-color","lightgray");
-         $(this).parent().css("background-color","gainsboro");
-         $(this).parent().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
-}
-});
+         $(this).parent().css("background-color","gainsboro");  //color rubro padre
+         }
+ });
  
 $('td:nth-child(4)').hide(); //rubros
 $('td:nth-child(5)').hide(); //valores originales
 
 $("#myTable td:nth-child(4)").each(function(){
+    var ind = 0;
 switch($(this).text().length) {
  case 6:
+     ind = 15;
   (($(this)).prev().prev().prev()).css("text-indent","15px");
   break;
    case 9:
+       ind=30;
    (($(this)).prev().prev().prev()).css("text-indent","30px");
   break;
  case 12:
+     ind=45;
    ($(this)).prev().prev().prev().css("text-indent","45px");
   break;
-} 
+}
+   if (($(this).next().text().length === 0) && ($(this).prev().text().length !== 0)) //um no es nulo y 
+      {  
+        // $(this).next().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
+        $(this).parent().css("background-color","DarkSeaGreen");  
+         $(this).parent().css('font-weight', 'bold');
+         $(this).prev().prev().prev().css("text-indent",+ind+5+'px');
+      }
 });
+//estilo de cada rubro no padre
+//  $("#myTable td.unit").each(function() {
+//      if (($(this).next().next().text().length === 0) && ($(this).text().length !== 0)) //um no es nulo y 
+//      {  
+//        // $(this).next().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
+//        $(this).parent().css("background-color","lightblue");  
+//         $(this).parent().css({'font-weight': 'bold', 'font-family': 'Arial'});
+//         $(this).prev().prev().css("text-indent","5px");
+//      }
+//    });
 
  $("#myTable input.edit").keypress(function(e) {
   if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
@@ -107,6 +127,20 @@ switch($(this).text().length) {
         } 
    } );
    $("#myTable td.unit:contains('PORC')").text("%"); 
+         $('#help').click(function (event) {
+   $.popupWindow('helpPages/pantallaDos_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
  });
 
 </script>
@@ -124,6 +158,7 @@ switch($(this).text().length) {
                           <div id="nav">
                               <ul>
                                   <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
+                            <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                               </ul>
                               <br class="clear" />
                           </div>

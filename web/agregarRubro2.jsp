@@ -45,7 +45,6 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
-     
     </head>
           <body>
               <div id="bg">
@@ -59,13 +58,13 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>guardar</p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>nuevo</p></li>
                               </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                             <% String titulo = "Guardar Rubro";
+                             <% String titulo = "Agregar nuevo rubro";
                 %>
             <h2 id="titulo"><%=titulo%></h2>
 

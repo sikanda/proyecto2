@@ -12,12 +12,14 @@
 <%
 	String idHerram = "";
         String descHerram = "";
+        int cant=0;
         String titulo2 = "";
 
        if (request.getParameter("id") != null  && request.getParameter("accion")== null  ){
             try{
                 Herramienta herr = herramientaDB.getHerramienta(request.getParameter("id"));
                 descHerram = herr.getDescHerramienta();
+                cant = herr.getCant();
            }
             catch(Exception e)
             {
@@ -28,7 +30,8 @@
 
         if (request.getParameter("accion") != null){
                 descHerram =  new String(request.getParameter("txtDescHerramienta").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtDescHerramienta").toString();
-             
+                cant = Integer.parseInt(request.getParameter("txtCant").toString()) ;
+                
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;
                             Herramienta herr = null;
@@ -36,10 +39,11 @@
                                 herr = new Herramienta();
                                 herr.setIdHerramienta(request.getParameter("id"));
                                 herr.setDescHerramienta(descHerram);
+                                herr.setCant(cant);
                                 rta = herr.update();
                             }
                             else{
-                                herr = new Herramienta(descHerram);
+                                herr = new Herramienta(descHerram, cant);
                                 rta = herr.save();
                             }
                             if (rta)
@@ -66,6 +70,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+                <script src="dist/libs/jquery.js" ></script>
+         <script type="text/javascript" src="js/jquery.popupwindow.js"></script>       
+                 <script>
+            $(function() { 
+           $('#help').click(function (event) {
+           $.popupWindow('helpPages/listaHerramientas_h.html', {
+             width: 900,
+              height: 600,
+            center: 'parent'
+          });
+     });
+        $('#helpGen').click(function (event) {
+           $.popupWindow('helpPages/ayudaGeneral.html', {
+             width: 900,
+              height: 600,
+            center: 'parent'
+          });
+     });
+              });
+        </script>
     </head>
 
     <body>
@@ -81,6 +105,7 @@
                     <div id="nav">
                         <ul>
                             <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaHerramientas.jsp")%>">Herramientas</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                           <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                         </ul>
                         <br class="clear" />
                     </div>
@@ -109,7 +134,9 @@
                     <br /> -->
                <div>    
                <label for="txtDescHerramienta"> Descripción: </label>
-                        <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" style="width: 270px;" value="<%= descHerram %>"/>
+                        <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" value="<%= descHerram %>"/>
+                        <br />   <label for="txtCant"> Cantidad: </label>
+                        <input type="text" id="txtCant" name="txtCant"   value="<%= cant %>"/>
                     <br />
                     <input type="submit" value="Guardar"  />
                </div>

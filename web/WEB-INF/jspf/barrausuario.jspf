@@ -10,7 +10,8 @@
 %>
 <div id="barrausr">
     <ul>
-        <li> <strong><%=usr%></strong></li>
+        <li style="text-align: center"> <strong><%=usr%></strong></li>
         <li><a href="<%= response.encodeURL("login.jsp?ref=logout")%>">Cerrar sesión</a></li>
+        <li id="helpGen" style="text-align: center"><a href=""><img  src='images/help.png' title="Ayuda general del sitio"></a></li>
     </ul>
 </div>

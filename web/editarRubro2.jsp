@@ -50,8 +50,6 @@
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
           <script src="js/jquery-1.6.4.min.js" ></script>	
-
-
     </head>
           <body>
               <div id="bg">
@@ -65,13 +63,13 @@
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
-                              </ul>
+                                 <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>modificar</p></li>
+                             </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                            <% String titulo = "Editar rubro";
+                            <% String titulo = "Modificar rubro";
                 %>
             <h2 id="titulo"><%=titulo%></h2>
 

@@ -70,6 +70,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+               <script src="dist/libs/jquery.js" ></script>	
+	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
+	<script>
+	$(function() { 
+ 
+   $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaUsuarios_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+});
+</script>
     </head>
 
     <body>
@@ -85,6 +106,7 @@
                     <div id="nav">
                         <ul>
                             <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaUsuarios.jsp")%>">Usuarios</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                       <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                         </ul>
                         <br class="clear" />
                     </div>

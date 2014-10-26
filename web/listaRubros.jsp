@@ -109,7 +109,8 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                                 <div id="nav">
                                     <ul>
                                         <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
-                                   </ul>
+                                <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                    </ul>
                                     <br class="clear" />
                                 </div>
                         </div>
@@ -186,6 +187,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
   <script src="dist/libs/jquery.js"> </script>
   <!-- include the minified jstree source -->
   <script src="dist/jstree.min.js"></script>
+  <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 
 <script>
 $(function () {
@@ -194,7 +196,22 @@ $(function () {
                                       "keep_selected_style" : false                   
                                      },
                         "plugins" : [ "checkbox" ]
-                        });   
+                        });  
+                        
+ $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaRubros_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+}); 
 }); 		
 //bind to events triggered on the tree
 $('#jstree').on("changed.jstree", function (e, data) {

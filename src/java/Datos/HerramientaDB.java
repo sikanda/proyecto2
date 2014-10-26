@@ -13,7 +13,7 @@ public HerramientaDB() throws Exception{}
      public boolean save(Herramienta h){ 
         boolean rta = false;
 		//ver si afecta en algo los '' de los float
-        	rta = EjecutarNonQuery("insert into herramientas (idHerramienta, descHerramienta)  VALUES ( '"+ h.getIdHerramienta()+"' , '" + h.getDescHerramienta()  +  "' )");
+        	rta = EjecutarNonQuery("insert into herramientas (idHerramienta, descHerramienta, cantidad)  VALUES ( '"+ h.getIdHerramienta()+"' , '" + h.getDescHerramienta()  +  "', " + h.getCant()+ " )");
                 if(rta){
             rta = commit();
         }
@@ -26,7 +26,7 @@ public HerramientaDB() throws Exception{}
 
   public boolean update(Herramienta h){
         boolean rta = false;
-		rta = EjecutarNonQuery("UPDATE herramientas SET descHerramienta = '" + h.getDescHerramienta() + "' WHERE idHerramienta = '" + h.getIdHerramienta()+"'");
+		rta = EjecutarNonQuery("UPDATE herramientas SET descHerramienta = '" + h.getDescHerramienta() + "', cantidad = " + h.getCant()+" WHERE idHerramienta = '" + h.getIdHerramienta()+"'");
          
 	if(rta){
             rta = commit();
@@ -53,11 +53,12 @@ public HerramientaDB() throws Exception{}
    
        public List getHerramientas() throws Exception{
             List listaHe = new ArrayList();
-            ResultSet resultado = EjecutarQuery("SELECT  idHerramienta, descHerramienta FROM herramientas");
+            ResultSet resultado = EjecutarQuery("SELECT  idHerramienta, descHerramienta, cantidad FROM herramientas");
             while (resultado.next()){
                 Herramienta he = new Herramienta();
                 he.setIdHerramienta(resultado.getString(1));
                 he.setDescHerramienta(resultado.getString(2));
+                he.setCant(resultado.getInt(3));
          
                 listaHe.add(he);
             }
@@ -68,12 +69,13 @@ public HerramientaDB() throws Exception{}
       public Herramienta getHerramienta(String idHerramienta) throws Exception
     {
         Herramienta he = new Herramienta();
-        ResultSet resultado = EjecutarQuery("SELECT  descHerramienta FROM herramientas WHERE idHerramienta = '" + idHerramienta + "'");
+        ResultSet resultado = EjecutarQuery("SELECT  descHerramienta, cantidad FROM herramientas WHERE idHerramienta = '" + idHerramienta + "'");
 
         while (resultado.next())
         {
 			he.setIdHerramienta(idHerramienta);
 			he.setDescHerramienta(resultado.getString(1));
+                        he.setCant(resultado.getInt(2));
         }
         resultado.close();
         closeCon();

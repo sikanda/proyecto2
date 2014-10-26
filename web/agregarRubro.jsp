@@ -44,6 +44,7 @@
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
           <script src="dist/libs/jquery.js" ></script>	
           <script src="js/jquery-ui.js"></script>
+             <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
        <link rel="stylesheet" href="estilos/jquery-ui.css">
   <style>
     .ui-dialog-title{
@@ -249,11 +250,11 @@ $('#btnGuardar').click(function() {
 //$('select[name="dropUm"]').find('option:contains("Rubro general")').attr("selected",true);
 //$('#dropUm').attr("disabled", 'disabled');
 //}
-
+$("#dropUm option[value='RG']").remove();
 $("#dropUm").val($("#dropUm option:first").val());
 
 $("#dropUm").change(function() { 
-if($("#dropUm").val() ==="RG" || $("#dropUm").val() ==="PORC")
+if( $("#dropUm").val() ==="PORC")
 {
    $("#divContenedorMa").hide(500); 
    $("#divContenedorMo").hide(500); 
@@ -265,6 +266,21 @@ else
 }
 });
 
+//seccion ayuda
+   $('#help').click(function (event) {
+   $.popupWindow('helpPages/agregarRubro_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
 });
 
 function Delete(){ var par = $(this).parent().parent(); //tr
@@ -375,12 +391,13 @@ $(".btnDelete").bind("click", Delete);
                           <div id="nav">
                               <ul>
                                   <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>nuevo</a></p></li>
+                             <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                               </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                          <h2 id="titulo">Alta rubro</h2>
+                          <h2 id="titulo">Agregar nuevo rubro</h2>
                           <div id="formu">
                               <form name="frmAddRubro" id="frmAddRubro" method="POST" action="agregarRubro2.jsp" >
                        

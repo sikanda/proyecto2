@@ -20,6 +20,7 @@
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
            <script src="js/jquery-1.6.4.min.js" ></script>
  <script type="text/javascript" src="js/apprise.js"></script>
+  <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
 <script>
 $(function() {
@@ -47,6 +48,20 @@ $(function() {
                 }//if r   
          }); //apprise
      }); //click
+        $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaUnidadesMedida_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
   }); //fn
 </script>
     </head>
@@ -64,7 +79,8 @@ $(function() {
                                 <div id="nav">
                                     <ul>
                                         <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>unidades medida</a></p></li>
-                                   </ul>
+                                 <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                    </ul>
                                     <br class="clear" />
                                 </div>
                         </div>
@@ -92,8 +108,8 @@ $(function() {
                                             <tr>
                                                 <td><%= umeds.get(i).getIdUnidadMedida()%></td>
                                                 <td style="width: 200px;"><%= umeds.get(i).getDescUnidadMedida()%></td>
-                                               <td class="imege"><a href="<%= response.encodeURL("nuevaUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                  <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
+                                               <td class="imege"><a href="<%= response.encodeURL("nuevaUnidadMedida.jsp?id=" + umeds.get(i).getIdUnidadMedida())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
+                                                  <td class="imege"><img src='images/trash.png' class='btnDelete' title="Borrar"></td>
                                                  <td><%= umeds.get(i).getIdUnidadMedida()%></td>
                                             </tr>
                                             <%

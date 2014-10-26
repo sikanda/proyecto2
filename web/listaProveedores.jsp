@@ -21,6 +21,7 @@
            <script src="js/jquery-1.6.4.min.js" ></script>
  <script type="text/javascript" src="js/apprise.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+<script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 <script>
 $(function() {
   var typ = "Prov";  
@@ -47,6 +48,20 @@ $(function() {
                 }//if r   
          }); //apprise
      }); //click
+     $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaProveedores_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});   
   }); //fn
 </script>
     </head>
@@ -65,7 +80,8 @@ $(function() {
                                 <div id="nav">
                                     <ul>
                                         <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>proveedores</a></p></li>
-                                   </ul>
+                                <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                    </ul>
                                     <br class="clear" />
                                 </div>
                         </div>
@@ -98,8 +114,8 @@ $(function() {
                                         <td style="width:110px;"><%= proveedores.get(i).getDireProv()%></td>
                                         <td><%= proveedores.get(i).getTelProv()%></td>
                                         <td  style="width:90px;"><%= proveedores.get(i).getEmailProv()%></td>
-                                        <td class="imege"><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                       <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
+                                        <td class="imege"><a href="<%= response.encodeURL("nuevoProveedor.jsp?id=" + proveedores.get(i).getIdProveedor())%>"><img  src='images/iconEdit.png' class='btnEdit'  title ="Editar"></a></td>
+                                       <td class="imege"><img src='images/trash.png' class='btnDelete'  title="Borrar"></td>
                                        <td><%= proveedores.get(i).getIdProveedor()%></td>
                                     </tr>
                                             <%

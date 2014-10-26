@@ -42,6 +42,7 @@
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
           <script src="dist/libs/jquery.js" ></script>	
           <script src="js/jquery-ui.js"></script>
+          <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
        <link rel="stylesheet" href="estilos/jquery-ui.css">
   <style>
     .ui-dialog-title{
@@ -235,21 +236,29 @@ $('#btnGuardar').click(function() {
    
    if (dataMa === ""){dataMa = "vacio";}
    if (dataMo === ""){dataMo = "vacio";}
+
+if( $("#dropUm").val() ==="PORC" )//porc no lleva mamo
+{ dataMo = "vacio"; dataMa = "vacio";}
+   
     $('#dataManoDeObra').val(dataMo);    
     $('#dataMateriales').val(dataMa);
     
 });
 // alert($("#unidadMedida").val() );
- $("#dropUm").val($("#unidadMedida").val() );
- 
+
 if( $('#unidadMedida').val() ==="" )
 {  
 $('select[name="dropUm"]').find('option:contains("Rubro general")').attr("selected",true);
 $('#dropUm').attr("disabled", 'disabled');
 }
+else{
+$("#dropUm option[value='RG']").remove();
+//$("#dropUm option[value='PORC']").remove(); 
+$("#dropUm").val($("#unidadMedida").val() );
+}
 
 $("#dropUm").change(function() { 
-if($("#dropUm").val() ==="RG" || $("#dropUm").val() ==="PORC")
+if( $("#dropUm").val() ==="PORC")
 {
    $("#divContenedorMa").hide(500); 
    $("#divContenedorMo").hide(500); 
@@ -260,6 +269,28 @@ else
    $("#divContenedorMo").show(500); 
 }
 });
+
+if( $("#unidadMedida").val() ==="PORC")
+{
+   $("#divContenedorMa").hide(); 
+   $("#divContenedorMo").hide(); 
+}
+
+
+ $('#help').click(function (event) {
+   $.popupWindow('helpPages/editarRubro1_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+}); 
 });
 
 function Delete(){ var par = $(this).parent().parent(); //tr
@@ -369,13 +400,15 @@ $(".btnDelete").bind("click", Delete);
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>edit</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("editarRubro.jsp")%>">rubros</a><%=globconfig.separador()%>modificar</p></li>
+                              <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                  
                               </ul>
                               <br class="clear" />
                           </div>
                       </div>
                       <div id="main">
-                          <h2 id="titulo">Editar rubro</h2>
+                          <h2 id="titulo">Modificar rubro</h2>
                           <div id="formu">
                               <form name="frmEditRubro" id="frmEditRubro" method="POST" action="editarRubro2.jsp" >
                         

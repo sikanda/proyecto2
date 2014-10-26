@@ -81,6 +81,7 @@
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
           <script src="js/jquery-1.6.4.min.js" ></script>	
+              <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 
 <script>
 $(function() {
@@ -143,6 +144,22 @@ $('td:nth-child(5)').css({
   $('td:nth-child(2)').css({
   'text-align':'justify',
   'margin-right':'10px'});
+  
+     $("#myTable td.unit:contains('PORC')").text("%"); 
+         $('#help').click(function (event) {
+   $.popupWindow('helpPages/pantallaTres_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
 });
 
 function formatCurrency(total) {
@@ -168,6 +185,7 @@ function formatCurrency(total) {
                           <div id="nav">
                               <ul>
                                   <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
+                             <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                               </ul>
                               <br class="clear" />
                           </div>

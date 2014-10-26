@@ -462,4 +462,11 @@ font-size: 14px;
       overflow-y: hidden;
       vertical-align:middle; 
   }
- 
+  #help{
+        float:right !important ;
+  margin-right: 47px !important ;
+  }
+  
+  #help:first-letter {
+    text-transform: uppercase;
+}

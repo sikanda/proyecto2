@@ -21,6 +21,7 @@
 <script src="js/jquery-1.6.4.min.js" ></script>
  <script type="text/javascript" src="js/apprise.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
+   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 <script>
 $(function() {
    var typ = "Ma"; 
@@ -47,6 +48,21 @@ $(function() {
                 }//if r   
          }); //apprise
      }); //click
+ $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaMateriales_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+     
   }); //fn
 </script>
     </head>
@@ -65,7 +81,8 @@ $(function() {
                                 <div id="nav">
                                     <ul>
                                         <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>materiales</a></p></li>
-                                   </ul>
+                                      <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                    </ul>
                                     <br class="clear" />
                                 </div>
                         </div>
@@ -97,8 +114,8 @@ $(function() {
                                             <td  style="width:255px;"><%= materiales.get(i).getDescMaterial()%></td>
                                                 <td style="width:105px;"><%= materiales.get(i).getDescUnidadMedida() %></td>
                                                  <td><%= materiales.get(i).getPrecioMa()%></td>
-                                                <td  class="imege"><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                 <td  class="imege"><img src='images/trash.png' class='btnDelete'></td> 
+                                                <td  class="imege"><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
+                                                 <td  class="imege"><img src='images/trash.png' class='btnDelete'  title="Borrar"></td> 
                                                 <td><%= materiales.get(i).getIdMaterial()%></td>   
                                             </tr>
                                             <%

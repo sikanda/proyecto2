@@ -73,6 +73,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
+                       <script src="dist/libs/jquery.js" ></script>	
+	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
+	<script>
+	$(function() { 
+ 
+   $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaProveedores_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+});
+</script>
     </head>
 
     <body>

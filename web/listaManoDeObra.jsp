@@ -20,6 +20,7 @@
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
    <script src="js/jquery-1.6.4.min.js" ></script>
  <script type="text/javascript" src="js/apprise.js"></script>
+ <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 <link rel="stylesheet" href="estilos/apprise.css" type="text/css" />
 <script>
 $(function() {
@@ -47,6 +48,21 @@ $(function() {
                 }//if r   
          }); //apprise
      }); //click
+     
+     $('#help').click(function (event) {
+           $.popupWindow('helpPages/listaManoDeObra_h.html', {
+             width: 900,
+              height: 600,
+            center: 'parent'
+          });
+     });
+        $('#helpGen').click(function (event) {
+           $.popupWindow('helpPages/ayudaGeneral.html', {
+             width: 900,
+              height: 600,
+            center: 'parent'
+          });
+     });
   }); //fn
 </script>
     </head>
@@ -64,8 +80,9 @@ $(function() {
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                                 <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>mano de obra</a></p></li>
-                                   </ul>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%>mano de obra</p></li>
+                                        <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
+                                    </ul>
                                     <br class="clear" />
                                 </div>
                         </div>
@@ -97,8 +114,8 @@ $(function() {
                                                 <td  style="width:205px;"><%= arrayManoDeObra.get(i).getDescManoDeObra()%></td>
                                                 <td style="width:95px;"><%= arrayManoDeObra.get(i).getDescUnidadMedida()%></td>
                                                  <td><%= arrayManoDeObra.get(i).getPrecioMo()%></td>
-                                                <td class="imege"><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit'></a></td>
-                                                    <td class="imege"><img src='images/trash.png' class='btnDelete'></td>
+                                                <td class="imege"><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
+                                                    <td class="imege"><img src='images/trash.png' class='btnDelete' title="Borrar"></td>
                                                 <td><%= arrayManoDeObra.get(i).getIdManoDeObra()%></td>   
                                             </tr>
                                             <%

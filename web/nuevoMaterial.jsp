@@ -85,6 +85,21 @@
                // alert($("#unidadMedida").val() );
              $("#txtDescUm").val($("#unidadMedida").val() );
              $("#txtDescUm option[value='RG']").remove();
+
+   $('#help').click(function (event) {
+   $.popupWindow('helpPages/listaMateriales_h.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
+$('#helpGen').click(function (event) {
+   $.popupWindow('helpPages/ayudaGeneral.html', {
+	 width: 900,
+	  height: 600,
+	center: 'parent'
+  });
+});
               });
         </script>
     </head>
@@ -102,6 +117,7 @@
                     <div id="nav">
                         <ul>
                             <li><p class="posicion"><a href="<%= response.encodeURL("inicioAdmin.jsp")%>">inicio</a><%=globconfig.separador()%><a href="<%= response.encodeURL("listaMateriales.jsp")%>">Materiales</a><%=globconfig.separador()%><%= titulo2%></a></p></li>
+                       <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                         </ul>
                         <br class="clear" />
                     </div>

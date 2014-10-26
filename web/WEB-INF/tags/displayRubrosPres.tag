@@ -56,7 +56,11 @@
  <c:if test="${empty rub.subrubros}"> <%-- si no hay mas hijos imprimo el total del rubro --%> 
  <tr >
    <c:set var="totalPorRubro" value="${totalPorRubro + totalFinalMat + totalFinalMO}"></c:set> 
-   <td colspan="4"> <c:out value= "Total Rubro:" /> </td>  
+   <td > <c:out value= "Total Rubro:" /> </td> 
+   <td  ></td>   
+   <td  ></td>   
+   <td  ></td>   
+   <td  ></td>   
    <td  ><fmt:formatNumber value="${totalPorRubro}" type="currency" /> </td>     
 </tr>
 </c:if>

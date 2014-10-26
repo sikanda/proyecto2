@@ -6,10 +6,11 @@ public class Herramienta {
     
     private String idHerramienta;
     private String descHerramienta; 
+    private int cant; 
     
     public Herramienta (){}
     
-    	public Herramienta( String desc ) {
+    	public Herramienta( String desc, int cant ) {
         super();
          try{
              String he;
@@ -18,6 +19,7 @@ public class Herramienta {
             
             this.idHerramienta = he;
             this.descHerramienta = desc;
+            this.cant = cant;
             }
             catch(Exception e){}
         }
@@ -37,6 +39,14 @@ public class Herramienta {
 
     public String getDescHerramienta() {
         return descHerramienta;
+    }
+       
+    public int getCant() {
+        return cant;
+    }
+
+    public void setCant(int cant) {
+        this.cant = cant;
     }
 
         public boolean update(){
