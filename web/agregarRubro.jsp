@@ -379,14 +379,15 @@ $(".btnDelete").bind("click", Delete);
               </div>
 <!-- DIALOG MATERIALES END -->
 
-              <div id="bg">
-                  <div id="outer">
-                      <div id="header">
-                          <div id="logo">
-                              <h1>
-                                  <a href="#"><%= globconfig.nombrePag()%></a>
-                              </h1>
-                          </div>
+        <div id="bg1">     </div>   
+             <div id="bg2"></div>
+                <div id="outer2">                 
+                        <div id="header2">
+                            <div id="logo2">
+                                   <h1>
+                                         <img src="images/cim1.png" alt="" />  <!-- <a href="#">Cimax Construcciones</a>-->
+                                    </h1>
+                            </div>
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
@@ -401,7 +402,7 @@ $(".btnDelete").bind("click", Delete);
                           <div id="formu">
                               <form name="frmAddRubro" id="frmAddRubro" method="POST" action="agregarRubro2.jsp" >
                        
-                       <div style="  padding-right:130px; margin-left: 100px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">
+                       <div style=" padding-left:180px;  padding-right:180px; margin-left: 100px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">
                            
                               <label for="idRubro" >Id. Rubro  </label>
                               <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.nuevoRubro.idRubro}"  /><br/>  
@@ -423,7 +424,7 @@ $(".btnDelete").bind("click", Delete);
                           
                        </div>   
                         <div id="divContenedorMa" > 
-                            <p style="  margin-left: 100px; margin-bottom: 1px;  text-align: left ">Materiales</p>
+                            <p style="  margin-left: 180px; margin-bottom: 1px;  text-align: left ">Materiales</p>
                          
                             <table id="tablaMateriales" class="tabla">
                                 <tbody>
@@ -443,7 +444,7 @@ $(".btnDelete").bind("click", Delete);
                           </br> 
                           <div id="divContenedorMo"  >  
            
-                                      <p style="  margin-left: 100px; margin-bottom: 1px; text-align: left ">Mano de Obra</p>
+                                      <p style="  margin-left: 180px; margin-bottom: 1px; text-align: left ">Mano de Obra</p>
                                       <table id="tablaManoDeObra" class="tabla">
                                           <tbody>
                                               <tr>
@@ -472,6 +473,6 @@ $(".btnDelete").bind("click", Delete);
                       </div>
                   </div>
                            <%@ include file="WEB-INF/jspf/firma.jspf" %>
-                            </div>
+                     
           </body>
 </html>

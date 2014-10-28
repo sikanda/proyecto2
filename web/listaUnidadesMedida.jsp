@@ -66,13 +66,13 @@ $('#helpGen').click(function (event) {
 </script>
     </head>
     <body>
-      <div id="bg">
-
-            <div id="outer">
-                       <div id="header">
-                                <div id="logo">
+         <div id="bg1">     </div>   
+             <div id="bg2"></div>
+                <div id="outer2">
+                        <div id="header2">
+                                <div id="logo2">
                                     <h1>
-                              <a href="#"><%= globconfig.nombrePag()%></a>
+                                         <img src="images/cim1.png" alt="" />  <!-- <a href="#">Cimax Construcciones</a>-->
                                     </h1>
                                 </div>
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
@@ -121,6 +121,6 @@ $('#helpGen').click(function (event) {
             </div>
             </div>
                                         <%@ include file="WEB-INF/jspf/firma.jspf" %>
-        </div>
+   
     </body>
 </html>

@@ -97,14 +97,15 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
 </style>
     </head>
     <body>
-      <div id="bg">
-            <div id="outer">
-                        <div id="header">
-                                <div id="logo">
-                                    <h1>
-                                            <a href="#"><%= globconfig.nombrePag()%></a>
+        <div id="bg1">     </div>   
+             <div id="bg2"></div>
+                <div id="outer2">                 
+                        <div id="header2">
+                            <div id="logo2">
+                                   <h1>
+                                         <img src="images/cim1.png" alt="" />  <!-- <a href="#">Cimax Construcciones</a>-->
                                     </h1>
-                                </div>
+                            </div>
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                                 <div id="nav">
                                     <ul>
@@ -254,7 +255,7 @@ if (elem.value.length > 0)
 
   </script>
                    <%@ include file="WEB-INF/jspf/firma.jspf" %>
-            </div>
+      
 
     </body>
 </html>

@@ -48,15 +48,16 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
      
     </head>
-          <body>
-              <div id="bg">
-                  <div id="outer">
-                      <div id="header">
-                          <div id="logo">
-                              <h1>
-                                  <a href="#"><%= globconfig.nombrePag()%></a>
-                              </h1>
-                          </div>
+         <body>
+        <div id="bg1">     </div>   
+             <div id="bg2"></div>
+                <div id="outer2">                 
+                        <div id="header2">
+                            <div id="logo2">
+                                   <h1>
+                                         <img src="images/cim1.png" alt="" />  <!-- <a href="#">Cimax Construcciones</a>-->
+                                    </h1>
+                            </div>
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
@@ -88,7 +89,7 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
                   </div>
               </div>
                      <%@ include file="WEB-INF/jspf/firma.jspf" %>
-            </div>
+    
           </body>
 </html>
 

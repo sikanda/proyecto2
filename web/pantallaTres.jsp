@@ -172,15 +172,16 @@ function formatCurrency(total) {
 }
 </script>
     </head>
-          <body>
-              <div id="bg">
-                  <div id="outer">
-                      <div id="header">
-                          <div id="logo">
-                              <h1>
-                                  <a href="#"><%= globconfig.nombrePag()%></a>
-                              </h1>
-                          </div>
+    <body>
+        <div id="bg1">     </div>   
+             <div id="bg2"></div>
+                <div id="outer2">                 
+                        <div id="header2">
+                            <div id="logo2">
+                                   <h1>
+                                         <img src="images/cim1.png" alt="" />  <!-- <a href="#">Cimax Construcciones</a>-->
+                                    </h1>
+                            </div>
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
@@ -196,8 +197,7 @@ function formatCurrency(total) {
                           <div id="formu">
                               <form name="frmPresupuesto" action="pantallaCuatro.jsp" method="POST">
                                   
-                                                 
-                         <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left; margin-right: 160px; margin-top:-10px; "> 
+                      <div   style="  margin-left: 230px; margin-bottom: 20px; text-align: left; margin-right: 230px; margin-top:-10px; "> 
                             <label for="nomCli" >   Nombre Cliente:  </label>
                              <input type="text"  id="nomCli" name="nomCli" style="width:500px; float:right;"  /><br/>
                              
@@ -220,20 +220,30 @@ function formatCurrency(total) {
                                   <myTags1:displayRubrosPres rub="${rub}"/> 
                                     </c:forEach>
                                          <tr > 
-                                        <td colspan="4"> Subtotal:  </td>  
+                                        <td> Subtotal:  </td> 
+                                        <td></td><!--esto lo usa jquery, no borrar-->
+                                        <td></td><!--esto lo usa jquery, no borrar-->
+                                            <td></td><!--esto lo usa jquery, no borrar-->
+                              
+                                        <td></td><!--esto lo usa jquery, no borrar-->
                                        <td  id = "subtotal" ></td>
                                     </tr>
                                       <c:forEach items="${sessionScope.rubrosPerc}" var="rub" >
                                   <myTags2:displayRubrosPerc rub="${rub}"/> 
                                     </c:forEach>
                                           <tr > 
-                                        <td colspan="4"> Total General:  </td>  
+                                        <td> Total General:  </td>
+                                         <td></td> <!--esto lo usa jquery, no borrar-->
+                                        <td></td><!--esto lo usa jquery, no borrar-->
+                                            <td></td><!--esto lo usa jquery, no borrar-->
+                                       
+                                        <td></td><!--esto lo usa jquery, no borrar-->
                                        <td  id = "totalGral" ></td>
                                     </tr>
                                   </tbody>
                               </table>
                          </div> 
-                               <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">   
+                               <div   style="  margin-left: 200px; margin-bottom: 20px; text-align: left ">   
                                  </br>
                                <label for="obs" >Observaciones: </label>    
                                   <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:530px; height:50px;"></textarea>
@@ -250,6 +260,6 @@ function formatCurrency(total) {
                   </div>
                          </div>
                            <%@ include file="WEB-INF/jspf/firma.jspf" %>
-              </div>
+        
           </body>
 </html>

@@ -1,0 +1,444 @@
+/*
+	Name       : SIPROC AYUDA
+	Version    : 1.0
+
+
+*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+/* old body
+body {
+	font-size: 12pt;
+	line-height: 1.75em;
+	font-family: Georgia, serif;
+	background: #D2E0DD;
+	color: #382b31;
+}
+*/
+body {
+	font-size: 12pt;
+	line-height: 1.8em;
+	font-family:  Tahoma, Geneva, sans-serif;
+	/*background: #dddddd;*/
+	color: #656565;
+
+}
+br.clear {
+	clear: both;
+}
+
+
+
+h2,h3,h4 {
+	margin-bottom: 1em;
+	font-family: Tahoma, Geneva, sans-serif;
+	color: #000000;
+}
+
+
+
+p {
+	margin-bottom: 1.5em;
+}
+
+ul {
+	margin-bottom: 1.5em;
+}
+
+
+#titulo{
+	border-bottom: dotted 1px #557d80;
+}
+
+
+#banner {
+	position: relative;
+	padding: 0px;
+	height: 172px;
+	width: 932px;
+	margin: 0 0 50 0;
+	background: #fff;
+	
+}
+
+/**/
+#banner2 {
+	position: relative;
+	width: 1180px;
+	height: 300px;
+}
+
+#banner2 .captions {
+	position: absolute;
+	right: 0;
+	top: 105px;
+	text-shadow: 2px 2px 0px rgba(0,0,0,1.0);
+}
+
+#banner2 .captions h2 {
+	background: rgba(0,0,0,0.7);
+	color: #ffffff;
+	padding: 28px;
+	margin: 0;
+}
+
+#banner2 .captions h3 {
+	background: rgba(10,127,153,0.8);
+	color: #ffffff;
+	padding: 28px;
+	margin: 0;
+}
+
+/**/
+#barrausr{
+	float: right;
+/*	margin: 20px;*/
+	margin-right: 20px;
+	padding: 10px;
+}
+#barrausr ul{
+	list-style: none;
+	list-style-type: none;	
+	margin: 0; 
+	padding: 0;
+}
+#barrausrl li{
+	float: left;
+	padding-left: 25px;
+        
+} 
+#barrausr a,h4{
+	color: #000000;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+}
+#barrausr a:hover {
+	text-decoration: underline;
+}
+
+#copyright {
+	text-align: center;
+	color: #34564f;
+	padding: 32px 0 0 0;
+        font-size: 12px;
+}
+
+#copyright a {
+	color: #34564f;
+}
+
+#datos{
+	text-align: center
+}
+
+#header {
+	position: relative;
+	padding: 24px;
+	height: 150px;
+	width: 932px;
+	background: #34564f;
+	color: #fff;
+	margin : 20px 0 0 0;
+}
+
+#headerlogin {
+	text-align: center;
+	position: relative;
+	padding: 24px;
+ height: 650px; 
+	width: 932px;
+	background: #34564f;
+	color: #fff;
+	margin : 20px 0 0 0;
+}
+#headerlogin h2{
+	font-size: 1.75em;
+	font-family: Bitter, serif;
+	color: #fff;
+	text-align: center;
+	
+}
+#headerlogin h3{
+	font-size: 1em;
+	font-family: Bitter, serif;
+	color: #fff;
+	text-align: center;
+	
+}
+#header2 {
+	position: relative;
+	padding: 28px;
+	height: 50px;
+	background: #34564f;
+	color: #ffffff;
+	text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+	/*box-shadow: inset 0px -40px 60px 0px #0f1917; /*  /*aca*/
+	border-bottom: solid 1px #003B47;
+}
+
+#logo2 {
+	position: absolute;
+	/*bottom: 0;*/
+	left: 27px;
+	height: 78px;
+	/*line-height: 138px;*/
+	margin: 1px;
+	width: 296px;
+	top: 14px;
+}
+
+#logo2 a {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+#logo2 h1 {
+	font-size: 2.25em;
+	/*font-family: Arvo, serif;*/
+	
+}
+#titul{
+	border: 0;
+	color: #fff;
+	background: #117848;
+	padding: 4px;
+}
+
+#login{
+	margin:auto;
+	width: 190;
+	text-align: center;
+	margin: 10 px;
+}
+
+#login input.button {	
+	border: 0;
+	color: #fff;
+	background: #117848;
+	padding: 4px;
+	text-transform: lowercase;
+	font-family: Bitter, serif;
+	margin: 10px;
+}
+
+#login input.text {
+	border: solid 1px #5d7872;
+	padding: 4px;
+}
+#logologin {
+	text-align:center;
+	height: 100px;
+	line-height: 120px;
+	width: 100 px;
+	
+}
+
+#logologin a {
+	text-decoration: none;
+	color: #fff;
+}
+
+#logologin h1 {
+	font-size: 2.75em;
+	font-family: Bitter, serif;
+}
+#logo {
+	float: left;
+	height: 100px;
+	line-height: 120px;
+	width: 100 px;
+	
+}
+
+#logo a {
+	text-decoration: none;
+	color: #fff;
+}
+
+#logo h1 {
+	font-size: 2.75em;
+	font-family: Bitter, serif;
+}
+
+#main {
+	font-family:Helvetica,Futura,Arial,Verdana,sans-serif;
+	text-align: center;
+	position: relative;
+	padding: 24px;
+	width: 1130px;
+	color: #5e5e5e;
+}
+
+
+#nav {
+	position:  absolute;
+	bottom: 0;
+	left: 0;
+	height: 30px;
+	//line-height: 57px;
+	padding: 0 24px 0 24px;
+	 width: 1130px;
+	margin: 0 0 0 0;
+	background: #117848;
+		box-shadow: inset 0px -10px 40px 0px #0f1917;  /*aca*/
+       
+           
+}
+
+#nav a {
+	text-decoration: none;
+	text-transform: lowercase;
+	color: #fff;     
+}
+
+#nav a:hover {
+	text-decoration: underline;
+}
+
+#nav li {
+	margin: 0 1em 0 0;
+	padding: 0 1em 0 1em;
+}
+
+#nav ul {
+	list-style: none;
+}
+
+#nav ul li {
+	float: left;
+}
+
+
+
+/**/
+
+.square {
+    display: table;
+    width: 200px;
+    height: 200px;
+    background: gainsboro;
+    text-align: center;
+  margin     : 0 auto;
+}
+#nav2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 28px 0 28px;
+	width: 1124px;
+	height: 48px;
+	line-height: 48px;
+	margin: 0 0 28px 0;
+	background: #007289;
+	font-size: 0.9em;
+	border-bottom: solid 1px #009FBF;
+	border-top: solid 1px #1098B3;
+	box-shadow: inset 0px -10px 40px 0px #000000; 
+}
+
+#nav2 a {
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+#nav2 ul {
+	list-style: none;
+}
+
+#nav2 ul li {
+	display: inline;
+	padding: 0 12px 0 12px;
+}
+
+#nav2 ul li.first {
+	padding-left: 0;
+}
+/**/
+
+#opciones a{
+	color: #34564f;
+}
+
+#outer {
+	position: relative;
+	width: 980px;
+	margin: 0 auto 0 auto;
+	background: #fff;
+}
+
+#outer2 {
+	position: relative;
+	z-index: 3;
+	width: 900px;
+	margin: 60px auto 0 auto;
+	background: #ffffff;
+	box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.2);
+}
+
+
+
+caption {
+  text-align: center;
+  font: bold 16px arial, helvetica, sans-serif;
+  background: transparent;
+  padding:6px 4px 8px 0px;
+  color: #CC00FF;
+  text-transform: uppercase;
+}
+thead, tfoot {
+background:url(images/bg1.png) repeat-x;
+text-align:left;
+height:30px;
+}
+thead th, tfoot th {
+padding:5px;
+}
+table a {
+color: #333333;
+text-decoration:none;
+}
+table a:hover {
+text-decoration:underline;
+}
+tr.odd {
+background: #f1f1f1;
+}
+tbody th, tbody td {
+padding:10px;
+padding-right: 25px; 
+
+}
+
+
+
+  #help{
+        float:right !important ;
+  margin-right: 47px !important ;
+  margin-bottom: 50px;
+  }
+    #helpLogin{
+        float:right !important ;
+  margin-right: 10px !important ;
+  margin-bottom: 50px;
+  }
+
+#contAyuda{
+	 align:right ;
+	  text-align:left ;
+	   margin-left:45px; 	
+	   margin-right:45px;
+	   margin-top:10px;
+	   margin-bottom:30px;}
