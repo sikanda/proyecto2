@@ -38,12 +38,22 @@ $(function() {
                   url: 'popupBorrar.jsp',
                   type: 'GET',
                   data:  {ident : pr.text(), objeto:typ},
-                  success: function() {
-                     location.reload();  
-                  },
-                  error: function(e) {
-                   apprise ('Ha ocurrido un error');
-                  }
+//                  success: function() {
+//                     location.reload();  
+//                  },
+                statusCode: {
+                    200: function() {
+                      location.reload();  // apprise ('La unidad de medida ha sido dado de baja exitosamente');
+                     },
+                    400:function(){
+                      apprise ('No se ha podido dar de baja la unidad de medida. Verifique que no existan materiales o mano de obra asociados a ella.');
+                     },
+                   500:function(){
+                       apprise ('Ha ocurrido un error en el servidor');
+                     }}   
+//                  error: function(e) {
+//                   apprise ('Ha ocurrido un error');
+//                  }
                 }); //ajax 
                 }//if r   
          }); //apprise

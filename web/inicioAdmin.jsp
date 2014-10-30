@@ -51,21 +51,28 @@
                                     <br class="clear" />
                             </div>
                         </div>
-                        <div id="main">
-                            <h3>Menú de Administrador</h3>
-                                        
-                            <fieldset id="optionMenu">
-                            <legend><strong>Seleccione una opción </strong></legend>
-                            <ul class="niceMenu"  >
-                            <li><a href="listaManoDeObra.jsp"><img src="images/pin.png" />Mano de Obra</a></li>                                         
+                      <div id="main22" >
+                            <h2 style="color: white; font-family: Calibri ,Tahoma, Geneva ">Menú de Administrador</h2>
+               
+                                         
+                        <!--    <fieldset id="optionMenu"> 
+                            <legend><strong>Seleccione una opción </strong></legend> -->
+                        
+                    <!---    <li><a href="listaManoDeObra.jsp"><img src="images/pin.png" />Mano de Obra</a></li>                                         
                             <li><a href="editarRubro.jsp"><img  src="images/pin.png" />Rubros/Subrubros</a></li>
                             <li><a href="listaUsuarios.jsp"><img  src="images/pin.png" />Usuarios</a></li>
                             <li><a href="listaEmpleados.jsp"><img  src="images/pin.png" />Empleados</a></li>
                             <li><a href="listaMateriales.jsp"><img  src="images/pin.png" />Materiales</a></li>
-                            <li><a href="listaUnidadesMedida.jsp"><img  src="images/pin.png" />Unidades de Medida</a></li>
-                            </ul>
-                        </fieldset>
-                         </div>
+                            <li><a href="listaUnidadesMedida.jsp"><img  src="images/pin.png" />Unidades de Medida</a></li> -->
+<div id="mifeomenu" >                                         
+<a href="listaManoDeObra.jsp" ><input type="image"  src="images/MOSB.png" onMouseOver="this.src='images/MOH.png'" onMouseOut="this.src='images/MOSB.png'">    </a>
+<a href="editarRubro.jsp"  ><input type="image"  src="images/RUBSB.png" onMouseOver="this.src='images/RUBH.png'" onMouseOut="this.src='images/RUBSB.png'"></a></br>
+<a href="listaUsuarios.jsp"  ><input type="image"  src="images/USSB.png" onMouseOver="this.src='images/USH.png'" onMouseOut="this.src='images/USSB.png'"></a>
+<a href="listaEmpleados.jsp" ><input type="image"  src="images/EMPSB.png" onMouseOver="this.src='images/EMPH.png'" onMouseOut="this.src='images/EMPSB.png'"></a>  </br>
+<a href="listaMateriales.jsp"  ><input type="image"  src="images/MASB.png" onMouseOver="this.src='images/MAH.png'" onMouseOut="this.src='images/MASB.png'"></a> 
+<a href="listaUnidadesMedida.jsp"  ><input type="image"  src="images/UMSB.png" onMouseOver="this.src='images/UMH.png'" onMouseOut="this.src='images/UMSB.png'"></a>
+</div>             <!--   </fieldset>  -->
+              </div>
                 </div>
                 <%@ include file="WEB-INF/jspf/firma.jspf" %>
         

@@ -54,7 +54,7 @@
                             </div>
                                 
                         </div>
-                                <div id="main">
+<!--                                <div id="main">
                                     <fieldset id="optionMenu">  
                                     <legend><strong>Seleccione una opción  </strong></legend>
                                     <br/> 
@@ -68,7 +68,16 @@
                                     </ul>
                                     </fieldset>
                                     </div>       
-                               
+  -->    
+                        <div id="main22" >
+                            <h2 style="color: white; font-family: Calibri ,Tahoma, Geneva ">Menú de Usuario</h2>
+               
+<div id="mifeomenu" >                                         
+<a href="listaRubros.jsp" ><input type="image"  src="images/GPSB.png" onMouseOver="this.src='images/GPH.png'" onMouseOut="this.src='images/GPSB.png'">    </a></br>
+<a href="listaProveedores.jsp"  ><input type="image"  src="images/PRSB.png" onMouseOver="this.src='images/PRH.png'" onMouseOut="this.src='images/PRSB.png'"></a></br>
+<a href="listaHerramientas.jsp"  ><input type="image"  src="images/HESB.png" onMouseOver="this.src='images/HEH.png'" onMouseOut="this.src='images/HESB.png'"></a>
+</div>             <!--   </fieldset>  -->
+              </div>
                                 
                 </div>
                             <%@ include file="WEB-INF/jspf/firma.jspf" %>

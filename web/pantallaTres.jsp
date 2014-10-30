@@ -101,15 +101,27 @@ switch($(this).text().length) {
   break;
 } 
 });
+/*considero q este metodo esta de mas ya q nunca hay una notleaf, al trabajar con los rubrosLeaf de sesion*/
+/*  
 //blanqueo las cants q no tienen um (not a leaf node)
    $("#myTable td.unit").each(function() {
     if ($(this).text().length === 0)
-       {
          $(this).prev().html("");
-         $(this).parent().css("background-color","gainsboro");
+         $(this).parent().css("background-color","yellow");
          $(this).parent().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
        }
 }); 
+*/
+/*estilo para los rubros */
+   $("#myTable td.unit").each(function() {
+    if ($(this).text().length !== 0) {
+         $(this).parent().css("background-color","gainsboro");
+         $(this).parent().css({'font-weight': 'bold', 'font-family': 'Arial'});
+       }
+}); 
+$("td:contains('total')").parent().css({'font-weight': 'bold', 'font-family': 'Arial'});
+$("td:contains('Total')").parent().css({'font-weight': 'bold', 'font-family': 'Arial'});
+
   var stot = 0;
    $("#myTable td:nth-child(7)").each(function() {
         $this = $(this);
@@ -197,7 +209,8 @@ function formatCurrency(total) {
                           <div id="formu">
                               <form name="frmPresupuesto" action="pantallaCuatro.jsp" method="POST">
                                   
-                      <div   style="  margin-left: 230px; margin-bottom: 20px; text-align: left; margin-right: 230px; margin-top:-10px; "> 
+                          <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left; margin-right: 160px; margin-top:-10px; ">              
+                 <!--     <div   style="  margin-left: 230px; margin-bottom: 20px; text-align: left; margin-right: 230px; margin-top:-10px; "> -->
                             <label for="nomCli" >   Nombre Cliente:  </label>
                              <input type="text"  id="nomCli" name="nomCli" style="width:500px; float:right;"  /><br/>
                              
@@ -211,10 +224,10 @@ function formatCurrency(total) {
                                   <tbody>
                                       <tr>
                                           <th style="width: 300px;">Descripcion</th>
-                                          <th>Cantidad</th>
+                                          <th style="text-align: center">Cantidad</th>
                                           <th>Unidad</th>
                                           <th>Precio</th>
-                                          <th>Total</th>
+                                          <th style="text-align: center">Total</th>
                                       </tr>
                                   <c:forEach items="${sessionScope.rubrosAll}" var="rub" >
                                   <myTags1:displayRubrosPres rub="${rub}"/> 
@@ -243,7 +256,8 @@ function formatCurrency(total) {
                                   </tbody>
                               </table>
                          </div> 
-                               <div   style="  margin-left: 200px; margin-bottom: 20px; text-align: left ">   
+                        <!--       <div   style="  margin-left: 200px; margin-bottom: 20px; text-align: left ">   -->
+                                   <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">   
                                  </br>
                                <label for="obs" >Observaciones: </label>    
                                   <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:530px; height:50px;"></textarea>

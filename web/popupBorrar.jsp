@@ -11,7 +11,7 @@
 
 
 <%
-           String ident = request.getParameter("ident");
+           String ident = new String(request.getParameter("ident").getBytes("iso-8859-1"), "UTF-8");// request.getParameter("ident");
            String objeto = request.getParameter("objeto");
            TipoABM typ = TipoABM.valueOf(objeto);
            
@@ -19,7 +19,7 @@
            try {
                if (ident != null || objeto != null) {
 
-                   switch (typ) {
+                 switch (typ) {
                        case Herr:
                            rta = herramientaDB.delete(ident);
                            break;
@@ -46,10 +46,18 @@
                           break;
                    }
                    if (rta) {
-                       out.print("ok");
+                     // out.print( "ok");
+                      response.setStatus(200);
+                      System.out.println("200");
+                   }
+                   else
+                   {
+                       response.setStatus(400);
+                       System.out.println("400");
                    }
                }
            } catch (Exception e) { //out.print( "fail");
+                 //Response.status(400);
            }
         
  %>   

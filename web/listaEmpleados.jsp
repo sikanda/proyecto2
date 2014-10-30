@@ -42,7 +42,7 @@ $(function() {
                      location.reload();  
                   },
                   error: function(e) {
-                   apprise ('Ha ocurrido un error');
+                  apprise ('Ha ocurrido un error');
                   }
                 }); //ajax 
                 }//if r   

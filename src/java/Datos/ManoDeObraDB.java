@@ -40,7 +40,9 @@ public ManoDeObraDB() throws Exception{}
   
    public boolean delete(String idM){
         boolean rta = false;
+         if (validarCantMo(idM)==0){
 		rta = EjecutarNonQuery("delete from manodeobra WHERE idManoDeObra = '" + idM+"'");
+         }
 	if(rta){
             rta = commit();
         }
@@ -124,5 +126,10 @@ public ManoDeObraDB() throws Exception{}
         return retorno;
 
     }
-      
+    public int validarCantMo(String idMo){
+    
+    int rta = EjecutarQueryInt("Select count(*) from manodeobrarubro where idManoDeObra = '" + idMo+"'" );
+   
+    return (rta);
+       } 
 }

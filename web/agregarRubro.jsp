@@ -402,8 +402,8 @@ $(".btnDelete").bind("click", Delete);
                           <div id="formu">
                               <form name="frmAddRubro" id="frmAddRubro" method="POST" action="agregarRubro2.jsp" >
                        
-                       <div style=" padding-left:180px;  padding-right:180px; margin-left: 100px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">
-                           
+                     <!--  <div style=" padding-left:180px;  padding-right:180px; margin-left: 100px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">-->
+                     <div style="   padding-right:130px; margin-left: 130px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">    
                               <label for="idRubro" >Id. Rubro  </label>
                               <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.nuevoRubro.idRubro}"  /><br/>  
                            
@@ -424,7 +424,7 @@ $(".btnDelete").bind("click", Delete);
                           
                        </div>   
                         <div id="divContenedorMa" > 
-                            <p style="  margin-left: 180px; margin-bottom: 1px;  text-align: left ">Materiales</p>
+                            <p style="  margin-left: 100px; margin-bottom: 1px;  text-align: left ">Materiales</p> <!--era 180, both-->
                          
                             <table id="tablaMateriales" class="tabla">
                                 <tbody>
@@ -444,7 +444,7 @@ $(".btnDelete").bind("click", Delete);
                           </br> 
                           <div id="divContenedorMo"  >  
            
-                                      <p style="  margin-left: 180px; margin-bottom: 1px; text-align: left ">Mano de Obra</p>
+                                      <p style="  margin-left: 100px; margin-bottom: 1px; text-align: left ">Mano de Obra</p>
                                       <table id="tablaManoDeObra" class="tabla">
                                           <tbody>
                                               <tr>

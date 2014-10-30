@@ -60,10 +60,10 @@ function apprise(string, args, callback)
 			$('.aButtons').append('<button value="cancel">No</button>');
 			}
 		else
-			{ $('.aButtons').append('<button value="ok">Ok</button>'); }
+			{ $('.aButtons').append('<button value="ok">Aceptar</button>'); }
 		}
     else
-    	{ $('.aButtons').append('<button value="ok">Ok</button>'); }
+    	{ $('.aButtons').append('<button value="ok">Aceptar</button>'); }
 	
 	$(document).keypress(function(e) 
 		{

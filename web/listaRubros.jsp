@@ -212,8 +212,8 @@ $('#helpGen').click(function (event) {
 	  height: 600,
 	center: 'parent'
   });
-}); 
-}); 		
+});  
+}); 	
 //bind to events triggered on the tree
 $('#jstree').on("changed.jstree", function (e, data) {
   console.log(data.selected);

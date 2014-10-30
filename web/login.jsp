@@ -14,35 +14,32 @@ if (request.getParameter("ref") != null) {
         usuario = request.getParameter("txtusuario").toString();
         clave = request.getParameter("txtclave").toString();
 
-        if (!usuario.isEmpty() || !clave.isEmpty())
-        {
-            if(globconfig.adminLogin(usuario, clave))
-            {
-                session.setAttribute("admin", 1);
-                response.sendRedirect("inicioAdmin.jsp");
-            }
- //         aca va si el user no es admin
-            else
-            {
-                Usuario usu = usuarioDB.loginUsuario(usuario,clave);
-                if (usu != null)
-                {
-                    session.setMaxInactiveInterval(-1);
-                    session.setAttribute("usuario", usu);
-                    session.setAttribute("admin", 0);
-                    response.sendRedirect("inicioUsuario.jsp");
-                }
-
-                else
-                {
+        if (!usuario.isEmpty() || !clave.isEmpty()) {
+//            if(globconfig.adminLogin(usuario, clave))
+//            {
+//                session.setAttribute("admin", 1);
+//                response.sendRedirect("inicioAdmin.jsp");
+//            }
+// //         aca va si el user no es admin
+//            else
+//            {
+                Usuario usu = usuarioDB.loginUsuario(usuario, clave);
+                if (usu != null) {
+                    if (usu.getNombreUsuario().equals("admin")) {
+                        session.setAttribute("admin", 1);
+                        response.sendRedirect("inicioAdmin.jsp");
+                    } else {
+                        session.setMaxInactiveInterval(-1);
+                        session.setAttribute("usuario", usu);
+                        session.setAttribute("admin", 0);
+                        response.sendRedirect("inicioUsuario.jsp");
+                    }
+                } else {
                     mensaje = "Por favor, verifique el usuario y clave ingresados.";
                 }
+            } else {
+                mensaje = "El nombre de usuario y/o la contraseña no pueden estar vacíos.";
             }
-      }
-        else
-        {
-            mensaje = "El nombre de usuario y/o la contraseña no pueden estar vacíos.";
-        }
     }
     else if (request.getParameter("ref").contentEquals("logout"))
     {
@@ -93,15 +90,14 @@ if (request.getParameter("ref") != null) {
                 <div class="captions">
                     <h2> Sistema de presupuestos de obras civiles</h2>
                 </div>
-                <img src="images/banner.jpg" alt="" />
+                <img src="images/bannerSmall.jpg" alt="" />
             </div>
-
-            <h2 style="text-align: center ; margin-top: 10px;">Ingresar al Sistema</h2>
+<div id="frontPage">
+            <h2>Ingresar al Sistema</h2>
             <% if (!mensaje.isEmpty()) {%>
-            <h3 style="text-align: center ; margin-top: 10px;"><%= mensaje%></h3>
+            <h3  ><%= mensaje%></h3>
             <% }%>
             <form id="login" name="frmlogin" action="<%= response.encodeURL("login.jsp?ref=login")%>" method="POST">
-                <div  >
 
                     <span id="label">Nombre de usuario:</span>
                     <br />
@@ -112,10 +108,10 @@ if (request.getParameter("ref") != null) {
                     <label for="txtclave"><input type="password" id="txtclave" name="txtclave" value ="1234" /></label>
                     <br />
                     <input class="button" type="submit" value="Ingresar" />
-                </div>
+            
             </form>
         </div>
-
+</div>
         <%@ include file="WEB-INF/jspf/firma.jspf" %>
 
     </body>

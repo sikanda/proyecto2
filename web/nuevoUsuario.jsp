@@ -74,7 +74,9 @@
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 	<script>
 	$(function() { 
- 
+ if($('#txtNomUs').val() ==="admin"){
+     $('#txtNomUs').attr("disabled", 'disabled');
+ }
    $('#help').click(function (event) {
    $.popupWindow('helpPages/listaUsuarios_h.html', {
 	 width: 900,

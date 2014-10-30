@@ -41,7 +41,9 @@ public MaterialDB() throws Exception{}
   
    public boolean delete(String idM){
         boolean rta = false;
+         if (validarCantMat(idM)==0){
 		rta = EjecutarNonQuery("delete from materiales WHERE idMaterial = '" + idM + "'");
+         }
 	if(rta){
             rta = commit();
         }
@@ -125,4 +127,11 @@ public MaterialDB() throws Exception{}
         return retorno;
 
     }
+        
+    public int validarCantMat(String idMat){
+    
+    int rta = EjecutarQueryInt("Select count(*) from materialesrubro where idMaterial = '" + idMat+"'" );
+   
+    return (rta);
+       } 
 }

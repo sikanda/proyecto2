@@ -83,7 +83,12 @@
         <script>
             $(function() { 
                // alert($("#unidadMedida").val() );
+            if ($("#unidadMedida").val().length !== 0){ 
              $("#txtDescUm").val($("#unidadMedida").val() );
+            }
+            else{
+             $("#txtDescUm").val($("#txtDescUm option:first").val());
+            }
              $("#txtDescUm option[value='RG']").remove();
 
    $('#help').click(function (event) {

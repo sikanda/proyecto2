@@ -16,8 +16,8 @@
 
        if (request.getParameter("id") != null  && request.getParameter("accion")== null  ){
             try{
-                UnidadMedida herr = unidadMedidaDB.getUnidadMedida(request.getParameter("id"));
-                id=request.getParameter("id");
+                UnidadMedida herr = unidadMedidaDB.getUnidadMedida(new String(request.getParameter("id").getBytes("iso-8859-1"), "UTF-8"));
+                id=new String(request.getParameter("id").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("id");
                 descU = herr.getDescUnidadMedida();
            }
             catch(Exception e)
@@ -36,7 +36,7 @@
                             UnidadMedida um = null;
                             if(request.getParameter("accion").contentEquals("update")){
                                 um = new UnidadMedida();
-                                um.setIdUnidadMedida(request.getParameter("id"));
+                                um.setIdUnidadMedida(id);
                                 um.setDescUnidadMedida(descU);
                                 rta = um.update();
                             }
@@ -87,6 +87,9 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+if($('#txtId').val().length !== 0){
+       $('#txtId').attr("disabled", 'disabled');
+}
 });
 </script>
     </head>

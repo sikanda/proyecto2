@@ -38,12 +38,22 @@ $(function() {
                   url: 'popupBorrar.jsp',
                   type: 'GET',
                   data:  {ident : pr.text(), objeto:typ},
-                  success: function() {
-                     location.reload();  
-                  },
-                  error: function(e) {
-                   apprise ('Ha ocurrido un error');
-                  }
+//                  success: function() {
+//                     location.reload();  
+//                  },
+               statusCode: {
+                    200: function() {
+                     location.reload();  // apprise ('El material ha sido dado de baja exitosamente');
+                     },
+                    400:function(){
+                      apprise ('No se ha podido dar de baja el material. Verifique que el mismo no esté asignado a un rubro.');
+                     },
+                   500:function(){
+                       apprise ('Ha ocurrido un error en el servidor');
+                     }} 
+//                  error: function(e) {
+//                   apprise ('Ha ocurrido un error');
+//                  }
                 }); //ajax 
                 }//if r   
          }); //apprise

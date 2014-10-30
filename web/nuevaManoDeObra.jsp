@@ -82,9 +82,13 @@
          <script type="text/javascript" src="js/jquery.popupwindow.js"></script>       
         <script>
             $(function() { 
-               // alert($("#unidadMedida").val() );
+      if ($("#unidadMedida").val().length !== 0){ 
              $("#txtDescUm").val($("#unidadMedida").val() );
-              $("#txtDescUm option[value='RG']").remove();
+         }
+         else{
+          $("#txtDescUm").val($("#txtDescUm option:first").val());
+         }
+           $("#txtDescUm option[value='RG']").remove();
               
            $('#help').click(function (event) {
            $.popupWindow('helpPages/listaManoDeObra_h.html', {

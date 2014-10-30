@@ -53,8 +53,10 @@ public UnidadMedidaDB() throws Exception{}
   
    public boolean delete(String idUm){
         boolean rta = false;
+        if (validarCantUM(idUm)==0){
 		rta = EjecutarNonQuery("delete from unidadesmedida WHERE idUnidadMedida = '" + idUm + "'");
-	if(rta){
+        }
+        if(rta){
             rta = commit();
         }
         if(!rta){
@@ -81,6 +83,16 @@ public UnidadMedidaDB() throws Exception{}
     }
          
                
+    public int validarCantUM(String idUM){
+   // int rta = EjecutarQueryInt("SELECT Count(*) FROM unidadesmedida u LEFT join rubros r on u.idUnidadMedida = r.idUnidadMedida  LEFT join  materiales ma on u.idUnidadMedida = ma.idUnidadMedida LEFT join manodeobra mo on u.idUnidadMedida = mo.idUnidadMedida  where u.idunidadmedida = '" + idUM+"'" );
+    //closeCon();
+    
+    int rta1 = EjecutarQueryInt("Select count(*) from rubros where idUnidadMedida = '" + idUM+"'" );
+    int rta2 = EjecutarQueryInt("Select count(*) from manodeobra where idUnidadMedida = '" + idUM+"'" );
+    int rta3 = EjecutarQueryInt("Select count(*) from materiales where idUnidadMedida = '" + idUM+"'" );
    
+    int rta = rta1+rta2+rta3;
+    return (rta);
+       } 
       
 }

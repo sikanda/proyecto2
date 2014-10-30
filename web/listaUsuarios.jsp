@@ -26,6 +26,9 @@
 $(function() {
    var typ = "User";
    $('td:nth-child(5)').hide(); //oculto id 
+   // $("td:contains('admin')").next().next().next().hide();
+     $("td:contains('admin')").next().next().next().find('img').remove();
+    
      $(".btnDelete").bind("click", function(e){
              var par = $(this).parent(); //td
              var pr= par.next();  //idUs q se borra
