@@ -74,6 +74,7 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
                        <script src="dist/libs/jquery.js" ></script>	
+			 <script src="js/jquery.validate.js"></script>
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 	<script>
 	$(function() { 
@@ -92,6 +93,36 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+        var validator = $("#frmProveedor").validate({
+       rules: {
+			   txtrazonsocial: "required",
+			   txtdireccion: "required",
+			   txtmail: {
+					email: true
+				},
+			   txttelefono:  {
+					required: true,
+					digits: true,
+					maxlength: 10
+				}
+      },
+       messages: {
+			   txtrazonsocial: "Campo requerido",
+			   txtdireccion: "Campo requerido",
+			   txtmail: {
+					email: "E-mail inválido"
+				},
+			   txttelefono:  {
+					required: "Campo requerido",
+					digits: "Teléfono inválido",
+					maxlength: "Máximo 10 números"
+				}
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
 });
 </script>
     </head>
@@ -129,25 +160,37 @@ $('#helpGen').click(function (event) {
         }
         %> 
         <div id="formu">
-        <form name="frmproveedor" class="formAbm" action="<%= response.encodeURL("nuevoProveedor.jsp?accion=" + param)%>" method="POST">   
-               <fieldset>
+        <form id="frmProveedor" name="frmProveedor" class="formAbm" action="<%= response.encodeURL("nuevoProveedor.jsp?accion=" + param)%>" method="POST">   
+               <fieldset style="height: 200px;">
                     <legend><strong>Datos del proveedor:</strong></legend>       
-                    <div>
-                    <label for="txtrazonsocial"> Razón Social:</label>
-                    <input type="text" id="txtrazonsocial" name="txtrazonsocial" value="<%= razonSocial %>"/>
-                    <br />
-                      <label for="txtdireccion">  Dirección</label>
-                 <input type="text" id="txtdireccion" name="txtdireccion" value="<%= direccion %>"/>
-                    <br />
-                     <label for="txtmail"> Email:</label>
-                   <input type="text" id="txtmail" name="txtmail" value="<%= mail %>"/>
-                    <br />
-                     <label for="txttelefono"> Teléfono:</label>
-                   <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/>
-                     <br />
-                    <input type="submit" value="Guardar" />
-                    </div>
-               </fieldset>
+            <table class="tablaFormatoABM">
+                    <tr>
+                        <td>    <label for="txtrazonsocial"> Razón Social:</label></td>
+                  <td>   <input type="text" id="txtrazonsocial" name="txtrazonsocial" value="<%= razonSocial %>"/></td>
+				     <td>*</td>
+				 </tr>
+          <tr>
+                  <td>    <label for="txtdireccion">  Dirección:</label></td>
+                <td>   <input type="text" id="txtdireccion" name="txtdireccion" value="<%= direccion %>"/></td>
+				     <td>*</td>
+				 </tr>
+             <tr>
+               <td><label for="txtmail"> Email:</label> </td>
+           <td>  <input type="text" id="txtmail" name="txtmail" value="<%= mail %>"/></td>
+                   <td></td>
+			  </tr>
+			   <tr>
+               <td> <label for="txttelefono"> Teléfono:</label></td>
+                   <td>  <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/></td>
+				        <td>*</td>
+                    </tr>
+                  <tr> 
+                        <td colspan="2" style="text-align:center;">    
+                    <input type="submit" value="Guardar"  /></td>
+                    </tr>
+                </table> 
+              <div style="font-size: 10px; float: right">   (*) Campo requerido </div> 
+            </fieldset>
         </form>
         </div>
          </div>

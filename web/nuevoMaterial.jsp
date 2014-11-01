@@ -16,7 +16,7 @@
 <%
 	String desc = "";
         String descUm = "";
-        float precio = 0;
+        String precio = "";
         String titulo2 = "";
         List<UnidadMedida> unidadesM = new ArrayList();
         unidadesM = unidadMedidaDB.getUnidadesDeMedida();   
@@ -26,7 +26,7 @@
                 Material ma = materialDB.getMaterial(request.getParameter("id"));
                 desc = ma.getDescMaterial();
                 descUm = ma.getIdUnidadMedida();
-                precio =  ma.getPrecioMa();
+                precio =  String.valueOf(ma.getPrecioMa());
            }
             catch(Exception e)
             {
@@ -38,7 +38,7 @@
         if (request.getParameter("accion") != null){
                 desc = new String(request.getParameter("txtDesc").getBytes("iso-8859-1"), "UTF-8"); // request.getParameter("txtDesc").toString();
                  descUm = request.getParameter("txtDescUm").toString();
-                  precio = Float.parseFloat(  request.getParameter("txtPrecio").toString());
+                  precio = request.getParameter("txtPrecio").toString();
              
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;
@@ -48,11 +48,11 @@
                                 ma.setIdMaterial(request.getParameter("id"));
                                 ma.setDescMaterial(desc);
                                 ma.setIdUnidadMedida(descUm);
-                                ma.setPrecioMa(precio);
+                                ma.setPrecioMa(Float.parseFloat(precio));
                                 rta = ma.update();
                             }
                             else{
-                                ma = new Material(desc,descUm,precio);
+                                ma = new Material(desc,descUm,Float.parseFloat(precio));
                                 rta = ma.save();
                             }
                             if (rta)
@@ -80,6 +80,8 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
         <script src="dist/libs/jquery.js" ></script>	
+		       <script src="js/jquery.validate.js"></script>
+         <script type="text/javascript" src="js/jquery.popupwindow.js"></script>    
         <script>
             $(function() { 
                // alert($("#unidadMedida").val() );
@@ -105,6 +107,28 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+        var validator = $("#frmMaterial").validate({
+       rules: {
+               txtDesc: "required",
+                 txtPrecio: {
+                   required: true,
+                   number: true,
+                   min: 0.01
+                 }
+       },
+       messages: {
+               txtDesc: "Campo requerido",
+       txtPrecio: {
+           required: "Campo requerido",
+           number: "Precio inválido", 
+           min: "Precio debe ser mayor a 0" 
+         }
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
               });
         </script>
     </head>
@@ -143,33 +167,41 @@ $('#helpGen').click(function (event) {
         }
         %>
         <div id="formu">
-        <form name="frmMaterial" class="formAbm" action="<%= response.encodeURL("nuevoMaterial.jsp?accion=" + param)%>" method="POST">
-            <fieldset>
-                    <legend><strong>Datos material</strong></legend>
-                    <div>
-                    <label for="txtDesc"> Descripción: </label>
-                        <input type="text" id="txtDesc" name="txtDesc" value="<%= desc %>"/></br>
-                     <!--    <label for="txtDescUm"> Unidad de medida: </label>
-                       <input type="text" id="txtDescUm" name="txtDescUm" value="<//%= descUm %>"/></br>  -->
-                        
-             <input type="hidden"  id="unidadMedida" name="unidadMedida"  value="<%= descUm %>" />
-                               <label for="txtDescUm">Unidad de Medida:</label>
-                               <select id="txtDescUm" name="txtDescUm" style="width:205px;"   >
-                        <% for (int i = 0; i < unidadesM.size(); i++) {%>
+        <form id="frmMaterial" name="frmMaterial" class="formAbm" action="<%= response.encodeURL("nuevoMaterial.jsp?accion=" + param)%>" method="POST">
+            <fieldset style="height: 180px;">
+                <legend><strong>Datos material</strong></legend>
+                <table class="tablaFormatoABM">
+                    <tr>
+                        <td> <label for="txtDesc"> Descripción: </label> </td>
+                        <td> <input type="text" id="txtDesc" name="txtDesc" value="<%= desc%>"/>  </td>
+                        <td>*</td>
+                    </tr>
+                    <!--    <label for="txtDescUm"> Unidad de medida: </label>
+                      <input type="text" id="txtDescUm" name="txtDescUm" value="<//%= descUm %>"/></br>  -->
 
-                            <option value="<%= unidadesM.get(i).getIdUnidadMedida()%>">
-                            <%= unidadesM.get(i).getDescUnidadMedida()%>
-                              </option>
-                                 <% }%> 
-                          </select>                      
-                        
-                     </br>   
-                        
-                        <label for="txtPrecio"> Precio: </label>
-                        <input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio %>"/>
-                    <br />
-                    <input type="submit" value="Guardar" />
-           </div>
+                    <input type="hidden"  id="unidadMedida" name="unidadMedida"  value="<%= descUm%>" />
+                    <tr> 
+                        <td> <label for="txtDescUm">Unidad de Medida:</label></td>
+                        <td> <select id="txtDescUm" name="txtDescUm" style="width:205px;"   >
+                                <% for (int i = 0; i < unidadesM.size(); i++) {%>
+
+                                <option value="<%= unidadesM.get(i).getIdUnidadMedida()%>">
+                                    <%= unidadesM.get(i).getDescUnidadMedida()%>
+                                </option>
+                                <% }%> 
+                            </select> </td>                    
+                         <td>*</td>
+                    </tr>
+                    <tr> <td> <label for="txtPrecio"> Precio: </label>  </td>
+                        <td><input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio%>"/></td>
+                        <td>*</td>
+                    </tr>
+                    <tr> 
+                        <td colspan="2" style="text-align:center;"><input type="submit" value="Guardar" /></td>
+                    </tr>
+                </table> 
+
+                <div style="font-size: 10px; float: right">   (*) Campo requerido </div>
             </fieldset>
         </form>
         </div>

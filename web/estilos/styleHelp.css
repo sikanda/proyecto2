@@ -119,12 +119,31 @@ ul {
 	padding-left: 25px;
         
 } 
-#barrausr a,h4{
+#barrausr h4{
 	color: #000000;
 	text-decoration: none;
 	text-align: center;
 	font-weight: bold;
 }
+#barrausr a {
+        color: #1822E0;
+	text-decoration: underline;
+        font-weight: bold;
+        text-shadow: 0 0 0;
+}
+
+#backtop {
+        text-align: center;
+}
+
+#backtop a{
+        color: #1822E0;
+	text-decoration: underline;
+        font-weight: bold;
+        text-shadow: 0 0 0;
+        text-align: center;
+}
+
 #barrausr a:hover {
 	text-decoration: underline;
 }

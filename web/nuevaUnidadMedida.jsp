@@ -69,6 +69,7 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
                <script src="dist/libs/jquery.js" ></script>	
+			      <script src="js/jquery.validate.js"></script>	
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
            	<script>
 	$(function() { 
@@ -90,6 +91,26 @@ $('#helpGen').click(function (event) {
 if($('#txtId').val().length !== 0){
        $('#txtId').attr("disabled", 'disabled');
 }
+        var validator = $("#frmUnidadMedida").validate({
+       rules: {
+              txtId: {
+			  required: true,
+			  maxlength: 5
+			},
+                 txtDesc:  "required"
+       },
+       messages: {
+			txtId: {
+			  required: "Campo requerido",
+			  maxlength: "Máximo 5 caracteres"
+			},
+				txtDesc: "Campo requerido"
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
 });
 </script>
     </head>
@@ -129,18 +150,23 @@ if($('#txtId').val().length !== 0){
         }
         %>
         <div id="formu">
-        <form name="frmUnidadMedida" class="formAbm" action="<%= response.encodeURL("nuevaUnidadMedida.jsp?accion=" + param)%>" method="POST">
-            <fieldset>
+        <form id= "frmUnidadMedida" name="frmUnidadMedida" class="formAbm" action="<%= response.encodeURL("nuevaUnidadMedida.jsp?accion=" + param)%>" method="POST">
+            <fieldset style="height: 150px;">
                     <legend><strong>Datos unidad de medida</strong></legend>
-                     <div>
-                 <label for="txtId">Código: </label>
-                        <input type="text" id="txtId" name="txtId" value="<%= id  %>"/>
-                    <br />  
-                    <label for="txtDesc"> Descripción: </label>
-                        <input type="text" id="txtDesc" name="txtDesc"   value="<%= descU %>"/>
-                    <br />
-                    <input type="submit" value="Guardar"  />
-                     </div>
+                
+                    <table class="tablaFormatoABM">
+               <tr>
+                <td>   <label for="txtId">Código: </label></td>
+                   <td>        <input type="text" id="txtId" name="txtId" value="<%= id  %>"/></td>
+                   <td>*</td>
+				   </tr>  
+                <tr>   <td>     <label for="txtDesc"> Descripción: </label></td>
+                 <td>          <input type="text" id="txtDesc" name="txtDesc"   value="<%= descU %>"/>
+               </td>
+			   <td>*</td></tr>  
+              <tr>    <td colspan="2" style="text-align:center;">      <input type="submit" value="Guardar"  /></td></tr>  
+           </table> 
+		   <div style="font-size: 10px; float: right">   (*) Campo requerido </div>	
             </fieldset>
         </form>
         </div>

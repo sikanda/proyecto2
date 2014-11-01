@@ -10,16 +10,16 @@
 <jsp:useBean id="herramientaDB" scope="page" class="Datos.HerramientaDB" />
 
 <%
-	String idHerram = "";
+	//String idHerram = "";
         String descHerram = "";
-        int cant=0;
+        String cant="";
         String titulo2 = "";
 
        if (request.getParameter("id") != null  && request.getParameter("accion")== null  ){
             try{
                 Herramienta herr = herramientaDB.getHerramienta(request.getParameter("id"));
                 descHerram = herr.getDescHerramienta();
-                cant = herr.getCant();
+                cant = String.valueOf(herr.getCant()) ;
            }
             catch(Exception e)
             {
@@ -30,7 +30,7 @@
 
         if (request.getParameter("accion") != null){
                 descHerram =  new String(request.getParameter("txtDescHerramienta").getBytes("iso-8859-1"), "UTF-8");//request.getParameter("txtDescHerramienta").toString();
-                cant = Integer.parseInt(request.getParameter("txtCant").toString()) ;
+                cant = request.getParameter("txtCant").toString() ;
                 
                 if (request.getParameter("accion").contentEquals("nuevo") || request.getParameter("accion").contentEquals("update")){
 			    boolean rta = false;
@@ -39,11 +39,11 @@
                                 herr = new Herramienta();
                                 herr.setIdHerramienta(request.getParameter("id"));
                                 herr.setDescHerramienta(descHerram);
-                                herr.setCant(cant);
+                                herr.setCant(Integer.parseInt(cant) );
                                 rta = herr.update();
                             }
                             else{
-                                herr = new Herramienta(descHerram, cant);
+                                herr = new Herramienta(descHerram, Integer.parseInt(cant));
                                 rta = herr.save();
                             }
                             if (rta)
@@ -71,6 +71,7 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
                 <script src="dist/libs/jquery.js" ></script>
+                <script src="js/jquery.validate.js"></script>
          <script type="text/javascript" src="js/jquery.popupwindow.js"></script>       
                  <script>
             $(function() { 
@@ -88,8 +89,31 @@
             center: 'parent'
           });
      });
+        var validator = $("#frmHerramienta").validate({
+                rules: {
+                        txtDescHerramienta: "required",
+                          txtCant: {
+                            required: true,
+                            number: true,
+                            min: 1
+                          }
+                },
+                messages: {
+                        txtDescHerramienta: "Campo requerido",
+                txtCant: {
+                    required: "Campo requerido",
+                    number: "Cantidad inválida", 
+                    min: "Cantidad debe ser mayor a 1" 
+                  }
+                 },
+                errorPlacement: function(error, element) {
+                error.appendTo(element.parent().next());
+			},
+                errorClass: 'errore'
+		});
               });
         </script>
+
     </head>
     <body>
          <div id="bg1">     </div>   
@@ -126,20 +150,33 @@
         }
         %>
         <div id="formu">
-        <form name="frmHerramienta" class="formAbm" action="<%= response.encodeURL("nuevaHerramienta.jsp?accion=" + param)%>" method="POST">
-            <fieldset>
-                    <legend><strong>Datos herramienta</strong></legend>
+        <form id="frmHerramienta" name="frmHerramienta" class="formAbm" action="<%= response.encodeURL("nuevaHerramienta.jsp?accion=" + param)%>" method="POST">
+            <fieldset style="height: 150px;">
+                <legend ><strong>Datos herramienta</strong></legend>
                <!--     <label for="txtidHerramienta"></label>
                         <input type="text" id="txtrazonsocial" name="txtidHerramienta" value="<//%= idHerram %>"/>
                     <br /> -->
-               <div>    
-               <label for="txtDescHerramienta"> Descripción: </label>
-                        <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" value="<%= descHerram %>"/>
-                        <br />   <label for="txtCant"> Cantidad: </label>
-                        <input type="text" id="txtCant" name="txtCant"   value="<%= cant %>"/>
-                    <br />
-                    <input type="submit" value="Guardar"  />
-               </div>
+             
+               <table class="tablaFormatoABM">
+               <tr>
+                  
+               <td> <label for="txtDescHerramienta"> Descripción: </label></td>
+               <td>          <input type="text" id="txtDescHerramienta" name="txtDescHerramienta" value="<%= descHerram %>"/></td>
+               <td>*</td>
+               </tr>
+                <tr>
+                  <td>     <label for="txtCant"> Cantidad: </label></td>
+                   <td>      <input type="text" id="txtCant" name="txtCant"   value="<%= cant %>"/></td>
+                   <td>*</td>
+                </tr>
+                <tr> 
+                    <td colspan="2" style="text-align:center;">
+                     <input type="submit" value="Guardar"  />
+                    </td>
+                </tr>
+           </table> 
+               
+                     <div style="font-size: 10px; float: right">   (*) Campo requerido </div>
             </fieldset>
         </form>
         </div>

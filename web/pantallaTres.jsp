@@ -80,7 +80,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title><%=globconfig.nombrePag() %></title>
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
-          <script src="js/jquery-1.6.4.min.js" ></script>	
+          <script src="js/jquery-1.6.4.min.js" ></script>
+              <script src="js/jquery.validate.js"></script>
               <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 
 <script>
@@ -172,6 +173,31 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+ var validator = $("#frmPresupuesto").validate({
+       rules: {
+               nomCli: "required",
+              // direCli: "required",
+                 telCli:  {
+                required: true,
+                digits: true,
+                maxlength: 10
+				}
+       },
+       messages: {
+            nomCli: "Campo requerido",
+             //  direCli: "Campo requerido",
+                 telCli:  {
+                required: "Campo requerido",
+                digits: "Teléfono inválido",
+		 maxlength: "Máximo 10 números"
+            }
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
+
 });
 
 function formatCurrency(total) {
@@ -205,12 +231,12 @@ function formatCurrency(total) {
                       </div>
                       <div id="main">
                           <h2 id="titulo">Presupuesto</h2>
-              
+                     <div style="font-size: 10px; float: right; margin-right: 70px; margin-top:-15px;">   (*) Campo requerido </div>  
                           <div id="formu">
-                              <form name="frmPresupuesto" action="pantallaCuatro.jsp" method="POST">
+                              <form id="frmPresupuesto" name="frmPresupuesto" action="pantallaCuatro.jsp" method="POST">
                                   
-                          <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left; margin-right: 160px; margin-top:-10px; ">              
-                 <!--     <div   style="  margin-left: 230px; margin-bottom: 20px; text-align: left; margin-right: 230px; margin-top:-10px; "> -->
+                  <!--          <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left; margin-right: 160px; margin-top:-10px; ">              
+                    <div   style="  margin-left: 230px; margin-bottom: 20px; text-align: left; margin-right: 230px; margin-top:-10px; "> 
                             <label for="nomCli" >   Nombre Cliente:  </label>
                              <input type="text"  id="nomCli" name="nomCli" style="width:500px; float:right;"  /><br/>
                              
@@ -218,7 +244,25 @@ function formatCurrency(total) {
                             <input type="text" id="direCli" name="direCli" style="width:500px; float:right;  "  /><br/>
                                  <label for="telCli">Teléfono:</label>
                             <input type="text" id="telCli"  name="telCli" style="width:500px; float:right;"  /><br/>
-                         </div>
+                         </div>-->
+                   <table class="tablaFormatoABM">
+                    <tr>
+                        <td>  <label for="nomCli" >   Nombre Cliente:  </label></td>
+                        <td>  <input type="text"  id="nomCli" name="nomCli" ></td>
+                          <td>*</td>
+                  </tr>
+                         <tr>
+                        <td> <label for="direCli" >Dirección: </label></td>
+                        <td> <input type="text" id="direCli" name="direCli"></td>
+                          <td></td>
+                  </tr>
+                         <tr>
+                        <td> <label for="telCli">Teléfono:</label></td>
+                        <td>   <input type="text" id="telCli"  name="telCli" ></td>
+                          <td>*</td>
+                  </tr>
+                  </table>
+                 
                             <div id="tabla">                  
                               <table id="myTable" class="tabla" >
                                   <tbody>
@@ -260,7 +304,7 @@ function formatCurrency(total) {
                                    <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">   
                                  </br>
                                <label for="obs" >Observaciones: </label>    
-                                  <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:530px; height:50px;"></textarea>
+                                  <textarea id="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:500px; height:50px;"></textarea>
                                  </br>
                                </div>  
                                   <div style="text-align: center">        

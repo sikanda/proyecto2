@@ -520,7 +520,7 @@ padding-right: 25px;
 }
 
 .formAbm input[type=text] {
-  float:   right;
+//  float:   right;
   width: 200px;
 
 }
@@ -534,7 +534,7 @@ padding-right: 25px;
 }
 .formAbm label  {
 font-size: 14px;
-  float:   left;
+//  float:   left;
   margin-right: 10px;
 }
 .formAbm div {
@@ -688,4 +688,114 @@ font-size: 14px;
     padding-top: 10px;
     font-family: Calibri ,Tahoma, Geneva;
     box-shadow: inset 0px 0px 40px 10px grey; /*left, top, blur, spread, color  inset 0px -10px 40px 0px #0f1917; */
+}
+    .errore {
+	color:red;
+        font-size: 10px;
+}
+
+#frmHerramienta table  {
+
+    margin-left: 85px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+#frmManoDeObra table  {
+
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+#frmUsuario table  {
+
+    margin-left: 85px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+#frmUnidadMedida table  {
+
+    margin-left: 85px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+#frmMaterial table  {
+
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+#frmEmpleado table  {
+
+    margin-left: 95px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+#frmProveedor table  {
+
+    margin-left: 95px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+#frmAddRubro .tablaFormatoABM {
+
+    margin-left: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top:-15px;
+    text-align: left;
+    font-size: 14px;
+
+}
+#frmEditRubro .tablaFormatoABM {
+
+    margin-left: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top:-15px;
+    text-align: left;
+    font-size: 14px;
+
+}
+#frmPresupuesto .tablaFormatoABM  {
+margin-left: 150px;
+margin-bottom: 20px; 
+text-align: left;
+//margin-right: 160px; 
+margin-top:-10px;
+
+}
+#frmPresupuesto .tablaFormatoABM input[type=text]  {
+ width:380px;
+}
+
+
+.tablaFormatoABM tr td  {
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+}
+
+.formAbm fieldset {
+    width: 550px;
+    
+}
+
+.tablaFormatoABM input[type=submit] {
+
+  margin-left: 85px;
+}
+
+  .tablaFormatoABM  label.errore {
+	color:red;
+       font-size:11px;
 }

@@ -71,6 +71,7 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
                <script src="dist/libs/jquery.js" ></script>	
+		       <script src="js/jquery.validate.js"></script>	   
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 	<script>
 	$(function() { 
@@ -91,6 +92,20 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+        var validator = $("#frmUsuario").validate({
+       rules: {
+               txtNomUs: "required",
+                 txtPass:  "required"
+       },
+       messages: {
+               txtNomUs: "Campo requerido",
+				txtPass: "Campo requerido"
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
 });
 </script>
     </head>
@@ -129,19 +144,22 @@ $('#helpGen').click(function (event) {
         }
         %>
         <div id="formu">
-        <form name="frmUsuario" class="formAbm"  action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
-            <fieldset>
+        <form id="frmUsuario" name="frmUsuario" class="formAbm"  action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
+            <fieldset style="height: 150px;">
                     <legend><strong>Datos del usuario</strong></legend>
-                    <div>
-                    <label for="txtNomUs"> Nombre:  </label>
-                        <input type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/>
-                        </br>
-                        <label for="txtPass"> Contraseña: </label>
-                        <input type="text" id="txtPass" name="txtPass"  value="<%= pass %>"/>
+          <table class="tablaFormatoABM">
+               <tr>
+                <td>  <label for="txtNomUs"> Nombre:  </label></td>
+              <td>      <input type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/></td> <td>*</td>
+               </tr>      
+            <tr>   <td>          <label for="txtPass"> Contraseña: </label></td>
+                 <td>        <input type="text" id="txtPass" name="txtPass"  value="<%= pass %>"/></td> <td>*</td>
+                 </tr>     
                       
-                          </br>
-                   <input type="submit" value="Guardar"  />
-                     </div>
+           <tr>     <td colspan="2" style="text-align:center;">    
+		   <input type="submit" value="Guardar"  /></td></tr>
+            </table>   
+ <div style="font-size: 10px; float: right">   (*) Campo requerido </div>			
             </fieldset>
         </form>
         </div>

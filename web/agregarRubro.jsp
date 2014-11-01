@@ -44,6 +44,7 @@
           <%@ include file="WEB-INF/jspf/estilo.jspf" %>
           <script src="dist/libs/jquery.js" ></script>	
           <script src="js/jquery-ui.js"></script>
+           <script src="js/jquery.validate.js"></script>
              <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
        <link rel="stylesheet" href="estilos/jquery-ui.css">
   <style>
@@ -59,35 +60,17 @@
   visibility: hidden;
 }
 
-input {
- //display: inline-block;
-  float:   right;
-      
-  //  padding-left:10px;
-}
-select  {
-// display: inline-block;
-  float:  right;
-}
-label  {
- //display: inline-block;
-font-size: 14px;
- vertical-align: middle;
-}
 select:disabled  {
 color: #666; opacity: 1;    background: #EBEBE4;
 }
   </style>
 
-  </style>
 <script>
    
 $(function() { 
 
 $('td:nth-child(6)').hide(); //oculto id en tabla ma y mo
-        
-//$("#btnAddMa").bind("click", AddMa);
-//$("#btnAddMo").bind("click", AddMo);
+
 $(".btnDelete").bind("click", Delete);
 $(".btnEdit").bind("click", Edit);
 
@@ -99,7 +82,7 @@ $('#btnAddMa').click(function() {
 dialog = $( "#dialog-form-mat" ).dialog({
 autoOpen: false,
 height: 300,
-width: 350,
+width: 400,//350,
 modal: true,
 buttons: {
 "Agregar": addMat
@@ -158,7 +141,7 @@ $.ajax({
 dialog2 = $( "#dialog-form-mo" ).dialog({
 autoOpen: false,
 height: 300,
-width: 350,
+width: 380, //350,
 modal: true,
 buttons: {
 "Agregar": addMo
@@ -281,6 +264,24 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+
+//seccion validacion
+        var validator = $("#frmAddRubro").validate({
+       rules: {
+               descRubro: "required",
+               dropUm: "required"
+               
+       },
+       messages: {
+               descRubro: "Campo requerido",
+               dropUm: "Campo requerido"
+      
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
 });
 
 function Delete(){ var par = $(this).parent().parent(); //tr
@@ -323,39 +324,48 @@ $(".btnDelete").bind("click", Delete);
     </head>
           <body>
  <!-- DIALOG MANO DE OBRA START -->
-              <div id="dialog-form-mo" name="dialog-form-mo" title="Elegir Mano de Obra"   >
+   <div id="dialog-form-mo" name="dialog-form-mo" title="Elegir Mano de Obra"   >
                   <form name="frmDialogMo" id="frmDialogMo">
-                      <div >
-                          <label for="dropMo">Mano de Obra &nbsp;&nbsp;</label>
-                          <select id="dropMo" name="dropMo" style="width:200px; "  >
-                                 <option value="">Seleccione mano de obra    </option>
-                                  <% for (int i = 0; i < manoDeObra.size(); i++) {%>
+	 <table class="tablaFormatoABM">
+                        <tr>
+                            <td>  <label for="dropMo">Mano de Obra </label></td>
+                            <td><select id="dropMo" name="dropMo" style="width:200px; "  >
+                                             <option value="">Seleccione mano de obra    </option>
+                              <% for (int i = 0; i < manoDeObra.size(); i++) {%>
 
-                                  <option value="<%= manoDeObra.get(i).getIdManoDeObra()%>">
-                                  <%= manoDeObra.get(i).getDescManoDeObra()%>
+                              <option value="<%= manoDeObra.get(i).getIdManoDeObra()%>">
+                              <%= manoDeObra.get(i).getDescManoDeObra()%>
                               </option>
-                                 <% }%> 
-                          </select>  
-                          <br> 
-                            <label for="unitMo">Unidad de Medida</label>
-                            <input type="text" id="unitMo" disabled="true">
-                                <br> 
-                            <label for="precMo">Precio </label>
-                                <input type="text" id="precMo" disabled="true"><br> 
-                            <label for="cantstdMo">Cant. Estandar </label>
-                            <input type="text" id="cantstdMo"></input>
-                          <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                      </div>
-                  </form>
-              </div>
+                             <% }%> 
+                              </select>  </td>
+                        </tr>
+                        <tr> 
+                                <td>  <label for="unitMo">Unidad de Medida &nbsp;</label> </td>
+                                <td>   <input type="text" id="unitMo" disabled="true"></td>
+                        </tr>
+                         <tr>
+                           <td><label for="precMo">Precio </label> </td>
+                                <td> <input type="text" id="precMo" disabled="true"></td>
+                        </tr>
+                         <tr>
+                                 <td>  <label for="cantstdMo">Cant. Estandar </label></td>
+                                <td> <input type="text" id="cantstdMo"></input></td>
+                        </tr>
+                        <tr> 
+                                <td colspan="2" style="text-align:center;"><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></td>
+                        </tr>
+		</table> 		  
+         </form>
+       </div>
 <!-- DIALOG MANO DE OBRA END -->
  <!-- DIALOG MATERIALES START -->
-              <div id="dialog-form-mat" name="dialog-form-mat" title="Elegir Material"   >
+            <div id="dialog-form-mat" name="dialog-form-mat" title="Elegir Material"   >
                   <form name="frmDialogMat" id="frmDialogMat">
-                      <div >
-                          <label for="dropMat">Material &nbsp;&nbsp;</label>
-                          <select id="dropMat" name="dropMat" style="width:250px; "  >
+				  
+		 <table class="tablaFormatoABM">
+                    <tr>
+                        <td><label for="dropMat">Material </label> </td>
+                        <td><select id="dropMat" name="dropMat" style="width:230px; "  >
                                  <option value="">Seleccione material    </option>
                                   <% for (int i = 0; i < materiales.size(); i++) {%>
 
@@ -363,20 +373,27 @@ $(".btnDelete").bind("click", Delete);
                                   <%= materiales.get(i).getDescMaterial()%>
                               </option>
                                  <% }%> 
-                          </select>  
-                          <br> 
-                            <label for="unit">Unidad de Medida</label>
-                            <input type="text" id="unit" disabled="true">
-                                <br> 
-                            <label for="prec">Precio </label>
-                                <input type="text" id="prec" disabled="true"><br> 
-                            <label for="cantstd">Cant. Estandar </label>
-                            <input type="text" id="cantstd"></input>
-                          <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                      </div>
-                  </form>
-              </div>
+                          </select> 
+		      </td>
+                    </tr>
+                    <tr> 
+                        <td>  <label for="unit">Unidad de Medida &nbsp;</label> </td>
+                        <td>   <input type="text" id="unit" disabled="true"></td>
+                    </tr>
+                     <tr>
+                       <td><label for="prec">Precio </label> </td>
+                        <td> <input type="text" id="prec" disabled="true"></td>
+                    </tr>
+                     <tr>
+                         <td>  <label for="cantstd">Cant. Estandar </label></td>
+                        <td> <input type="text" id="cantstd"></input></td>
+                    </tr>
+                    <tr> 
+                        <td colspan="2" style="text-align:center;"><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></td>
+                    </tr>
+                </table> 		  
+         </form>
+       </div>
 <!-- DIALOG MATERIALES END -->
 
         <div id="bg1">     </div>   
@@ -399,32 +416,37 @@ $(".btnDelete").bind("click", Delete);
                       </div>
                       <div id="main">
                           <h2 id="titulo">Agregar nuevo rubro</h2>
+                           <div style="font-size: 10px; float: right; margin-right: 70px; margin-top:-15px;">   (*) Campo requerido </div> 
                           <div id="formu">
                               <form name="frmAddRubro" id="frmAddRubro" method="POST" action="agregarRubro2.jsp" >
                        
-                     <!--  <div style=" padding-left:180px;  padding-right:180px; margin-left: 100px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">-->
-                     <div style="   padding-right:130px; margin-left: 130px; margin-bottom: 20px; margin-top: -20px; text-align: left ; margin-right: 100px;">    
-                              <label for="idRubro" >Id. Rubro  </label>
-                              <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.nuevoRubro.idRubro}"  /><br/>  
-                           
-                            <label for="descRubro" >Descripcion   </label>
-                           <input type="text"  id="descRubro" name="descRubro" style="width:400px;"   /><br/>   
-                         
-                        <input type="hidden"  id="unidadMedida" name="unidadMedida"   />
-                               <label for="dropUm">Unidad de Medida</label>
-                               <select id="dropUm" name="dropUm" style="width:405px;"   >
-                        <% for (int i = 0; i < unidadesM.size(); i++) {%>
+	  <table class="tablaFormatoABM">
+		<tr>
+			<td>   <label for="idRubro" >Id. Rubro  </label></td>
+			<td>   <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.nuevoRubro.idRubro}"  /></td>
+			  <td></td>
+	  </tr>
+			 <tr>
+			<td> <label for="descRubro" >Descripción   </label></td>
+			<td> <input type="text"  id="descRubro" name="descRubro" style="width:400px;"   /></td>
+			  <td>*</td>
+	  </tr><input type="hidden"  id="unidadMedida" name="unidadMedida"   />
+			 <tr>
+                             <td>  <label for="dropUm">Unidad de Medida &nbsp;</label></td>
+			<td>     <select id="dropUm" name="dropUm" style="width:405px;"   >
+	<% for (int i = 0; i < unidadesM.size(); i++) {%>
 
-                            <option value="<%= unidadesM.get(i).getIdUnidadMedida()%>">
-                            <%= unidadesM.get(i).getDescUnidadMedida()%>
-                              </option>
-                                 <% }%> 
-                          </select>  
+		<option value="<%= unidadesM.get(i).getIdUnidadMedida()%>">
+		<%= unidadesM.get(i).getDescUnidadMedida()%>
+		  </option>
+			 <% }%> 
+	  </select> </td>
+			  <td>*</td>
+	  </tr>
+	  </table>                    
                           
-                          
-                       </div>   
                         <div id="divContenedorMa" > 
-                            <p style="  margin-left: 100px; margin-bottom: 1px;  text-align: left ">Materiales</p> <!--era 180, both-->
+                            <p style=" margin-top: 20px; margin-left: 100px; margin-bottom: 1px;  text-align: left; font-size: 14px; ">Materiales</p> <!--era 180, both-->
                          
                             <table id="tablaMateriales" class="tabla">
                                 <tbody>
@@ -444,7 +466,7 @@ $(".btnDelete").bind("click", Delete);
                           </br> 
                           <div id="divContenedorMo"  >  
            
-                                      <p style="  margin-left: 100px; margin-bottom: 1px; text-align: left ">Mano de Obra</p>
+                                      <p style="  margin-left: 100px; margin-bottom: 1px; text-align: left ;font-size: 14px; ">Mano de Obra</p>
                                       <table id="tablaManoDeObra" class="tabla">
                                           <tbody>
                                               <tr>

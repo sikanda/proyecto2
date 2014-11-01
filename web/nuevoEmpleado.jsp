@@ -84,6 +84,7 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
                <script src="dist/libs/jquery.js" ></script>	
+			     <script src="js/jquery.validate.js"></script>
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
 	<script>
 	$(function() { 
@@ -102,6 +103,38 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+        var validator = $("#frmEmpleado").validate({
+       rules: {
+               txtnombre: "required",
+			   txtapellido: "required",
+			   txtdireccion: "required",
+			   txtmail: {
+					email: true
+				},
+			   txttelefono:  {
+					required: true,
+					digits: true,
+					maxlength: 10
+				}
+      },
+       messages: {
+               txtnombre: "Campo requerido",
+			   txtapellido: "Campo requerido",
+			   txtdireccion: "Campo requerido",
+			   txtmail: {
+					email: "E-mail inválido"
+				},
+			   txttelefono:  {
+					required: "Campo requerido",
+					digits: "Teléfono inválido",
+					maxlength: "Máximo 10 números"
+				}
+        },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+       errorClass: 'errore'
+       });
 });
 </script>
     </head>
@@ -141,30 +174,43 @@ $('#helpGen').click(function (event) {
         }
         %> 
         <div id="formu">
-        <form name="frmempleado" class="formAbm" action="<%= response.encodeURL("nuevoEmpleado.jsp?accion=" + param)%>" method="POST">   
-               <fieldset>
+        <form id="frmEmpleado" name="frmEmpleado" class="formAbm" action="<%= response.encodeURL("nuevoEmpleado.jsp?accion=" + param)%>" method="POST">   
+               <fieldset style="height: 230px;">
                     <legend><strong>Datos del empleado</strong></legend>  
-                    <div>
-                    <label for="txtnombre"> Nombre:</label>
-                    <input type="text" id="txtnombre" name="txtnombre" value="<%= nombre %>"/>
-                    <br />
-                <label for="txtapellido"> Apellido:</label>
-                    <input type="text" id="txtapellido" name="txtapellido" value="<%= apellido %>"/>
-                    <br />
-                      <label for="txtdireccion">  Dirección:</label>
-                 <input type="text" id="txtdireccion" name="txtdireccion" value="<%= direccion %>"/>
-                    <br />
-                     <label for="txtmail"> Email:</label>
-                   <input type="text" id="txtmail" name="txtmail" value="<%= mail %>"/>
-                    <br />
-                     <label for="txttelefono"> Teléfono:</label>
-                   <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/>
-                     <br />
+                 <table class="tablaFormatoABM">
+                    <tr>
+                        <td> <label for="txtnombre"> Nombre:</label></td>
+                   <td>  <input type="text" id="txtnombre" name="txtnombre" value="<%= nombre %>"/></td>
+				        <td>*</td>
+                  </tr>
+                 <tr>
+                        <td> <label for="txtapellido"> Apellido:</label></td>
+                     <td> <input type="text" id="txtapellido" name="txtapellido" value="<%= apellido %>"/></td>
+					      <td>*</td>
+                 </tr>
+				   <tr>
+                  <td>    <label for="txtdireccion">  Dirección:</label></td>
+                <td>   <input type="text" id="txtdireccion" name="txtdireccion" value="<%= direccion %>"/></td>
+				     <td>*</td>
+				 </tr>
+             <tr>
+               <td><label for="txtmail"> Email:</label> </td>
+           <td>  <input type="text" id="txtmail" name="txtmail" value="<%= mail %>"/></td>
+                   <td></td>
+			  </tr>
+			   <tr>
+               <td> <label for="txttelefono"> Teléfono:</label></td>
+                   <td>  <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/></td>
+				        <td>*</td>
+                    </tr>
        <!--               <label for="txtfechanac"> Fecha Nac.</label>
                        <input type="text" id="txtfechanac" name="txtfechanac" value="<//%= fechanac %>"/>  -->
-                     
-                    <input type="submit" value="Guardar"  />
-                    </div>
+                  <tr> 
+                        <td colspan="2" style="text-align:center;">    
+                    <input type="submit" value="Guardar"  /></td>
+                    </tr>
+                </table> 
+              <div style="font-size: 10px; float: right">   (*) Campo requerido </div> 
             </fieldset>
         </form>
         </div>
