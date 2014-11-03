@@ -51,13 +51,6 @@ h2,h3,h4 {
 p {
 	margin-bottom: 1.5em;
 }
-
-ul {
-	margin-bottom: 1.5em;
-        margin-left: 1em;
-}
-
-
 #titulo{
 	border-bottom: dotted 1px #557d80;
 }
@@ -327,16 +320,16 @@ ul {
 	text-decoration: underline;
 }
 
-#nav li {
+#nav ol ul li {
 	margin: 0 1em 0 0;
 	padding: 0 1em 0 1em;
 }
 
-#nav ul {
+#nav ul ol {
 	list-style: none;
 }
 
-#nav ul li {
+#nav ul ol li {
 	float: left;
 }
 
@@ -451,17 +444,26 @@ padding-right: 25px;
   }
     #helpLogin{
         float:right !important ;
-  margin-right: 10px !important ;
-  margin-bottom: 50px;
+        margin-right: 10px !important ;
+        margin-bottom: 50px;
   }
 
 #contAyuda{
 	 align:right ;
-	  text-align:left ;
-	   margin-left:45px; 	
-	   margin-right:45px;
-	   margin-top:10px;
-	   margin-bottom:30px;}
+	 text-align:left ;
+	 margin-left:45px; 	
+	 margin-right:45px;
+	 margin-top:10px;
+	 margin-bottom:30px;}
+
+#contAyuda ol{
+	 margin: 0 1em 0 0;
+	 padding: 0 1em 0 1em;         
+}
+
+#contAyuda a{
+	 text-decoration: underline;	       
+}
 
 .imagen{
 	   margin-left:auto; 	

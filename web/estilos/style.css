@@ -689,11 +689,12 @@ font-size: 14px;
     font-family: Calibri ,Tahoma, Geneva;
     box-shadow: inset 0px 0px 40px 10px grey; /*left, top, blur, spread, color  inset 0px -10px 40px 0px #0f1917; */
 }
+/*
     .errore {
 	color:red;
         font-size: 10px;
 }
-
+*/
 #frmHerramienta table  {
 
     margin-left: 85px;

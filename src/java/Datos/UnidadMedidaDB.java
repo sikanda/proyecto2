@@ -95,4 +95,11 @@ public UnidadMedidaDB() throws Exception{}
     return (rta);
        } 
       
+      
+    public int verificaCodUm(String cod){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM unidadesmedida where idUnidadMedida = '" + cod +"'");
+        closeCon();
+        return (rta);
+
+    }
 }

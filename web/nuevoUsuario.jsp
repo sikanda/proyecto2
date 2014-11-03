@@ -86,7 +86,7 @@
   });
 });
 $('#helpGen').click(function (event) {
-   $.popupWindow('helpPages/ayudaGeneral.html', {
+   $.popupWindow('helpPages/index.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'
@@ -94,18 +94,37 @@ $('#helpGen').click(function (event) {
 });
         var validator = $("#frmUsuario").validate({
        rules: {
-               txtNomUs: "required",
-                 txtPass:  "required"
+          txtNomUs:{ notEqual:true, 
+                     required: true, 
+                  remote: {
+                    url: "popupUsuario.jsp",
+                    type: "post",
+                    data: {
+                      nameUs: function() {
+                        return $( "#txtNomUs" ).val();
+                      }
+                    }
+                  }
+            },  
+            txtPass:  "required"
        },
        messages: {
-               txtNomUs: "Campo requerido",
-				txtPass: "Campo requerido"
+               txtNomUs: 
+                       { notEqual: "Debe ser distinto de 'admin'", 
+                        required: "Campo requerido",
+                         remote: "Ya existe, seleccione otro"},
+              txtPass: "Campo requerido"
         },
        errorPlacement: function(error, element) {
        error.appendTo(element.parent().next());
                },
        errorClass: 'errore'
        });
+ 
+     jQuery.validator.addMethod("notEqual", function(value, element) {
+    return this.optional(element) || value.toLowerCase() !== "admin";
+}, "distinto de admin");
+       
 });
 </script>
     </head>

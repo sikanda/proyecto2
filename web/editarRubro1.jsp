@@ -80,20 +80,20 @@ $('#btnAddMa').click(function() {
 dialog = $( "#dialog-form-mat" ).dialog({
 autoOpen: false,
 height: 300,
-width: 400, //350,
+width: 510, //350,
 modal: true,
 buttons: {
-"Agregar": addMat
+"Agregar": sub //addMat
 ,Cancelar: function() {
   dialog.dialog( "close" );}
 }
 }).css("font-size", "12px");
 
- form = dialog.find( "frmDialogMat" ).on( "submit", function( event ) {
-      event.preventDefault();
-      addMat();
-    });
-    
+// form = dialog.find( "frmDialogMat" ).on( "submit", function( event ) {
+//      event.preventDefault();
+//      addMat();
+//    });
+    function sub(){$('#frmDialogMat').submit();}
     function addMat() {
              $("#tablaMateriales tbody").append(
              "<tr>"+ 
@@ -139,20 +139,20 @@ $.ajax({
 dialog2 = $( "#dialog-form-mo" ).dialog({
 autoOpen: false,
 height: 300,
-width: 380, //350,
+width: 480, //350,
 modal: true,
 buttons: {
-"Agregar": addMo
+"Agregar": subMo //addMo
 ,Cancelar: function() {
   dialog2.dialog( "close" );}
 }
 }).css("font-size", "12px");
 
- form2 = dialog2.find( "frmDialogMo" ).on( "submit", function( event ) {
-      event.preventDefault();
-      addMo();
-    });
- 
+// form2 = dialog2.find( "frmDialogMo" ).on( "submit", function( event ) {
+//      event.preventDefault();
+//      addMo();
+//    });
+    function subMo(){$('#frmDialogMo').submit();}
     function addMo() {
              $("#tablaManoDeObra tbody").append(
              "<tr>"+ 
@@ -268,14 +268,14 @@ if( $("#unidadMedida").val() ==="PORC")
   });
 });
 $('#helpGen').click(function (event) {
-   $.popupWindow('helpPages/ayudaGeneral.html', {
+   $.popupWindow('helpPages/index.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'
   });
 }); 
 
-//seccion validacion
+//seccion validacion datos rubro
         var validator = $("#frmEditRubro").validate({
        rules: {
                descRubro: "required",
@@ -290,6 +290,58 @@ $('#helpGen').click(function (event) {
        errorPlacement: function(error, element) {
        error.appendTo(element.parent().next());
                },
+       errorClass: 'errore'
+       });
+       
+     //seccion validacion dialog ma
+        var validator2 = $("#frmDialogMat").validate({
+       rules: {
+               dropMat: "required",
+               cantstd: {
+                        required: true,
+                        number: true,
+                          min: 0.01
+                      }
+               },
+       messages: {
+               dropMat: "Campo requerido",
+                cantstd: {
+                        required: "Campo requerido",
+                        number: "Cantidad inválida", 
+                        min: "Debe ser mayor a 0" }
+                 },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+        submitHandler: function() {
+                        addMat();
+                 },
+       errorClass: 'errore'
+       });  
+       
+        //seccion validacion dialog mo
+        var validator3 = $("#frmDialogMo").validate({
+       rules: {
+               dropMo: "required",
+               cantstdMo: {
+                        required: true,
+                        number: true,
+                          min: 0.01
+                      }
+               },
+       messages: {
+               dropMo: "Campo requerido",
+                cantstdMo: {
+                        required: "Campo requerido",
+                        number: "Cantidad inválida", 
+                        min: "Debe ser mayor a 0" }
+                 },
+       errorPlacement: function(error, element) {
+       error.appendTo(element.parent().next());
+               },
+        submitHandler: function() {
+                        addMo();
+                 },
        errorClass: 'errore'
        });
 });
@@ -340,26 +392,28 @@ $(".btnDelete").bind("click", Delete);
                         <tr>
                             <td>  <label for="dropMo">Mano de Obra </label></td>
                             <td><select id="dropMo" name="dropMo" style="width:200px; "  >
-                                             <option value="">Seleccione mano de obra    </option>
+                              <option value="" disabled selected>Seleccione mano de obra    </option>
                               <% for (int i = 0; i < manoDeObra.size(); i++) {%>
 
                               <option value="<%= manoDeObra.get(i).getIdManoDeObra()%>">
                               <%= manoDeObra.get(i).getDescManoDeObra()%>
                               </option>
                              <% }%> 
-                              </select>  </td>
+                              </select> * </td> 
+                                <td> </td>
                         </tr>
                         <tr> 
                                 <td>  <label for="unitMo">Unidad de Medida &nbsp;</label> </td>
-                                <td>   <input type="text" id="unitMo" disabled="true"></td>
+                                <td>   <input type="text" id="unitMo" disabled="true" style="width:196px;" ></td>
                         </tr>
                          <tr>
                            <td><label for="precMo">Precio </label> </td>
-                                <td> <input type="text" id="precMo" disabled="true"></td>
+                                <td> <input type="text" id="precMo" disabled="true" style="width:196px;"></td>
                         </tr>
                          <tr>
                                  <td>  <label for="cantstdMo">Cant. Estandar </label></td>
-                                <td> <input type="text" id="cantstdMo"></input></td>
+                                <td> <input type="text" id="cantstdMo" name="cantstdMo" style="width:196px;"></input>&nbsp;*</td>
+                                  <td> </td>
                         </tr>
                         <tr> 
                                 <td colspan="2" style="text-align:center;"><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></td>
@@ -376,27 +430,29 @@ $(".btnDelete").bind("click", Delete);
                     <tr>
                         <td><label for="dropMat">Material </label> </td>
                         <td><select id="dropMat" name="dropMat" style="width:230px; "  >
-                                 <option value="">Seleccione material    </option>
+                                 <option value="" disabled selected >Seleccione material    </option>
                                   <% for (int i = 0; i < materiales.size(); i++) {%>
 
                                   <option value="<%= materiales.get(i).getIdMaterial()%>">
                                   <%= materiales.get(i).getDescMaterial()%>
                               </option>
                                  <% }%> 
-                          </select> 
+                          </select> *
 		      </td>
+                           <td> </td>
                     </tr>
                     <tr> 
                         <td>  <label for="unit">Unidad de Medida &nbsp;</label> </td>
-                        <td>   <input type="text" id="unit" disabled="true"></td>
+                        <td>   <input type="text" id="unit" disabled="true" style="width:226px;" ></td>
                     </tr>
                      <tr>
                        <td><label for="prec">Precio </label> </td>
-                        <td> <input type="text" id="prec" disabled="true"></td>
+                        <td> <input type="text" id="prec" disabled="true" style="width:226px;" ></td>
                     </tr>
                      <tr>
                          <td>  <label for="cantstd">Cant. Estandar </label></td>
-                        <td> <input type="text" id="cantstd"></input></td>
+                         <td> <input type="text" id="cantstd" name="cantstd" style="width:226px;" ></input>&nbsp;*</td>
+                         <td> </td>
                     </tr>
                     <tr> 
                         <td colspan="2" style="text-align:center;"><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></td>
@@ -433,7 +489,7 @@ $(".btnDelete").bind("click", Delete);
  <table class="tablaFormatoABM">
 		<tr>
 			<td>   <label for="idRubro" >Id. Rubro  </label></td>
-			<td>   <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.nuevoRubro.idRubro}"  /></td>
+			<td>   <input   disabled="true" type="text"  id="idRubro" name="idRubro" style="width:400px;" value="${sessionScope.rubroEdit.idRubro}"  /></td>
 			  <td></td>
 	  </tr>
 			 <tr>

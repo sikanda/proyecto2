@@ -82,7 +82,7 @@
   });
 });
 $('#helpGen').click(function (event) {
-   $.popupWindow('helpPages/ayudaGeneral.html', {
+   $.popupWindow('helpPages/index.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'
@@ -95,14 +95,24 @@ if($('#txtId').val().length !== 0){
        rules: {
               txtId: {
 			  required: true,
-			  maxlength: 5
-			},
+			  maxlength: 5,
+                    remote: {
+                        url: "popupUm.jsp",
+                        type: "post",
+                        data: {
+                          codUm: function() {
+                            return $( "#txtId" ).val();
+                          }
+                        }
+                      }
+                    },
                  txtDesc:  "required"
        },
        messages: {
 			txtId: {
 			  required: "Campo requerido",
-			  maxlength: "Máximo 5 caracteres"
+			  maxlength: "Máximo 5 caracteres",
+                          remote: "Código ya existente"
 			},
 				txtDesc: "Campo requerido"
         },

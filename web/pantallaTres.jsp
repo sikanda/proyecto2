@@ -167,7 +167,7 @@ $('td:nth-child(5)').css({
   });
 });
 $('#helpGen').click(function (event) {
-   $.popupWindow('helpPages/ayudaGeneral.html', {
+   $.popupWindow('helpPages/index.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'
