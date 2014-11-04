@@ -88,10 +88,6 @@ buttons: {
 //"Agregar": sub //addMat
 Agregar: function() {
   $('#frmDialogMat').submit();
-      $("#dropMat").val("");
-      $("#unit").val("");
-      $("#prec").val("");
-      $("#cantstd").val(""); 
   }
 ,Cancelar: function() {
       $("#dropMat").val("");
@@ -120,6 +116,11 @@ Agregar: function() {
       $('td:nth-child(6)').hide();  ////ojo con esto. aca esta el cod q tiene q estar lleno.
     $(".btnEdit").bind("click", Edit); 
     $(".btnDelete").bind("click", Delete);
+      $("#dropMat option[value='"+$("#dropMat").val()+"']").remove();
+      $("#dropMat").val("");
+      $("#unit").val("");
+      $("#prec").val("");
+      $("#cantstd").val(""); 
     dialog.dialog( "close" );
 }
       
@@ -158,10 +159,6 @@ buttons: {
 //"Agregar": subMo //addMo
 Agregar: function() {
      $('#frmDialogMo').submit();
-     $("#dropMo").val("");
-      $("#unitMo").val("");
-      $("#precMo").val("");
-      $("#cantstdMo").val(""); 
  }
 ,Cancelar: function() {
      $("#dropMo").val("");
@@ -191,6 +188,11 @@ dialog2.dialog( "close" );}
       $('td:nth-child(6)').hide();  ////ojo con esto. aca esta el cod q tiene q estar lleno.
     $(".btnEdit").bind("click", Edit); 
     $(".btnDelete").bind("click", Delete);
+    $("#dropMo option[value='"+$("#dropMo").val()+"']").remove();
+      $("#dropMo").val("");
+      $("#unitMo").val("");
+      $("#precMo").val("");
+      $("#cantstdMo").val(""); 
     dialog2.dialog( "close" );
 }
        
@@ -356,6 +358,13 @@ $('#helpGen').click(function (event) {
                  },
        errorClass: 'errore'
        });
+       
+       $("#tablaMateriales input:text").keypress(function() { 
+     $(this).parent().find('img').hide();
+    });
+      $("#tablaManoDeObra input:text").keypress(function() { 
+     $(this).parent().find('img').hide();
+    });
 });
 
 function Delete(){ var par = $(this).parent().parent(); //tr

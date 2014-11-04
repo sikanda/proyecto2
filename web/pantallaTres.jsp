@@ -207,6 +207,14 @@ function formatCurrency(total) {
         total = Math.abs(total);
     }
     return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+};
+ function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
 }
 </script>
     </head>
@@ -258,7 +266,7 @@ function formatCurrency(total) {
                   </tr>
                          <tr>
                         <td> <label for="telCli">Teléfono:</label></td>
-                        <td>   <input type="text" id="telCli"  name="telCli" ></td>
+                        <td>   <input type="text" id="telCli"  name="telCli" onkeypress="return isNumber(event)" ></td>
                           <td>*</td>
                   </tr>
                   </table>

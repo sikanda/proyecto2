@@ -86,10 +86,6 @@ buttons: {
 //"Agregar": sub //addMat
 Agregar: function() {
   $('#frmDialogMat').submit();
-      $("#dropMat").val("");
-      $("#unit").val("");
-      $("#prec").val("");
-      $("#cantstd").val(""); 
   }
 ,Cancelar: function() {
       $("#dropMat").val("");
@@ -118,6 +114,11 @@ Agregar: function() {
       $('td:nth-child(6)').hide();  ////ojo con esto. aca esta el cod q tiene q estar lleno.
     $(".btnEdit").bind("click", Edit); 
     $(".btnDelete").bind("click", Delete);
+     $("#dropMat option[value='"+$("#dropMat").val()+"']").remove();
+      $("#dropMat").val("");
+      $("#unit").val("");
+      $("#prec").val("");
+      $("#cantstd").val(""); 
     dialog.dialog( "close" );
 }
       
@@ -156,10 +157,7 @@ buttons: {
 //"Agregar": subMo //addMo
 Agregar: function() {
      $('#frmDialogMo').submit();
-     $("#dropMo").val("");
-      $("#unitMo").val("");
-      $("#precMo").val("");
-      $("#cantstdMo").val(""); 
+
  }
 ,Cancelar: function() {
      $("#dropMo").val("");
@@ -188,6 +186,11 @@ dialog2.dialog( "close" );}
       $('td:nth-child(6)').hide();  ////ojo con esto. aca esta el cod q tiene q estar lleno.
     $(".btnEdit").bind("click", Edit); 
     $(".btnDelete").bind("click", Delete);
+    $("#dropMo option[value='"+$("#dropMo").val()+"']").remove();
+      $("#dropMo").val("");
+      $("#unitMo").val("");
+      $("#precMo").val("");
+      $("#cantstdMo").val(""); 
     dialog2.dialog( "close" );
 }
        
@@ -281,6 +284,15 @@ if( $("#unidadMedida").val() ==="PORC")
    $("#divContenedorMo").hide(); 
 }
 
+//exclusivo de editar rubro. saco del combo lo q haya en la tabla
+    $("#tablaMateriales td.aidi").each(function() {
+       // alert($(this).text());
+ $("#dropMat option[value='"+$(this).text()+"']").remove();
+});
+
+   $("#tablaManoDeObra td.aidi").each(function() {
+ $("#dropMo option[value='"+$(this).text()+"']").remove();
+});
 
  $('#help').click(function (event) {
    $.popupWindow('helpPages/editarRubro1_h.html', {

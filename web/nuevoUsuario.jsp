@@ -112,7 +112,7 @@ $('#helpGen').click(function (event) {
                txtNomUs: 
                        { notEqual: "Debe ser distinto de 'admin'", 
                         required: "Campo requerido",
-                         remote: "Ya existe, seleccione otro"},
+                         remote: "Nombre de usuario no disponible"},
               txtPass: "Campo requerido"
         },
        errorPlacement: function(error, element) {

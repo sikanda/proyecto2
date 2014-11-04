@@ -136,6 +136,14 @@ $('#helpGen').click(function (event) {
        errorClass: 'errore'
        });
 });
+ function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
 </script>
     </head>
 
@@ -200,7 +208,7 @@ $('#helpGen').click(function (event) {
 			  </tr>
 			   <tr>
                <td> <label for="txttelefono"> Teléfono:</label></td>
-                   <td>  <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>"/></td>
+                   <td>  <input type="text" id="txttelefono" name="txttelefono" value="<%= telefono %>" onkeypress="return isNumber(event)"/></td>
 				        <td>*</td>
                     </tr>
        <!--               <label for="txtfechanac"> Fecha Nac.</label>
