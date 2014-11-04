@@ -64,7 +64,7 @@ $('#frmEditaCants').bind("keyup keypress", function(e) {
     if ($(this).text().length === 0)  ///unidad es nula
        {
          $(this).prev().find('input:text').remove();
-         $(this).parent().css("background-color","gainsboro");  //color rubro padre
+         $(this).parent().css("background-color","#b0d0b0");  //color rubro padre
          }
  });
  
@@ -90,8 +90,8 @@ switch($(this).text().length) {
    if (($(this).next().text().length === 0) && ($(this).prev().text().length !== 0)) //um no es nulo y 
       {  
         // $(this).next().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
-        $(this).parent().css("background-color","DarkSeaGreen");  
-         $(this).parent().css('font-weight', 'bold');
+        $(this).parent().css("background-color","gainsboro");  
+        // $(this).parent().css('font-weight', 'bold');
          $(this).prev().prev().prev().css("text-indent",+ind+5+'px');
       }
 });
@@ -141,8 +141,46 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+ $("#myTable input:text").parent().append('*').css("font-size", "11px");;
+$('#frmEditaCants').submit(function(e) {
+    $("#myTable input:text").each(function(){
+          //alert($(this).val().length);
+        if($(this).val().length === 0){
+          //  $(this).css('border', '2px solid red');
+          $(this).focus();
+        // $('#posibleError').html("Verifique el ingreso de los valores requeridos");
+        // $(this).parent().append('Requerido');
+         $(this).parent().append('<img src= "images/unchecked.gif">');
+            e.preventDefault();
+        }      
+    }); //each
+});//submit
+$("#myTable input:text").keypress(function() { 
+     $(this).parent().find('img').hide();
+    });
+    
+  $("#myTable input.edit").blur(function(e) {
+            var tieneClase = $(this).parent().next().hasClass("unit");   
+            var newText = $(this).val();
+            var rub = $(this).parent().next().next().text();
+  
+            if(tieneClase){  //se esta editando un rubro leaf
+                   $("#myTable td.hidRub").each(function() { //para los mismos mat o mo dentro del rubro q se edita
+                   if ($(this).text() === rub   )
+                    {   //this es col 4 de rubro
+                         var oldVal = $(this).next().text(); //5ta col tiene val sin modif
+                         $(this).prev().prev().find('input:text').val(oldVal * newText);
+                    }
+                });
+                }//tiene clase*/
+   } );
  });
-
+function numbersOnly(oToCheckField, oKeyEvent) {        
+  var s = String.fromCharCode(oKeyEvent.charCode);
+  var containsDecimalPoint = /\./.test(oToCheckField.value);
+  return oKeyEvent.charCode === 0 || /\d/.test(s) || 
+      /\./.test(s) && !containsDecimalPoint;
+}
 </script>
     </head>
     <body>
@@ -166,9 +204,11 @@ $('#helpGen').click(function (event) {
                       </div>
                       <div id="main">
                           <h2 id="titulo">Editar cantidades</h2>
+                            <div style="font-size: 10px; float: right; margin-right: 70px; margin-top:-15px;">   (*) Campo requerido </div> 
+                       <!--       <div style="color:red; font-size:11px; margin-right: 200px;" id="posibleError" ></div> -->
                           <div id="formu">
                               <form name="frmEditaCants" id="frmEditaCants" action="pantallaTres.jsp" method="POST" autocomplete="on">
-                                  <div id="tabla">                  
+                                  <div id="tabla">                                    
                                       <table id="myTable" class="tabla" >
                                           <tbody>
                                               <tr><th style="width: 300px;">Descripcion</th><th>Cantidad</th><th>Unidad</th></tr>

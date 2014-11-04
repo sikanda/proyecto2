@@ -110,6 +110,7 @@ $('#helpGen').click(function (event) {
         var validator = $("#frmMaterial").validate({
        rules: {
                txtDesc: "required",
+               txtDescUm: "required",
                  txtPrecio: {
                    required: true,
                    number: true,
@@ -118,6 +119,7 @@ $('#helpGen').click(function (event) {
        },
        messages: {
                txtDesc: "Campo requerido",
+               txtDescUm:"Campo requerido",
        txtPrecio: {
            required: "Campo requerido",
            number: "Precio inválido", 
@@ -130,6 +132,13 @@ $('#helpGen').click(function (event) {
        errorClass: 'errore'
        });
               });
+ function numbersOnly(oToCheckField, oKeyEvent) {        
+  var s = String.fromCharCode(oKeyEvent.charCode);
+  var containsDecimalPoint = /\./.test(oToCheckField.value);
+  return oKeyEvent.charCode === 0 || /\d/.test(s) || 
+      /\./.test(s) && !containsDecimalPoint;
+}
+
         </script>
     </head>
     <body>
@@ -183,6 +192,7 @@ $('#helpGen').click(function (event) {
                     <tr> 
                         <td> <label for="txtDescUm">Unidad de Medida:</label></td>
                         <td> <select id="txtDescUm" name="txtDescUm" style="width:205px;"   >
+                          <option value="" disabled selected>-Seleccione unidad-</option>
                                 <% for (int i = 0; i < unidadesM.size(); i++) {%>
 
                                 <option value="<%= unidadesM.get(i).getIdUnidadMedida()%>">
@@ -193,7 +203,7 @@ $('#helpGen').click(function (event) {
                          <td>*</td>
                     </tr>
                     <tr> <td> <label for="txtPrecio"> Precio: </label>  </td>
-                        <td><input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio%>"/></td>
+                        <td><input type="text" id="txtPrecio" name="txtPrecio" value="<%= precio%>" onkeypress="return numbersOnly(this, event);"/></td>
                         <td>*</td>
                     </tr>
                     <tr> 

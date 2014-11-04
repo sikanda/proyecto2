@@ -80,11 +80,22 @@ $('#btnAddMa').click(function() {
 dialog = $( "#dialog-form-mat" ).dialog({
 autoOpen: false,
 height: 300,
-width: 510, //350,
+width: 510,//350,
 modal: true,
 buttons: {
-"Agregar": sub //addMat
+//"Agregar": sub //addMat
+Agregar: function() {
+  $('#frmDialogMat').submit();
+      $("#dropMat").val("");
+      $("#unit").val("");
+      $("#prec").val("");
+      $("#cantstd").val(""); 
+  }
 ,Cancelar: function() {
+      $("#dropMat").val("");
+      $("#unit").val("");
+      $("#prec").val("");
+      $("#cantstd").val(""); 
   dialog.dialog( "close" );}
 }
 }).css("font-size", "12px");
@@ -93,7 +104,7 @@ buttons: {
 //      event.preventDefault();
 //      addMat();
 //    });
-    function sub(){$('#frmDialogMat').submit();}
+//    function sub(){$('#frmDialogMat').submit();}
     function addMat() {
              $("#tablaMateriales tbody").append(
              "<tr>"+ 
@@ -142,9 +153,20 @@ height: 300,
 width: 480, //350,
 modal: true,
 buttons: {
-"Agregar": subMo //addMo
+//"Agregar": subMo //addMo
+Agregar: function() {
+     $('#frmDialogMo').submit();
+     $("#dropMo").val("");
+      $("#unitMo").val("");
+      $("#precMo").val("");
+      $("#cantstdMo").val(""); 
+ }
 ,Cancelar: function() {
-  dialog2.dialog( "close" );}
+     $("#dropMo").val("");
+      $("#unitMo").val("");
+      $("#precMo").val("");
+      $("#cantstdMo").val("");
+dialog2.dialog( "close" );}
 }
 }).css("font-size", "12px");
 
@@ -152,7 +174,7 @@ buttons: {
 //      event.preventDefault();
 //      addMo();
 //    });
-    function subMo(){$('#frmDialogMo').submit();}
+//    function subMo(){$('#frmDialogMo').submit();}
     function addMo() {
              $("#tablaManoDeObra tbody").append(
              "<tr>"+ 
@@ -354,17 +376,25 @@ function Edit()  { var par = $(this).parent().parent(); //tr
  var tdPrecio = par.children("td:nth-child(3)"); 
  var tdCant = par.children("td:nth-child(4)"); 
  var tdButtons = par.children("td:nth-child(5)");
+ var toErase = tdCant.html();
  tdDesc.html("<input type='text' style=\"width: 280px; float:none; \" id='txtDesc' disabled=true  value='"+ $.trim(tdDesc.html())+"'/>"); 
  tdUnit.html("<input type='text' style=\"width: 60px; float:none;\" id='txtUnit' disabled=true value='"+tdUnit.html()+"'/>");
  tdPrecio.html("<input type='text' style=\"width: 60px; float:none;\" id='txtPrecio' disabled=true  value='"+tdPrecio.html()+"'/>");
- tdCant.html("<input type='text' style=\"width: 50px; float:none;\" id='txtCant' value='"+tdCant.html()+"'/>"); 
- tdButtons.html("<img src=\'images/save.png\' class=\'btnSave\'>"); 
- $(".btnSave").bind("click", Save); 
- $(".btnEdit").bind("click", Edit); 
- $(".btnDelete").bind("click", Delete); 
+ tdCant.html("<input type='text' style=\"width: 50px; float:none;\" id='txtCant' class='cantEditada' onkeypress=\"return numbersOnly(this, event);\" value='"+tdCant.html()+"'/>"); 
+ tdButtons.html("<img src=\'images/save.png\' class=\'btnSave\'>&nbsp;&nbsp;<img src=\'images/cancel.gif\' class=\'btnCancel\'/>"); 
+$(".btnSave").bind("click", Save); 
+ $(".btnEdit").unbind("click", Edit); 
+$(".btnDelete").unbind("click", Delete); 
+$(".unBoton").attr("disabled", 'disabled'); 
+       // $(".btnCancel").bind("click", Cancel); //Cancel(toErase)); 
+       $(".btnCancel").click({param1: toErase}, Cancel);
+       
  };
 function Save()  { 
  var par = $(this).parent().parent(); //tr 
+ //alert($(".cantEditada").val());
+    if($(".cantEditada").val().length !==0){ 
+
  var tdDesc = par.children("td:nth-child(1)");
  var tdUnit = par.children("td:nth-child(2)");
  var tdPrecio = par.children("td:nth-child(3)"); 
@@ -379,7 +409,38 @@ tdButtons.html("<img src=\'images/iconEdit.png\' class=\'btnEdit\'/>&nbsp;&nbsp;
 tdCod.html(tdCod.children("input[type=text]").val()); 
 $(".btnEdit").bind("click", Edit); 
 $(".btnDelete").bind("click", Delete); 
+$('.unBoton').removeAttr("disabled", 'disabled');  }
+else
+{
+   $(this).parent().prev().find('img').hide();
+   $(this).parent().prev().append('<img src= "images/unchecked.gif">');
+}
+
 }; 
+function Cancel(event)  { 
+ var par = $(this).parent().parent(); //tr 
+ var tdDesc = par.children("td:nth-child(1)");
+ var tdUnit = par.children("td:nth-child(2)");
+ var tdPrecio = par.children("td:nth-child(3)"); 
+ var tdCant = par.children("td:nth-child(4)"); 
+  var tdButtons = par.children("td:nth-child(5)");
+ var tdCod = par.children("td:nth-child(6)");
+tdDesc.html(tdDesc.children("input[type=text]").val()); 
+tdUnit.html(tdUnit.children("input[type=text]").val()); 
+tdPrecio.html(tdPrecio.children("input[type=text]").val()); 
+tdCant.html(event.data.param1); 
+tdButtons.html("<img src=\'images/iconEdit.png\' class=\'btnEdit\'/>&nbsp;&nbsp;<img src=\'images/trash.png\' class=\'btnDelete\'/>"); 
+tdCod.html(tdCod.children("input[type=text]").val()); 
+$(".btnEdit").bind("click", Edit); 
+$(".btnDelete").bind("click", Delete); 
+$('.unBoton').removeAttr("disabled", 'disabled'); 
+};
+function numbersOnly(oToCheckField, oKeyEvent) {        
+  var s = String.fromCharCode(oKeyEvent.charCode);
+  var containsDecimalPoint = /\./.test(oToCheckField.value);
+  return oKeyEvent.charCode === 0 || /\d/.test(s) || 
+      /\./.test(s) && !containsDecimalPoint;
+}
 
 
 </script>
@@ -392,7 +453,7 @@ $(".btnDelete").bind("click", Delete);
                         <tr>
                             <td>  <label for="dropMo">Mano de Obra </label></td>
                             <td><select id="dropMo" name="dropMo" style="width:200px; "  >
-                              <option value="" disabled selected>Seleccione mano de obra    </option>
+                              <option value="" disabled selected>-Seleccione mano de obra-</option>
                               <% for (int i = 0; i < manoDeObra.size(); i++) {%>
 
                               <option value="<%= manoDeObra.get(i).getIdManoDeObra()%>">
@@ -412,7 +473,7 @@ $(".btnDelete").bind("click", Delete);
                         </tr>
                          <tr>
                                  <td>  <label for="cantstdMo">Cant. Estandar </label></td>
-                                <td> <input type="text" id="cantstdMo" name="cantstdMo" style="width:196px;"></input>&nbsp;*</td>
+                                <td> <input type="text" id="cantstdMo" name="cantstdMo" style="width:196px;" onkeypress="return numbersOnly(this, event);" ></input>&nbsp;*</td>
                                   <td> </td>
                         </tr>
                         <tr> 
@@ -430,7 +491,7 @@ $(".btnDelete").bind("click", Delete);
                     <tr>
                         <td><label for="dropMat">Material </label> </td>
                         <td><select id="dropMat" name="dropMat" style="width:230px; "  >
-                                 <option value="" disabled selected >Seleccione material    </option>
+                                 <option value="" disabled selected >-Seleccione material-</option>
                                   <% for (int i = 0; i < materiales.size(); i++) {%>
 
                                   <option value="<%= materiales.get(i).getIdMaterial()%>">
@@ -451,7 +512,7 @@ $(".btnDelete").bind("click", Delete);
                     </tr>
                      <tr>
                          <td>  <label for="cantstd">Cant. Estandar </label></td>
-                         <td> <input type="text" id="cantstd" name="cantstd" style="width:226px;" ></input>&nbsp;*</td>
+                         <td> <input type="text" id="cantstd" name="cantstd" style="width:226px;" onkeypress="return numbersOnly(this, event);" ></input>&nbsp;*</td>
                          <td> </td>
                     </tr>
                     <tr> 
@@ -537,7 +598,7 @@ $(".btnDelete").bind("click", Delete);
                                   
                                  </tbody>
                             </table>
-                            <tr ><td colspan="6">   <button type="button" id="btnAddMa" style="height:25px ; width: 70px;"> Agregar</button></td>  </tr>
+                            <tr ><td colspan="6">   <button type="button" id="btnAddMa" style="height:25px ; width: 70px;" class="unBoton"> Agregar</button></td>  </tr>
                          </c:if>
                         </div>
                           </br> 
@@ -566,16 +627,16 @@ $(".btnDelete").bind("click", Delete);
                                               </c:forEach>
                                           </tbody>
                                       </table>
-                                         <tr ><td colspan="6">   <button type="button" id="btnAddMo" style="height:25px ; width: 70px;"> Agregar</button></td>  </tr>
+                                         <tr ><td colspan="6">   <button type="button" id="btnAddMo" style="height:25px ; width: 70px;" class="unBoton"> Agregar</button></td>  </tr>
                                     </c:if>
                                   </div>        
                           
                            <div style="text-align: center">   
                                       </br>
-                           <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<%= response.encodeURL("editarRubro.jsp")%>">Atras</a></button>
+                           <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" class="unBoton"><a href="<%= response.encodeURL("editarRubro.jsp")%>">Atras</a></button>
                         <!--  <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<//%= response.encodeURL("editarRubro.jsp?action="+ r1.getIdRubro() )%>">Atras</a></button>-->
                         
-                           <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px; float:none ; padding-right:0px;" />
+                           <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px; float:none ; padding-right:0px;" class="unBoton"/>
                        
                              <input type="hidden" id="dataMateriales" name="dataMateriales" />
                              <input type="hidden" id="dataManoDeObra" name="dataManoDeObra"/>
