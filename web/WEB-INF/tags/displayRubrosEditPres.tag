@@ -21,6 +21,7 @@
        <%-- la clase hidRub existe para saber q rubros tengo q cambiar (en cant numericas) cuando cambia la cantidad del padre.--%>   
         <td class="hidRub"><c:out value= "${rub.idRubro}" /></td> 
         <td><c:out value= "${mat.cantPres}" /></td>  
+         <td><c:out value= "${mat.coefStdMat}" /></td>  
     </tr>
 </c:forEach>
 
@@ -31,6 +32,7 @@
         <td><c:out value= "${mo.idUnidadMedida}" /></td> 
         <td class="hidRub"><c:out value= "${rub.idRubro}" /></td> 
         <td><c:out value= "${mo.cantPres}" /></td>  
+          <td><c:out value= "${mo.coefStdMO}" /></td>  
  </tr>
 </c:forEach>
 <c:forEach items="${rub.subrubros}" var="srub">

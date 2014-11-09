@@ -23,7 +23,7 @@
         String direCli = pres.getCliente().getDireCli();
         String telCli = pres.getCliente().getTelCli();
         String obs = pres.getObservaciones();
-        System.out.println("obs del current pres" + obs) ;
+       // System.out.println("obs del current pres" + obs) ;
         List<Rubro> arrayRub = (List<Rubro>)session.getAttribute("rubrosLeaf");//necesito si o si los leaf para esto
         Rubro rubro = new Rubro();
         Material material = new Material();

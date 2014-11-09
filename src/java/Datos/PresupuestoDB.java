@@ -178,7 +178,7 @@ public class PresupuestoDB extends AccesoDatos {
     /*metodo que busca los materiales para un id de rubro*/ 
     public List getMaterialesEnRubroPresup(String idRubro, int idPresupuesto) throws Exception{
         List listaMat = new ArrayList();
-        ResultSet resultado = EjecutarQuery("select m.idMaterial, mp.cantPresMat , m.descMaterial, m.idUnidadMedida, m.precioMa from materialespresupuesto mp inner join  materiales m on mp.idMaterial = m.idMaterial where mp.idrubro = '" + idRubro + "' and mp.idPresupuesto = " + idPresupuesto);
+        ResultSet resultado = EjecutarQuery("select m.idMaterial, mp.cantPresMat , m.descMaterial, m.idUnidadMedida, m.precioMa, mr.coefStdMat from materialespresupuesto mp inner join  materiales m on mp.idMaterial = m.idMaterial inner join materialesrubro mr on mr.idMaterial = mp.idMaterial and mr.idRubro = mp.idRubro where mp.idrubro = '" + idRubro + "' and mp.idPresupuesto = " + idPresupuesto);
         while (resultado.next()){
             Material mat = new Material();
             mat.setIdMaterial(resultado.getString(1));
@@ -186,7 +186,7 @@ public class PresupuestoDB extends AccesoDatos {
             mat.setDescMaterial(resultado.getString(3));
             mat.setIdUnidadMedida(resultado.getString(4));
             mat.setPrecioMa(resultado.getFloat(5));
-
+            mat.setCoefStdMat(resultado.getFloat(6));
             listaMat.add(mat);
         }
         return listaMat;
@@ -195,7 +195,7 @@ public class PresupuestoDB extends AccesoDatos {
     /*metodo que busca la mano de obra para un id de rubro*/ 
     public List getMOEnRubroPresup(String idRubro, int idPresupuesto) throws Exception{
         List listaMO = new ArrayList();
-        ResultSet resultado = EjecutarQuery("select m.idManoDeObra, mp.cantPresMO , m.descManoDeObra, m.idUnidadMedida, m.precioMo from manodeobrapresupuesto mp inner join  manodeobra m on mp.idManoDeObra = m.idManoDeObra where mp.idrubro = '" + idRubro + "' and mp.idPresupuesto = " + idPresupuesto);
+        ResultSet resultado = EjecutarQuery("select m.idManoDeObra, mp.cantPresMO , m.descManoDeObra, m.idUnidadMedida, m.precioMo, mr.coefStdMo from manodeobrapresupuesto mp inner join  manodeobra m on mp.idManoDeObra = m.idManoDeObra inner join manodeobrarubro mr on mr.idManoDeObra = mp.idManoDeObra and mr.idRubro = mp.idRubro where mp.idrubro = '" + idRubro + "' and mp.idPresupuesto = " + idPresupuesto);
         while (resultado.next()){
             ManoDeObra mo = new ManoDeObra();
             mo.setIdManoDeObra(resultado.getString(1));
@@ -203,6 +203,7 @@ public class PresupuestoDB extends AccesoDatos {
             mo.setDescManoDeObra(resultado.getString(3));
             mo.setIdUnidadMedida(resultado.getString(4));
             mo.setPrecioMo(resultado.getFloat(5));
+            mo.setCoefStdMO(resultado.getFloat(6));
 
             listaMO.add(mo);
         }

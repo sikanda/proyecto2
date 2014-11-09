@@ -59,7 +59,8 @@ $('#frmEditaCants').bind("keyup keypress", function(e) {
  });
  
 $('td:nth-child(4)').hide(); //rubros
-$('td:nth-child(5)').hide(); //valores originales
+$('td:nth-child(5)').hide(); //valores del presup
+$('td:nth-child(6)').hide(); //valores originales
 
 $("#myTable td:nth-child(4)").each(function(){
     var ind = 0;
@@ -86,9 +87,28 @@ switch($(this).text().length) {
       }
 });
 
-// $("#myTable input.edit").keypress(function(e) {
-//  if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
-//      //parent es el td del input, next es el td de uM
+ $("#myTable input.edit").keypress(function(e) {
+  if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
+      //parent es el td del input, next es el td de uM
+            var tieneClase = $(this).parent().next().hasClass("unit");   
+            var newText = $(this).val();
+            var rub = $(this).parent().next().next().text();
+  
+            if(tieneClase){  //se esta editando un rubro leaf
+                   $("#myTable td.hidRub").each(function() { //para los mismos mat o mo dentro del rubro q se edita
+                   if ($(this).text() === rub   )
+                    {   //this es col 4 de rubro
+                         var oldVal = $(this).next().next().text(); //6ta col tiene val sin modif
+                         $(this).prev().prev().find('input:text').val(oldVal * newText);
+                    }
+                });
+                }//tiene clase*/
+             // anda 
+             $("#myTable td.unit").prev().find('input:text').blur();
+        } 
+   } );
+
+// $("#myTable input.edit").blur( function(e) {
 //            var tieneClase = $(this).parent().next().hasClass("unit");   
 //            var newText = $(this).val();
 //            var rub = $(this).parent().next().next().text();
@@ -101,26 +121,8 @@ switch($(this).text().length) {
 //                         $(this).prev().prev().find('input:text').val(oldVal * newText);
 //                    }
 //                });
-//                }//tiene clase*/
-//             // anda 
-//             $("#myTable td.unit").prev().find('input:text').blur();
-//        } 
+//                }//tiene clase*/        
 //   } );
- $("#myTable input.edit").blur( function(e) {
-            var tieneClase = $(this).parent().next().hasClass("unit");   
-            var newText = $(this).val();
-            var rub = $(this).parent().next().next().text();
-  
-            if(tieneClase){  //se esta editando un rubro leaf
-                   $("#myTable td.hidRub").each(function() { //para los mismos mat o mo dentro del rubro q se edita
-                   if ($(this).text() === rub   )
-                    {   //this es col 4 de rubro
-                         var oldVal = $(this).next().text(); //5ta col tiene val sin modif
-                         $(this).prev().prev().find('input:text').val(oldVal * newText);
-                    }
-                });
-                }//tiene clase*/        
-   } );
  $("#myTable input.edit").keypress(function(e) {
    if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
        $(this).blur();

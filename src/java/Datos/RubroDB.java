@@ -92,15 +92,19 @@ public RubroDB() throws Exception{}
     /*metodo que busca la mano de obra para un id de rubro*/ 
    public List getMOEnRubro(String idRubro) throws Exception{
         List listaMO = new ArrayList();
+        float ctd ;
         ResultSet resultado = EjecutarQuery("select mr.idManoDeObra, mr.coefStdMo , m.descManoDeObra, m.idUnidadMedida, m.precioMo from manodeobrarubro mr inner join  manodeobra m on mr.idManoDeObra = m.idManoDeObra where idrubro = " + idRubro );
         while (resultado.next()){
+            ctd = resultado.getFloat(2);
             ManoDeObra mo = new ManoDeObra();
             mo.setIdManoDeObra(resultado.getString(1));
-            mo.setCoefStdMO(resultado.getFloat(2));
+            //mo.setCoefStdMO(resultado.getFloat(2));
+            mo.setCoefStdMO(ctd);
             mo.setDescManoDeObra(resultado.getString(3));
             mo.setIdUnidadMedida(resultado.getString(4));
             mo.setPrecioMo(resultado.getFloat(5));
-            mo.setCantPres(resultado.getFloat(2));
+           // mo.setCantPres(resultado.getFloat(2));
+            mo.setCantPres(ctd);
 
             listaMO.add(mo);
         }
