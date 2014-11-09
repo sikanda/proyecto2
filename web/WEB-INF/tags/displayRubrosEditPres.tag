@@ -1,5 +1,5 @@
-<%@tag description="usado por Pantalla2 cuando cantPres no es nulo" pageEncoding="UTF-8"%>
- <%@ taglib tagdir="/WEB-INF/tags" prefix="myTagsBack" %> 
+<%@tag description="usado por editPres" pageEncoding="UTF-8"%>
+ <%@ taglib tagdir="/WEB-INF/tags" prefix="myTagsEditPres" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
@@ -20,7 +20,7 @@
         <td><c:out value= "${mat.idUnidadMedida}"/></td> 
        <%-- la clase hidRub existe para saber q rubros tengo q cambiar (en cant numericas) cuando cambia la cantidad del padre.--%>   
         <td class="hidRub"><c:out value= "${rub.idRubro}" /></td> 
-        <td><c:out value= "${mat.coefStdMat}" /></td>  
+        <td><c:out value= "${mat.cantPres}" /></td>  
     </tr>
 </c:forEach>
 
@@ -30,11 +30,11 @@
         <td> <input type="text" class= "edit" name = "${rub.idRubro}" style="width: 40px;" onkeypress="return numbersOnly(this, event);" value= "${mo.cantPres}"/></td>  <%--mo.coefStdMO--%>
         <td><c:out value= "${mo.idUnidadMedida}" /></td> 
         <td class="hidRub"><c:out value= "${rub.idRubro}" /></td> 
-        <td><c:out value= "${mo.coefStdMO}" /></td>  
+        <td><c:out value= "${mo.cantPres}" /></td>  
  </tr>
 </c:forEach>
 <c:forEach items="${rub.subrubros}" var="srub">
-    <myTagsBack:displayRubrosBack rub="${srub}"/>       
+    <myTagsEditPres:displayRubrosEditPres rub="${srub}"/>       
 </c:forEach>
 
 

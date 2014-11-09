@@ -7,7 +7,7 @@ public class Config {
     private final String separador = "&#8594;";
     public enum TipoABM {
 
-         Herr,Prov,Ma,Mo,Rub,User,Um,Emp
+         Herr,Prov,Ma,Mo,Rub,User,Um,Emp,Pres
        }
 
 

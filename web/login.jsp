@@ -101,7 +101,7 @@ if (request.getParameter("ref") != null) {
 
                     <span id="label">Nombre de usuario:</span>
                     <br />
-                    <label for="txtusuario"><input type="text" id="txtusuario" name="txtusuario" value = "admin"/></label>
+                    <label for="txtusuario"><input type="text" id="txtusuario" name="txtusuario" value = "plopez"/></label>
                     <br />
                     <span id="label">Contraseña:</span>
                     <br />

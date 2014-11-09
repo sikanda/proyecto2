@@ -188,7 +188,16 @@ $(function () {
                     },
                     "checkbox": { "two_state" : true }
             }) ; //jstree
-     
+  
+
+//$("#jstree").jstree("select_node","001001");
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+var paramAct = getURLParameter('action');  
+if (paramAct) {$("#jstree").jstree("select_node",paramAct);}
+//alert(paramAct);
+        
   var typ="Rub";
  $("#btnBorrar").click(function(e){
   var idee = $("#rubrosIds").val(); // alert(idee); 
@@ -200,16 +209,26 @@ $(function () {
              url: 'popupBorrar.jsp',
              type: 'GET',
              data:  {ident : idee, objeto:typ},
-             success: function() {
-                location.reload();  
-             },
-             error: function(e) {
-              apprise ('Ha ocurrido un error');
-             }
-           }); //ajax 
-           }//if r   
-    }); //apprise
-}); //click
+//                  success: function() {
+//                     location.reload();  
+//                  },
+                statusCode: {
+                    200: function() {
+                      location.reload();  // apprise ('El rubro ha sido dado de baja exitosamente');
+                     },
+                    400:function(){
+                      apprise ('No se ha podido dar de baja el rubro. Verifique que no esté asociado a ningún presupuesto.');
+                     },
+                   500:function(){
+                       apprise ('Ha ocurrido un error en el servidor');
+                     }}   
+//                  error: function(e) {
+//                   apprise ('Ha ocurrido un error');
+//                  }
+                }); //ajax 
+                }//if r   
+         }); //apprise
+     }); //click
 	
       $('#help').click(function (event) {
    $.popupWindow('helpPages/editarRubro_h.html', {
@@ -286,7 +305,7 @@ $('#mje').text(selectedElmsNames);
         location.href = "agregarRubro.jsp?idRub="+idSelected ;
     };
     
-
+    
   </script>
             <%@ include file="WEB-INF/jspf/firma.jspf" %>
        

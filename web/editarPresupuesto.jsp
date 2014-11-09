@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page import="Entidades.Rubro"%>
+<%@ page import="Entidades.Presupuesto"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
@@ -8,30 +9,9 @@
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
+<jsp:useBean id="presupuestoDB" scope="page" class="Datos.PresupuestoDB" />
 
 <%!
-//public Rubro getRubroByCode(String idRubro, List<Rubro> lista)
-//  {
-//      Rubro rubro = new Rubro();
-//     
-//      	  for(int i=0; i<lista.size();i++)
-//	  { 
-////              System.out.println("i es " + i);
-//		if (idRubro.equals(lista.get(i).getIdRubro()))
-//		   {
-////			   System.out.println( "entro con "+ lista.get(i).getIdRubro()); 
-//                       rubro = lista.get(i) ;
-// lista.clear();
-//		   }
-//		if (( rubro != null ) && (!lista.get(i).getSubrubros().isEmpty()))  
-//			{
-////				 System.out.println("sigue iterando con"+ lista.get(i).getIdRubro());
-//                            rubro = getRubroByCode(idRubro,lista.get(i).getSubrubros());
-//			}
-//	  }
-// 
-//	  return rubro;
-//  }
 public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
         Rubro rubro = new Rubro();
         for (int i = 0; i < lista.size(); i++) {
@@ -67,12 +47,30 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
 
 <%
 	List<Rubro> rub = new ArrayList();
-	rub = rubroDB.getRubrosConSubrubros();
+	rub = rubroDB.getRubrosConSubrubros(); 
+        
+        if (request.getParameter("id") != null){       
+        int idPresEdit = Integer.parseInt(request.getParameter("id"));
+        Presupuesto presEdit = presupuestoDB.getPresupuesto(idPresEdit);
+       // String[] listaRubCurrentPres = null ;
+       String[] listaRubCurrentPres =  new String[presEdit.getRubros().size()];
+          for (int z=0; z< presEdit.getRubros().size(); z++){
+                listaRubCurrentPres[z] = presEdit.getRubros().get(z).getIdRubro();
+           }   
+          StringBuilder sb = new StringBuilder();
+          for(String s: listaRubCurrentPres) {
+            sb.append("_").append(s);
+         }  
+          String idesFinal =  sb.toString();
+           session.setAttribute("idesFinale", idesFinal);
+           session.setAttribute("presupuestoQueSeEdita", presEdit);
+        }
+
         String[] listaIds = null;
         //string of IDS
         if (request.getParameter("ids") != null){
            String cadena = request.getParameter("ids").toString();
-           session.setAttribute("cadenaIdes", cadena);
+          session.setAttribute("cadenaIdes", cadena);
            listaIds = cadena.split("_");
            List<Rubro> listaRubrosSelec = new ArrayList();
 
@@ -81,7 +79,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                 listaRubrosSelec.add(rubro);
            } 
            session.setAttribute("rubrosLeaf", listaRubrosSelec);
-           response.sendRedirect(response.encodeRedirectURL("pantallaDos.jsp"));
+           response.sendRedirect(response.encodeRedirectURL("editarPresupuesto2.jsp"));
         }       
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -110,7 +108,7 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
                         <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                                 <div id="nav">
                                     <ul>
-                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
+                                        <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>editar presupuesto</a></p></li>
                                 <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                                     </ul>
                                     <br class="clear" />
@@ -214,6 +212,13 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 }); 
+
+//var chainFinal = '<//%= session.getAttribute("idesFinale") %>';
+//var resFinal = chainFinal.split("_");
+//for (j = 0; j < resFinal.length; ++j) {
+//   $("#jstree").jstree("select_node",resFinal[j]);  
+//}
+
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
@@ -225,6 +230,15 @@ for (i = 0; i < res.length; ++i) {
    $("#jstree").jstree("select_node",res[i]);  
 }
  }
+ else
+ {
+    var chainFinal = '<%= session.getAttribute("idesFinale") %>';
+var resFinal = chainFinal.split("_");
+for (j = 0; j < resFinal.length; ++j) {
+   $("#jstree").jstree("select_node",resFinal[j]);  
+} 
+ }
+
 //$("#jstree").jstree("select_node","001001");
 }); 	
 //bind to events triggered on the tree

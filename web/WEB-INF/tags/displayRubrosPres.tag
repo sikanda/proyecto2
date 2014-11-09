@@ -30,7 +30,7 @@
         <td><fmt:formatNumber value="${mat.precioMa}" type="currency" /></td> <%-- precio --%> 
        <c:set var="totalRowMa" value="${mat.cantPres * mat.precioMa}"  /> 
        <td><fmt:formatNumber value="${totalRowMa}" type="currency" /></td> <%-- total linea formato currency --%> 
-        <td><fmt:formatNumber value="${totalRowMa}"  type="number" pattern="#########" /></td> <%-- total linea --%> 
+        <td><fmt:formatNumber value="${totalRowMa}" type="number" pattern="#########.##" /></td> <%-- total linea --%> 
       <c:set var="totalFinalMat" value="${totalFinalMat + totalRowMa}"  /> <%-- total rubro --%> 
     </tr>
   </c:forEach>
@@ -44,7 +44,7 @@
         <td><fmt:formatNumber value="${mo.precioMo}" type="currency" /></td>  <%-- precio --%> 
         <c:set var="totalRowMo" value="${mo.cantPres * mo.precioMo}"  /> 
          <td><fmt:formatNumber value="${totalRowMo}" type="currency" /></td> <%-- total linea formato currency--%> 
-        <td><fmt:formatNumber value="${totalRowMo}" type="number" pattern="#########" /></td> <%-- total linea --%> 
+        <td><fmt:formatNumber value="${totalRowMo}" type="number" pattern="#########.##" /></td> <%-- total linea --%> 
         <c:set var="totalFinalMO" value="${totalFinalMO + totalRowMo}"  /> <%-- total rubro --%> 
     </tr>
  </c:forEach>

@@ -9,8 +9,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@page import="java.util.Date"%>
 
-<%@ taglib tagdir="/WEB-INF/tags" prefix="myTags" %>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="myTagsBack" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="myTagsEditPres" %>
 
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -19,23 +18,14 @@
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 
 <%
-     //   List<Rubro> rubPresu = new ArrayList();
+        List<Rubro> nuevosRubros = (List<Rubro>)session.getAttribute("rubrosLeaf"); 
         List<Rubro> rubPresuDev = new ArrayList();
-        
-        Presupuesto p = new Presupuesto();
-        
-         p.setUsuario((Usuario)session.getAttribute("usuario"));
-         p.setFechaCreacion(new Date());
-   
-         p.setRubros((List<Rubro>)session.getAttribute("rubrosLeaf")); //viene de pantalla 1, solo rubros leaf.
-        rubPresuDev = p.devolverRubrosPresupuesto();
+        Presupuesto pres = (Presupuesto)session.getAttribute("presupuestoQueSeEdita"); 
+        pres.resolverMuestraRubros(nuevosRubros);
+        rubPresuDev = pres.devolverRubrosPresupuesto();
         
          session.setAttribute("rubrosEnArbol", rubPresuDev); //usado por la pantalla 2
-         session.setAttribute("presupuestoActual", p);
-         
-//         if(request.getParameter("action") != null){
-//         System.out.println(request.getParameter("action"));
-//         }
+
        
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -95,7 +85,46 @@ switch($(this).text().length) {
          $(this).prev().prev().prev().css("text-indent",+ind+5+'px');
       }
 });
-//
+
+// $("#myTable input.edit").keypress(function(e) {
+//  if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
+//      //parent es el td del input, next es el td de uM
+//            var tieneClase = $(this).parent().next().hasClass("unit");   
+//            var newText = $(this).val();
+//            var rub = $(this).parent().next().next().text();
+//  
+//            if(tieneClase){  //se esta editando un rubro leaf
+//                   $("#myTable td.hidRub").each(function() { //para los mismos mat o mo dentro del rubro q se edita
+//                   if ($(this).text() === rub   )
+//                    {   //this es col 4 de rubro
+//                         var oldVal = $(this).next().text(); //5ta col tiene val sin modif
+//                         $(this).prev().prev().find('input:text').val(oldVal * newText);
+//                    }
+//                });
+//                }//tiene clase*/
+//             // anda 
+//             $("#myTable td.unit").prev().find('input:text').blur();
+//        } 
+//   } );
+ $("#myTable input.edit").blur( function(e) {
+            var tieneClase = $(this).parent().next().hasClass("unit");   
+            var newText = $(this).val();
+            var rub = $(this).parent().next().next().text();
+  
+            if(tieneClase){  //se esta editando un rubro leaf
+                   $("#myTable td.hidRub").each(function() { //para los mismos mat o mo dentro del rubro q se edita
+                   if ($(this).text() === rub   )
+                    {   //this es col 4 de rubro
+                         var oldVal = $(this).next().text(); //5ta col tiene val sin modif
+                         $(this).prev().prev().find('input:text').val(oldVal * newText);
+                    }
+                });
+                }//tiene clase*/        
+   } );
+ $("#myTable input.edit").keypress(function(e) {
+   if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
+       $(this).blur();
+}});
 
    $("#myTable td.unit:contains('PORC')").text("%"); 
          $('#help').click(function (event) {
@@ -126,29 +155,11 @@ $('#frmEditaCants').submit(function(e) {
         }      
     }); //each
 });//submit
+
  $("#myTable input:text").bind ('input', function() { 
      $(this).parent().find('img').hide();
-    }); 
-    
- $("#myTable input.edit").blur( function(e) {
-            var tieneClase = $(this).parent().next().hasClass("unit");   
-            var newText = $(this).val();
-            var rub = $(this).parent().next().next().text();
-  
-            if(tieneClase){  //se esta editando un rubro leaf
-                   $("#myTable td.hidRub").each(function() { //para los mismos mat o mo dentro del rubro q se edita
-                   if ($(this).text() === rub   )
-                    {   //this es col 4 de rubro
-                         var oldVal = $(this).next().text(); //5ta col tiene val sin modif
-                         $(this).prev().prev().find('input:text').val(oldVal * newText);
-                    }
-                });
-                }//tiene clase*/        
-   } );
- $("#myTable input.edit").keypress(function(e) {
-   if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
-       $(this).blur();
-}});
+    });   
+
  });
 function numbersOnly(oToCheckField, oKeyEvent) {        
   var s = String.fromCharCode(oKeyEvent.charCode);
@@ -171,7 +182,7 @@ function numbersOnly(oToCheckField, oKeyEvent) {
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>editar presupuesto</a></p></li>
                             <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                               </ul>
                               <br class="clear" />
@@ -182,28 +193,20 @@ function numbersOnly(oToCheckField, oKeyEvent) {
                             <div style="font-size: 10px; float: right; margin-right: 70px; margin-top:-15px;">   (*) Campo requerido </div> 
                        <!--       <div style="color:red; font-size:11px; margin-right: 200px;" id="posibleError" ></div> -->
                           <div id="formu">
-                              <form name="frmEditaCants" id="frmEditaCants" action="pantallaTres.jsp" method="POST" autocomplete="on">
+                              <form name="frmEditaCants" id="frmEditaCants" action="editarPresupuesto3.jsp" method="POST" autocomplete="on">
                                   <div id="tabla">                                    
                                       <table id="myTable" class="tabla" >
                                           <tbody>
                                               <tr><th style="width: 300px;">Descripcion</th><th>Cantidad</th><th>Unidad</th></tr>
-                                              <c:choose>
-                                            <c:when test="${not empty param.action}">
+
                                                <c:forEach items="${sessionScope.rubrosEnArbol}" var="rub" >
-                                            <myTagsBack:displayRubrosBack rub="${rub}"/> 
+                                            <myTagsEditPres:displayRubrosEditPres rub="${rub}"/> 
                                               </c:forEach>
-                                            </c:when>
-                                             <c:otherwise>
-                                            <c:forEach items="${sessionScope.rubrosEnArbol}" var="rub" >
-                                            <myTags:displayRubros rub="${rub}"/> 
-                                              </c:forEach>
-                                            </c:otherwise>
-                                              </c:choose>
-                                          </tbody>
+                                           </tbody>
                                       </table>
 
                                   </div>
-                                  <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<%= response.encodeURL("listaRubros.jsp?action=back")%>">Atras</a></button>
+                                  <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<%= response.encodeURL("editarPresupuesto.jsp?action=back")%>">Atras</a></button>
                               <input  style="height:25px ; width: 70px;" type="submit" value="Siguiente" /> 
                               </form>
                           </div>

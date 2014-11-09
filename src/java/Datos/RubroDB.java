@@ -25,6 +25,7 @@ public RubroDB() throws Exception{}
              rub.setIdRubro(resultado.getString(1));
              rub.setDescRubro(resultado.getString(2));
              rub.setIdUnidadMedida(resultado.getString(3));
+             rub.setCantPresRub(Float.parseFloat("1"));
 
              listaSubRub = buscaSubrubros(resultado.getString(1));
              rub.setSubrubros(listaSubRub);
@@ -54,6 +55,7 @@ public RubroDB() throws Exception{}
              rub.setIdRubro(resultado.getString(1));
              rub.setDescRubro(resultado.getString(2));
              rub.setIdUnidadMedida(resultado.getString(3));
+             rub.setCantPresRub(Float.parseFloat("1"));
 
              listaSubR = buscaSubrubros(resultado.getString(1));
              rub.setSubrubros(listaSubR);
@@ -80,6 +82,7 @@ public RubroDB() throws Exception{}
             mat.setDescMaterial(resultado.getString(3));
             mat.setIdUnidadMedida(resultado.getString(4));
             mat.setPrecioMa(resultado.getFloat(5));
+            mat.setCantPres(resultado.getFloat(2));
 
             listaMat.add(mat);
         }
@@ -97,6 +100,7 @@ public RubroDB() throws Exception{}
             mo.setDescManoDeObra(resultado.getString(3));
             mo.setIdUnidadMedida(resultado.getString(4));
             mo.setPrecioMo(resultado.getFloat(5));
+            mo.setCantPres(resultado.getFloat(2));
 
             listaMO.add(mo);
         }
@@ -282,7 +286,11 @@ public RubroDB() throws Exception{}
 //    //borra rubro y tablas relac. no toca presupuesto
     public boolean delete(String idR) { 
 	boolean rta = false;
-	boolean rta1,rta2,rta3;
+	//boolean rta1,rta2,rta3;
+        boolean rta1 = false;
+        boolean rta2 = false;
+        boolean rta3 = false;
+        
         boolean rta4 = true;
 	List<Rubro>  listaSubRub ;
         Rubro rub = new Rubro();
@@ -291,6 +299,7 @@ public RubroDB() throws Exception{}
            }
             catch(Exception e){}
 
+if (validarCantRub(idR)==0){         
 	rta1 =  EjecutarNonQuery("delete from rubros WHERE idRubro = " + idR);
 	rta2 =  EjecutarNonQuery("delete from manodeobrarubro WHERE idRubro = " + idR);
 	rta3 =  EjecutarNonQuery("delete from materialesrubro WHERE idRubro = " + idR);
@@ -302,7 +311,7 @@ public RubroDB() throws Exception{}
           {
             rta4 = deleteSubrubros(listaSubRub);  
           }
-          
+}   
         if(rta1 && rta2 && rta3 && rta4)
        {
              rta = commit();
@@ -417,4 +426,10 @@ public RubroDB() throws Exception{}
         }
         return listaPorc;
     } 
+    
+   
+    public int validarCantRub(String idRub){    
+    int rta = EjecutarQueryInt("Select count(*) from rubrospresupuesto where idRubro = '" + idRub+"'" );
+    return (rta);
+       } 
 }

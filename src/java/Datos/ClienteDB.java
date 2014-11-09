@@ -30,4 +30,16 @@ public ClienteDB() throws Exception{}
        return rta;
    }
 
+      public boolean update(Cliente c){ 
+       boolean rta = false;
+               rta = EjecutarNonQuery("update clientes set nomApeCli = '" +c.getNomApeCli()+ "', direCli = '"+c.getDireCli()+ "', telCli = '"+c.getTelCli()+"'   WHERE idCliente = "  + c.getIdCliente() );
+               if(rta){
+           rta = commit();
+       }
+       if(!rta){
+           rollback();
+       }
+               closeCon();
+       return rta;
+   }
 }

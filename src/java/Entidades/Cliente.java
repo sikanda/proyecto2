@@ -68,4 +68,19 @@ public class Cliente {
         }
         return rta;
     }
+         
+       public boolean update(){
+        boolean rta = true;
+        ClienteDB CDB = null;
+        try{
+                CDB = new ClienteDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = CDB.update(this); 
+        }
+        return rta;
+    }
  }

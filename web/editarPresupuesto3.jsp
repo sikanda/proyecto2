@@ -18,6 +18,12 @@
 <jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 
 <%
+        Presupuesto pres = (Presupuesto)session.getAttribute("presupuestoQueSeEdita");       
+        String nomCli = pres.getCliente().getNomApeCli();
+        String direCli = pres.getCliente().getDireCli();
+        String telCli = pres.getCliente().getTelCli();
+        String obs = pres.getObservaciones();
+        System.out.println("obs del current pres" + obs) ;
         List<Rubro> arrayRub = (List<Rubro>)session.getAttribute("rubrosLeaf");//necesito si o si los leaf para esto
         Rubro rubro = new Rubro();
         Material material = new Material();
@@ -102,17 +108,7 @@ switch($(this).text().length) {
   break;
 } 
 });
-/*considero q este metodo esta de mas ya q nunca hay una notleaf, al trabajar con los rubrosLeaf de sesion*/
-/*  
-//blanqueo las cants q no tienen um (not a leaf node)
-   $("#myTable td.unit").each(function() {
-    if ($(this).text().length === 0)
-         $(this).prev().html("");
-         $(this).parent().css("background-color","yellow");
-         $(this).parent().next().css({'font-weight': 'bold', 'font-family': 'Arial'});
-       }
-}); 
-*/
+
 /*estilo para los rubros */
    $("#myTable td.unit").each(function() {
     if ($(this).text().length !== 0) {
@@ -231,7 +227,7 @@ function formatCurrency(total) {
                           <%@ include file="WEB-INF/jspf/barrausuario.jspf" %>
                           <div id="nav">
                               <ul>
-                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>generar presupuesto</a></p></li>
+                                  <li><p class="posicion"><a href="<%= response.encodeURL("inicioUsuario.jsp")%>">inicio</a><%=globconfig.separador()%>editar presupuesto</a></p></li>
                              <li id="help"><a href="" title="Ayuda sobre esta página">Ayuda</a></li>
                               </ul>
                               <br class="clear" />
@@ -241,21 +237,22 @@ function formatCurrency(total) {
                           <h2 id="titulo">Presupuesto</h2>
                      <div style="font-size: 10px; float: right; margin-right: 70px; margin-top:-15px;">   (*) Campo requerido </div>  
                           <div id="formu">
-                              <form id="frmPresupuesto" name="frmPresupuesto" action="pantallaCuatro.jsp?action=n" method="POST">
+                              <form id="frmPresupuesto" name="frmPresupuesto" action="pantallaCuatro.jsp?action=u" method="POST">
+
                    <table class="tablaFormatoABM">
                     <tr>
                         <td>  <label for="nomCli" >   Nombre Cliente:  </label></td>
-                        <td>  <input type="text"  id="nomCli" name="nomCli" ></td>
+                        <td>  <input type="text"  id="nomCli" name="nomCli" value="<%= nomCli %>"></td>
                           <td>*</td>
                   </tr>
                          <tr>
                         <td> <label for="direCli" >Dirección: </label></td>
-                        <td> <input type="text" id="direCli" name="direCli"></td>
+                        <td> <input type="text" id="direCli" name="direCli" value="<%= direCli %>"></td>
                           <td></td>
                   </tr>
                          <tr>
                         <td> <label for="telCli">Teléfono:</label></td>
-                        <td>   <input type="text" id="telCli"  name="telCli" onkeypress="return isNumber(event)" ></td>
+                        <td>   <input type="text" id="telCli"  name="telCli" onkeypress="return isNumber(event)"  value="<%= telCli %>"></td>
                           <td>*</td>
                   </tr>
                   </table>
@@ -301,11 +298,11 @@ function formatCurrency(total) {
                                    <div   style="  margin-left: 100px; margin-bottom: 20px; text-align: left ">   
                                  </br>
                                <label for="obs" >Observaciones: </label>    
-                                  <textarea id="obs" name="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:500px; height:50px;"></textarea>
+                                  <textarea id="obs" name="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:500px; height:50px;"><%= obs %></textarea>
                                  </br>
                                </div>  
                                   <div style="text-align: center">        
-                           <button type="button" style="height:25px ; width: 70px;"><a href="<%= response.encodeURL("pantallaDos.jsp?action=back")%>">Atras</a></button>
+                           <button type="button" style="height:25px ; width: 70px;"><a href="<%= response.encodeURL("editarPresupuesto2.jsp")%>">Atras</a></button>
                         <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px;" />
                         </div>
                         

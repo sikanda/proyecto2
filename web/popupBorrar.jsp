@@ -8,6 +8,7 @@
 <jsp:useBean id="manoDeObraDB" scope="page" class="Datos.ManoDeObraDB" />
 <jsp:useBean id="usuarioDB" scope="page" class="Datos.UsuarioDB" />
 <jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
+<jsp:useBean id="presupuestoDB" scope="page" class="Datos.PresupuestoDB" />
 
 
 <%
@@ -44,16 +45,19 @@
                          case Rub:
                           rta = rubroDB.delete(ident);
                           break;
+                         case Pres:
+                          rta = presupuestoDB.delete(ident);
+                          break;
                    }
                    if (rta) {
                      // out.print( "ok");
                       response.setStatus(200);
-                      System.out.println("200");
+                      //System.out.println("200");
                    }
                    else
                    {
                        response.setStatus(400);
-                       System.out.println("400");
+                       //System.out.println("400");
                    }
                }
            } catch (Exception e) { //out.print( "fail");

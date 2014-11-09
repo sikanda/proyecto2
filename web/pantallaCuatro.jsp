@@ -1,4 +1,6 @@
+<%@page import="java.util.List"%>
 <%@page import="Entidades.Cliente"%>
+<%@page import="Entidades.Rubro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page import="Entidades.Presupuesto"%>
@@ -13,7 +15,9 @@
   String direCli = request.getParameter("direCli");
   String telCli = request.getParameter("telCli");
   
-if(request.getParameter("btnGuardar")!=null) //name of your button, not id 
+//if(request.getParameter("btnGuardar")!=null) //name of your button, not id 
+   ///doy de alta presupuesto  - redirigido desde pantalla3
+  if(request.getParameter("action").equals("n"))
 {
    Presupuesto pres = (Presupuesto)session.getAttribute("presupuestoActual");
    pres.setObservaciones(obs);
@@ -32,6 +36,34 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
          session.removeAttribute("rubrosEnArbol");
          session.removeAttribute("rubrosLeaf");
          session.removeAttribute("presupuestoActual");
+         session.removeAttribute("rubrosAll");
+         session.removeAttribute("rubrosPerc");
+   }
+   else
+    { mensaje = "Ha ocurrido un error ";}
+   
+   
+}
+  ///edito presupuesto  - redirigido desde editarPresupuesto3
+  if(request.getParameter("action").equals("u"))
+{
+
+   Presupuesto pres = (Presupuesto)session.getAttribute("presupuestoQueSeEdita");
+   pres.setObservaciones(obs);
+   pres.setRubros((List<Rubro>)session.getAttribute("rubrosLeaf"));
+   
+    Cliente c = pres.getCliente();
+    c.setNomApeCli(nomCli);
+    c.setDireCli(direCli);
+    c.setTelCli(telCli);
+    rtaCli= c.update();
+ 
+   rta = pres.update();
+   if(rta && rtaCli)
+   { mensaje = "El presupuesto se ha guardado correctamente";
+         session.removeAttribute("rubrosEnArbol");
+         session.removeAttribute("rubrosLeaf");
+         session.removeAttribute("presupuestoQueSeEdita");
          session.removeAttribute("rubrosAll");
          session.removeAttribute("rubrosPerc");
    }
@@ -73,7 +105,7 @@ if(request.getParameter("btnGuardar")!=null) //name of your button, not id
             <h2 id="titulo"><%=titulo%></h2>
 
         <div id="formu">
-        <form name="frmpresup" action="<%= response.encodeURL("inicioUsuario.jsp")%>" method="POST">
+        <form name="frmpresup" action="<%= response.encodeURL("listaPresupuestos.jsp")%>" method="POST">
             <fieldset>
                    
                     <% if(!mensaje.isEmpty()){ %>

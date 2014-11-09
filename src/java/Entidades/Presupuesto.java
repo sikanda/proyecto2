@@ -41,6 +41,11 @@ public class Presupuesto {
     {
         this.rubros.add(rubro);
     }
+     
+        public void clearRubrosPres() //borro lista rubros-pres. usado por editar pres
+    {
+        this.rubros.clear();
+    }
      // <editor-fold defaultstate="collapsed" desc="class attributes">
    
    
@@ -164,7 +169,7 @@ public class Presupuesto {
           }
           return esta;
       }
-          
+   
          // devuelve el objeto rubro de la lista
         // es recursiva para buscar en los subrubros de los rubros de la lista
       public Rubro deLista(Rubro r, List<Rubro> lista)
@@ -184,5 +189,71 @@ public class Presupuesto {
           }
           return este;
       }
- 
+      
+      //metodo q recibe la nueva lista rubros del presu y modifica la actual
+      public void resolverMuestraRubros( List<Rubro> nuevaLista)
+      {
+       // System.out.println("estos son mis rubros" + this.rubros);
+        boolean flag, flagFind;
+        List<Rubro>  toAdd = new  ArrayList<Rubro>();
+        List<Rubro>  toRemove = new  ArrayList<Rubro>();
+        for(int i=0; i< this.rubros.size();i++)
+        {
+            flag = true;
+            for(int k=0; k< nuevaLista.size();k++)
+            { 
+                if (this.rubros.get(i).getIdRubro().equals(nuevaLista.get(k).getIdRubro())) 
+                {
+                    flag= false;
+                }
+            }
+            if(flag)
+            {
+                 toRemove.add(this.rubros.get(i));
+            }
+        }
+        for( Rubro rub: toRemove)
+        {
+            this.rubros.remove(rub);
+        }
+       // System.out.println("to remove" + toRemove);
+        
+          for (int m = 0; m < nuevaLista.size(); m++) 
+          {
+              flagFind = false;
+              for (int j = 0; j < this.rubros.size(); j++) 
+              {
+                  if ((nuevaLista.get(m).getIdRubro().equals(this.rubros.get(j).getIdRubro()))) {
+                      flagFind = true;
+                  }
+              }
+            if(!(flagFind))
+            {
+                 toAdd.add(nuevaLista.get(m));
+                //  System.out.println("agrego este " + nuevaLista.get(m));
+            }
+          }
+         
+          for( Rubro rub: toAdd)
+        {
+            this.rubros.add(rub);
+        }
+         // System.out.println("to add" + toAdd);
+        //  System.out.println( this.rubros);
+      }
+      
+       public boolean update(){
+        boolean rta = true;
+        PresupuestoDB PDB = null;
+        try{
+                PDB = new PresupuestoDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                rta = PDB.update(this) ;
+        }
+        return rta;
+    }
 }

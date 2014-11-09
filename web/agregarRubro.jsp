@@ -24,7 +24,7 @@
            //System.out.println(r1);
             Rubro nuevoHijin = rubroDB.generarIdSubrubro(idPadre);
                     
-            System.out.println ("dando de alta rubro" + nuevoHijin.getIdRubro());       
+           // System.out.println ("dando de alta rubro" + nuevoHijin.getIdRubro());       
             List<Material> materiales = new ArrayList();
             materiales = materialDB.getMateriales();
       
@@ -609,7 +609,8 @@ function numbersOnly(oToCheckField, oKeyEvent) {
                           
                            <div style="text-align: center">   
                                       </br>
-                           <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" class="unBoton"><a href="<%= response.encodeURL("editarRubro.jsp")%>">Atras</a></button>
+                   <!--        <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" class="unBoton"><a href="<//%= response.encodeURL("editarRubro.jsp")%>">Atras</a></button> -->
+                    <button type="button" id="btnAtras" name="btnAtras" style="height:25px; width: 70px;" ><a href="<%= response.encodeURL("editarRubro.jsp?action="+ idPadre )%>">Atras</a></button>
                           <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px; float:none ; padding-right:0px;" class="unBoton" />
                        
                              <input type="hidden" id="dataMateriales" name="dataMateriales" />
