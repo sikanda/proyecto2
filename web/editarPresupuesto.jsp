@@ -199,7 +199,7 @@ $(function () {
                         });  
                         
  $('#help').click(function (event) {
-   $.popupWindow('helpPages/listaRubros_h.html', {
+   $.popupWindow('helpPages/editarPresupuesto_h.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'

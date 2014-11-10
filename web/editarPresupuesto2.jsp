@@ -130,7 +130,7 @@ switch($(this).text().length) {
 
    $("#myTable td.unit:contains('PORC')").text("%"); 
          $('#help').click(function (event) {
-   $.popupWindow('helpPages/pantallaDos_h.html', {
+   $.popupWindow('helpPages/editarPresupuesto2_h.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'

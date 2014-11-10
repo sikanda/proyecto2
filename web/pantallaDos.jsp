@@ -130,7 +130,9 @@ $('#frmEditaCants').submit(function(e) {
      $(this).parent().find('img').hide();
     }); 
     
- $("#myTable input.edit").blur( function(e) {
+ $("#myTable input.edit").keypress(function(e) {
+  if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion
+      //parent es el td del input, next es el td de uM
             var tieneClase = $(this).parent().next().hasClass("unit");   
             var newText = $(this).val();
             var rub = $(this).parent().next().next().text();
@@ -143,7 +145,10 @@ $('#frmEditaCants').submit(function(e) {
                          $(this).prev().prev().find('input:text').val(oldVal * newText);
                     }
                 });
-                }//tiene clase*/        
+                }//tiene clase*/
+             // anda 
+             $("#myTable td.unit").prev().find('input:text').blur();
+        } 
    } );
  $("#myTable input.edit").keypress(function(e) {
    if(e.keyCode === 13 || e.keyCode === 9)  {//termina edicion

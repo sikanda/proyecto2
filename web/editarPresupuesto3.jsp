@@ -156,7 +156,7 @@ $('td:nth-child(5)').css({
   
      $("#myTable td.unit:contains('PORC')").text("%"); 
          $('#help').click(function (event) {
-   $.popupWindow('helpPages/pantallaTres_h.html', {
+   $.popupWindow('helpPages/editarPresupuesto3_h.html', {
 	 width: 900,
 	  height: 600,
 	center: 'parent'
