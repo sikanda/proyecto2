@@ -102,4 +102,9 @@ public UnidadMedidaDB() throws Exception{}
         return (rta);
 
     }
+        public int verificaDescUm(String desc, String idUm){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM unidadesmedida where descUnidadMedida = '" + desc +"' and idUnidadMedida != '"+idUm+"'");
+        closeCon();
+        return (rta);
+    }
 }

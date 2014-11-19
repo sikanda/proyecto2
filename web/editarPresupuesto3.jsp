@@ -193,7 +193,18 @@ $('#helpGen').click(function (event) {
                },
        errorClass: 'errore'
        });
-
+  
+        $('#report').click(function (e) {
+        e.preventDefault();
+        var tel = $('#telCli').val();
+        var dir = $('#direCli').val(); 
+        var nom = $('#nomCli').val(); 
+        $.popupWindow('reportePresup.jsp?n='+nom+'&d='+dir+'&t='+tel+'', {
+              width: 900,
+               height: 600,
+             center: 'parent'
+       });
+    });
 });
 
 function formatCurrency(total) {
@@ -301,6 +312,12 @@ function formatCurrency(total) {
                                   <textarea id="obs" name="obs" style="resize: none; overflow-y: hidden;vertical-align:middle;width:500px; height:50px;"><%= obs %></textarea>
                                  </br>
                                </div>  
+                                 
+                              <div style="margin: 10px;">
+                                <a id="report" href="" > Imprimir el presupuesto</a>
+                                </div>            
+                                 
+                                 
                                   <div style="text-align: center">        
                            <button type="button" style="height:25px ; width: 70px;"><a href="<%= response.encodeURL("editarPresupuesto2.jsp")%>">Atras</a></button>
                         <input type="submit"  id="btnGuardar" name="btnGuardar" value="Guardar" style="height:25px ; width: 70px;" />

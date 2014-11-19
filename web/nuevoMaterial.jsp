@@ -107,9 +107,28 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+ function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+  var id= getURLParameter('id');
+  
         var validator = $("#frmMaterial").validate({
        rules: {
-               txtDesc: "required",
+            // txtDesc: "required",
+            txtDesc: {
+                 required: true, 
+                  remote: {
+                    url: "popupValida.jsp",
+                    type: "post",
+                    data: {
+                        ide: id,
+                      tipo: "Ma",  
+                      desc: function() {
+                        return $( "#txtDesc" ).val();
+                      }
+                    }
+                  }
+                  },
                txtDescUm: "required",
                  txtPrecio: {
                    required: true,
@@ -118,7 +137,11 @@ $('#helpGen').click(function (event) {
                  }
        },
        messages: {
-               txtDesc: "Campo requerido",
+                 //txtDesc: "Campo requerido",
+       txtDesc:{ 
+              required: "Campo requerido",
+              remote: "Descripción no disponible"
+                },
                txtDescUm:"Campo requerido",
        txtPrecio: {
            required: "Campo requerido",

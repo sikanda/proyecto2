@@ -64,6 +64,14 @@ $(function() {
              center: 'parent'
        });
     });  
+         $('#report').click(function (event) {
+        $.popupWindow('reportesABM.jsp?rp=Herr', {
+       // $.popupWindow('reportePresup.jsp', {
+              width: 900,
+               height: 600,
+             center: 'parent'
+       });
+    });  
   }); //fn
 </script>
     </head>
@@ -121,6 +129,9 @@ $(function() {
                                         </tbody>
                                     </table>
                             </div>
+                                      <div style="margin: 10px;">
+                                        <a id="report" href="" > Imprimir lista de herramientas </a>
+                                        </div>
             </div>
             </div>
            <%@ include file="WEB-INF/jspf/firma.jspf" %>

@@ -74,6 +74,13 @@ $(function() {
             center: 'parent'
           });
      });
+       $('#report').click(function (event) {
+        $.popupWindow('reportesABM.jsp?rp=Mo', {
+              width: 900,
+               height: 600,
+             center: 'parent'
+       });
+    }); 
   }); //fn
 </script>
     </head>
@@ -123,7 +130,7 @@ $(function() {
                                             <tr>  
                                                 <td  style="width:205px;"><%= arrayManoDeObra.get(i).getDescManoDeObra()%></td>
                                                 <td style="width:95px;"><%= arrayManoDeObra.get(i).getDescUnidadMedida()%></td>
-                                                 <td><%= arrayManoDeObra.get(i).getPrecioMo()%></td>
+                                                 <td>$<%= arrayManoDeObra.get(i).getPrecioMo()%></td>
                                                 <td class="imege"><a href="<%= response.encodeURL("nuevaManoDeObra.jsp?id=" + arrayManoDeObra.get(i).getIdManoDeObra())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
                                                     <td class="imege"><img src='images/trash.png' class='btnDelete' title="Borrar"></td>
                                                 <td><%= arrayManoDeObra.get(i).getIdManoDeObra()%></td>   
@@ -134,6 +141,9 @@ $(function() {
                                         </tbody>
                                     </table>
                             </div>
+                        <div style="margin: 10px;">
+                        <a id="report" href="" > Imprimir lista de mano de obra </a>
+                        </div>
             </div>
             </div>
       <%@ include file="WEB-INF/jspf/firma.jspf" %>

@@ -134,4 +134,10 @@ public MaterialDB() throws Exception{}
    
     return (rta);
        } 
+    
+         public int verificaDescMa(String desc, String idM){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM materiales where descMaterial = '" + desc +"' and idMaterial != '"+idM+"'");
+        closeCon();
+        return (rta);
+    }
 }

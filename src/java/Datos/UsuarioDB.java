@@ -104,8 +104,8 @@ public UsuarioDB() throws Exception{}
 
     }
         
-       public int verificaNomUsuario(String nom){
-        int rta = EjecutarQueryInt("SELECT count(*) FROM usuarios where nombreUsuario = '" + nom +"'");
+       public int verificaNomUsuario(String nom, String idUs){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM usuarios where nombreUsuario = '" + nom +"' and idUsuario != '" + idUs+"'");
         closeCon();
         return (rta);
 

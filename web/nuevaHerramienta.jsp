@@ -89,9 +89,29 @@
             center: 'parent'
           });
      });
+     
+ function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+  var id= getURLParameter('id'); 
+
         var validator = $("#frmHerramienta").validate({
                 rules: {
-                        txtDescHerramienta: "required",
+                        //txtDescHerramienta: "required",
+                        txtDescHerramienta: {
+                       required: true, 
+                        remote: {
+                          url: "popupValida.jsp",
+                          type: "post",
+                          data: {
+                              ide: id,
+                            tipo: "Herr",  
+                            desc: function() {
+                              return $( "#txtDescHerramienta" ).val();
+                            }
+                          }
+                        }
+                        },
                           txtCant: {
                             required: true,
                             number: true,
@@ -99,7 +119,10 @@
                           }
                 },
                 messages: {
-                        txtDescHerramienta: "Campo requerido",
+                       // txtDescHerramienta: "Campo requerido",
+                        txtDescHerramienta: 
+                       { required: "Campo requerido",
+                         remote: "Descripción no disponible"},
                 txtCant: {
                     required: "Campo requerido",
                     number: "Cantidad inválida", 

@@ -256,4 +256,20 @@ public class Presupuesto {
         }
         return rta;
     }
+       
+        public boolean preparePrint(){
+        boolean rta = true;
+        PresupuestoDB PDB = null;
+        try{
+                PDB = new PresupuestoDB();
+        }
+        catch (Exception e){
+            rta = false;
+        }
+        if(rta){
+                //rta = PDB.save(this) ;
+                rta = PDB.loadPresuPrint(this) ; 
+        }
+        return rta;
+    }
 }

@@ -801,3 +801,26 @@ margin-top:-10px;
 	color:red;
        font-size:11px;
 }
+.sauron {
+	position : absolute;
+	cursor : pointer;
+	display : block;
+	background-image : url('../images/sauron.svg');
+	background-size : cover;
+}
+
+.sauron-show {
+	background-image : url('../images/sauron_inverted.svg');
+        margin: 0px;
+        padding: 0px;
+}
+
+.formAbm .sauron {
+    margin: 0px;
+}
+.formAbm input[type=password] {
+  width: 200px;
+}
+.formAbm #ojito {
+    margin: 0px;
+}

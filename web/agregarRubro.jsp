@@ -108,7 +108,7 @@ Agregar: function() {
              "<tr>"+ 
              "<td >"+$("#dropMat option:selected").text()+"</td>" + 
             "<td >"+$("#unit").val()+"</td>" + 
-            "<td >"+$("#prec").val()+"</td>" + 
+            "<td >$"+$("#prec").val()+"</td>" + 
             "<td >"+$("#cantstd").val()+"</td>" + 
              "<td><img src=\'images/iconEdit.png\' class=\'btnEdit\'>&nbsp;&nbsp;<img src=\'images/trash.png\' class=\'btnDelete\'></td>"+
              "<td class = \"aidi\">"+$("#dropMat").val()+"</td>"+ 
@@ -180,7 +180,7 @@ dialog2.dialog( "close" );}
              "<tr>"+ 
              "<td >"+$("#dropMo option:selected").text()+"</td>" + 
             "<td >"+$("#unitMo").val()+"</td>" + 
-            "<td >"+$("#precMo").val()+"</td>" + 
+            "<td >$"+$("#precMo").val()+"</td>" + 
             "<td >"+$("#cantstdMo").val()+"</td>" + 
              "<td><img src=\'images/iconEdit.png\' class=\'btnEdit\'>&nbsp;&nbsp;<img src=\'images/trash.png\' class=\'btnDelete\'></td>"+
              "<td class = \"aidi\">"+$("#dropMo").val()+"</td>"+ 
@@ -293,12 +293,29 @@ $('#helpGen').click(function (event) {
 //seccion validacion datos rubro
         var validator = $("#frmAddRubro").validate({
        rules: {
-               descRubro: "required",
+              // descRubro: "required",
+                 descRubro: {
+                required: true, 
+               remote: {
+                 url: "popupValida.jsp",
+                 type: "post",
+                 data: {
+                     ide: "",  //alta
+                   tipo: "Rub",  
+                   desc: function() {
+                     return $( "#descRubro" ).val();
+                   }
+                 }
+               }
+               },  
                dropUm: "required"
                
        },
        messages: {
-               descRubro: "Campo requerido",
+              // descRubro: "Campo requerido",
+                descRubro: 
+              { required: "Campo requerido",
+                remote: "No disponible"},
                dropUm: "Campo requerido"
       
         },

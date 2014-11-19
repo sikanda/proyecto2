@@ -106,7 +106,7 @@ Agregar: function() {
              "<tr>"+ 
              "<td >"+$("#dropMat option:selected").text()+"</td>" + 
             "<td >"+$("#unit").val()+"</td>" + 
-            "<td >"+$("#prec").val()+"</td>" + 
+            "<td >$"+$("#prec").val()+"</td>" + 
             "<td >"+$("#cantstd").val()+"</td>" + 
              "<td><img src=\'images/iconEdit.png\' class=\'btnEdit\'>&nbsp;&nbsp;<img src=\'images/trash.png\' class=\'btnDelete\'></td>"+
              "<td class = \"aidi\">"+$("#dropMat").val()+"</td>"+ 
@@ -178,7 +178,7 @@ dialog2.dialog( "close" );}
              "<tr>"+ 
              "<td >"+$("#dropMo option:selected").text()+"</td>" + 
             "<td >"+$("#unitMo").val()+"</td>" + 
-            "<td >"+$("#precMo").val()+"</td>" + 
+            "<td >$"+$("#precMo").val()+"</td>" + 
             "<td >"+$("#cantstdMo").val()+"</td>" + 
              "<td><img src=\'images/iconEdit.png\' class=\'btnEdit\'>&nbsp;&nbsp;<img src=\'images/trash.png\' class=\'btnDelete\'></td>"+
              "<td class = \"aidi\">"+$("#dropMo").val()+"</td>"+ 
@@ -309,15 +309,33 @@ $('#helpGen').click(function (event) {
   });
 }); 
 
+var id= $( "#idRubro" ).val();
 //seccion validacion datos rubro
         var validator = $("#frmEditRubro").validate({
        rules: {
-               descRubro: "required",
+              // descRubro: "required",
+               descRubro: {
+                required: true, 
+               remote: {
+                 url: "popupValida.jsp",
+                 type: "post",
+                 data: {
+                     ide: id,  //alta
+                   tipo: "Rub",  
+                   desc: function() {
+                     return $( "#descRubro" ).val();
+                   }
+                 }
+               }
+               },
                dropUm: "required"
                
        },
        messages: {
-               descRubro: "Campo requerido",
+              // descRubro: "Campo requerido",
+                descRubro: 
+              { required: "Campo requerido",
+                remote: "No disponible"},
                dropUm: "Campo requerido"
       
         },
@@ -601,7 +619,7 @@ function numbersOnly(oToCheckField, oKeyEvent) {
                                            
                                             <td><c:out value= "${mat.descMaterial}"/></td> 
                                             <td><c:out value= "${mat.idUnidadMedida}"/></td> 
-                                            <td><c:out value= "${mat.precioMa}" /></td>  
+                                            <td>$<c:out value= "${mat.precioMa}" /></td>  
                                             <td><c:out value= "${mat.coefStdMat}" /></td>  
                                             <td><img src='images/iconEdit.png' class='btnEdit'>&nbsp;&nbsp;<img src='images/trash.png' class='btnDelete'> </td>
                                              <td class="aidi"><c:out value= "${mat.idMaterial}"/></td> 
@@ -631,7 +649,7 @@ function numbersOnly(oToCheckField, oKeyEvent) {
                                                      
                                                       <td><c:out value= "${mo.descManoDeObra}"/></td> 
                                                       <td><c:out value= "${mo.idUnidadMedida}"/></td> 
-                                                      <td><c:out value= "${mo.precioMo}" /></td> 
+                                                      <td>$<c:out value= "${mo.precioMo}" /></td> 
                                                       <td><c:out value= "${mo.coefStdMO}" /></td>
                                                        <td><img src='images/iconEdit.png' class='btnEdit'>&nbsp;&nbsp;<img src='images/trash.png' class='btnDelete'> </td>
                                                     <td class="aidi"><c:out value= "${mo.idManoDeObra}"/></td>

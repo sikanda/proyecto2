@@ -132,4 +132,11 @@ public ManoDeObraDB() throws Exception{}
    
     return (rta);
        } 
+    
+    
+        public int verificaDescMo(String desc, String idMo){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM manodeobra where descManoDeObra = '" + desc +"' and idManoDeObra != '"+idMo+"'");
+        closeCon();
+        return (rta);
+    }
 }

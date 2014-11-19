@@ -327,4 +327,66 @@ public class PresupuestoDB extends AccesoDatos {
         closeCon();
         return rta;
      }
+    
+   public boolean loadPresuPrint(Presupuesto p){ 
+        boolean rta = false;
+         boolean  rta2,rta3,rta4,drta2,drta3 ;
+        boolean flag = true;
+        
+	drta2 =  EjecutarNonQuery("delete from rubrospresupuesto2" );
+	drta3 =  EjecutarNonQuery("delete from presuprint" );
+
+        if(  drta3 &&  drta2)
+       {
+           Iterator itRub = p.getRubros().iterator();
+           while(itRub.hasNext())
+           {
+                Rubro  r = (Rubro)itRub.next();
+                flag = true;
+                rta4 = EjecutarNonQuery("INSERT INTO rubrospresupuesto2 (idPresupuesto,idRubro,cantPresRub) VALUES (  " + p.getIdPresupuesto() + " , '" + r.getIdRubro() +  "' , " +r.getCantPresRub() + " )");
+                Iterator itMat = r.getMateriales().iterator();
+                while(itMat.hasNext())
+                {
+                    Material  ma = (Material)itMat.next();
+                    rta2 = EjecutarNonQuery("INSERT INTO presuprint (idPres, idRub, descRub, cantPresRub, umRub, idItem, descItem, umItem, cantPresItem, precioItem )   VALUES ( " + p.getIdPresupuesto() + " , '" + r.getIdRubro() + "' , '" + r.getDescRubro() + "' , " + r.getCantPresRub()  + " , '" + r.getIdUnidadMedida() + "' , '" + ma.getIdMaterial()  + "' , '" + ma.getDescMaterial()+ "' , '" + ma.getIdUnidadMedida()+ "' , " + ma.getCantPres() + " , " +  ma.getPrecioMa() +  " )");
+                   if(rta2 && rta4  )
+                    {
+                         rta = commit();
+                         flag = false;
+                     }
+
+                     if(!(rta2 && rta4 ))
+                     {
+                         rollback();
+                     }   
+                 }
+                Iterator itMo = r.getManoDeObra().iterator();
+                while(itMo.hasNext())
+                {
+                 ManoDeObra  mo = (ManoDeObra)itMo.next();    
+                rta3 = EjecutarNonQuery("INSERT INTO presuprint (idPres, idRub, descRub, cantPresRub, umRub, idItem, descItem, umItem, cantPresItem, precioItem )   VALUES ( " +  p.getIdPresupuesto() + " , '" + r.getIdRubro() + "' , '" + r.getDescRubro() + "' , " + r.getCantPresRub()  + " , '" + r.getIdUnidadMedida() + "' , '" + mo.getIdManoDeObra()  + "' , '" + mo.getDescManoDeObra()+ "' , '" + mo.getIdUnidadMedida()+ "' , " + mo.getCantPres() + " , " +  mo.getPrecioMo() +  " )");
+                   if(rta3 && rta4)
+                    {
+                        rta = commit();
+                         flag = false;
+                    }
+                    if(!(rta3 && rta4  ))
+                    {
+                        rollback();
+                    }
+                }
+           }    
+
+           if( flag)
+            {
+                 rta = commit();
+             }
+            if(!( flag))
+            {
+                rollback();
+            }
+		}
+        closeCon();
+        return rta;
+    }    
 }

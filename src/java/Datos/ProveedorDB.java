@@ -93,4 +93,9 @@ public ProveedorDB() throws Exception{}
         return (rta);
 
     }
+        public int verificaRazonSocial(String desc, String idP){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM proveedores where razonSocial = '" + desc +"' and idProveedor != '"+idP + "'");
+        closeCon();
+        return (rta);
+    }
 }

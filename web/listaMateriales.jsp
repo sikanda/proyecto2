@@ -72,7 +72,13 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
-     
+            $('#report').click(function (event) {
+        $.popupWindow('reportesABM.jsp?rp=Ma', {
+              width: 900,
+               height: 600,
+             center: 'parent'
+       });
+    });   
   }); //fn
 </script>
     </head>
@@ -122,7 +128,7 @@ $('#helpGen').click(function (event) {
                                             <tr>
                                             <td  style="width:255px;"><%= materiales.get(i).getDescMaterial()%></td>
                                                 <td style="width:105px;"><%= materiales.get(i).getDescUnidadMedida() %></td>
-                                                 <td><%= materiales.get(i).getPrecioMa()%></td>
+                                                 <td>$<%= materiales.get(i).getPrecioMa()%></td>
                                                 <td  class="imege"><a href="<%= response.encodeURL("nuevoMaterial.jsp?id=" + materiales.get(i).getIdMaterial())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
                                                  <td  class="imege"><img src='images/trash.png' class='btnDelete'  title="Borrar"></td> 
                                                 <td><%= materiales.get(i).getIdMaterial()%></td>   
@@ -133,6 +139,9 @@ $('#helpGen').click(function (event) {
                                         </tbody>
                                     </table>
                             </div>
+                            <div style="margin: 10px;">
+                              <a id="report" href="" > Imprimir lista de materiales </a>
+                              </div>
             </div>
             </div>
                                          <%@ include file="WEB-INF/jspf/firma.jspf" %>

@@ -70,9 +70,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
-               <script src="dist/libs/jquery.js" ></script>	
-		       <script src="js/jquery.validate.js"></script>	   
+            <script src="dist/libs/jquery.js" ></script>	
+            <script src="js/jquery.validate.js"></script>	   
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
+           <script type="text/javascript" src="js/jquery.sauron.js"></script>
+
 	<script>
 	$(function() { 
  if($('#txtNomUs').val() ==="admin"){
@@ -92,15 +94,23 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
-        var validator = $("#frmUsuario").validate({
+ 
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+  var id= getURLParameter('id'); 
+
+        var validator = $("#frmUsuario").validate({  
        rules: {
           txtNomUs:{ notEqual:true, 
                      required: true, 
                   remote: {
-                    url: "popupUsuario.jsp",
+                    url: "popupValida.jsp",
                     type: "post",
                     data: {
-                      nameUs: function() {
+                        ide: id,
+                      tipo: "User",  
+                      desc: function() {
                         return $( "#txtNomUs" ).val();
                       }
                     }
@@ -112,7 +122,7 @@ $('#helpGen').click(function (event) {
                txtNomUs: 
                        { notEqual: "Debe ser distinto de 'admin'", 
                         required: "Campo requerido",
-                         remote: "Nombre de usuario no disponible"},
+                         remote: "Nombre no disponible"},
               txtPass: "Campo requerido"
         },
        errorPlacement: function(error, element) {
@@ -124,7 +134,8 @@ $('#helpGen').click(function (event) {
      jQuery.validator.addMethod("notEqual", function(value, element) {
     return this.optional(element) || value.toLowerCase() !== "admin";
 }, "distinto de admin");
-       
+ $("#txtPass").sauron();  
+ 
 });
 </script>
     </head>
@@ -164,15 +175,15 @@ $('#helpGen').click(function (event) {
         %>
         <div id="formu">
         <form id="frmUsuario" name="frmUsuario" class="formAbm"  action="<%= response.encodeURL("nuevoUsuario.jsp?accion=" + param)%>" method="POST">
-            <fieldset style="height: 150px;">
+            <fieldset style="height: 150px; ">
                     <legend><strong>Datos del usuario</strong></legend>
           <table class="tablaFormatoABM">
                <tr>
                 <td>  <label for="txtNomUs"> Nombre:  </label></td>
-              <td>      <input type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/></td> <td>*</td>
+              <td>      <input style="width: 216px;" type="text" id="txtNomUs" name="txtNomUs"  value="<%= nombreUser %>"/></td> <td>*</td>
                </tr>      
             <tr>   <td>          <label for="txtPass"> Contraseña: </label></td>
-                 <td>        <input type="text" id="txtPass" name="txtPass"  value="<%= pass %>"/></td> <td>*</td>
+                 <td>        <input type="password" id="txtPass" name="txtPass"  value="<%= pass %>"/></td> <td>*</td>
                  </tr>     
                       
            <tr>     <td colspan="2" style="text-align:center;">    

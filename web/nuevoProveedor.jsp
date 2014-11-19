@@ -93,30 +93,53 @@ $('#helpGen').click(function (event) {
 	center: 'parent'
   });
 });
+    
+  function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+  var id= getURLParameter('id'); 
+         
         var validator = $("#frmProveedor").validate({
        rules: {
-			   txtrazonsocial: "required",
-			   txtdireccion: "required",
-			   txtmail: {
-					email: true
-				},
-			   txttelefono:  {
-					required: true,
-					digits: true,
-					maxlength: 10
-				}
+            //  txtrazonsocial: "required",
+              txtrazonsocial: {
+                  required: true, 
+                   remote: {
+                     url: "popupValida.jsp",
+                     type: "post",
+                     data: {
+                         ide: id,
+                       tipo: "Prov",  
+                       desc: function() {
+                         return $( "#txtrazonsocial" ).val();
+                       }
+                     }
+                   }
+                   },
+                txtdireccion: "required",
+                txtmail: {
+                             email: true
+                     },
+                txttelefono:  {
+                             required: true,
+                             digits: true,
+                             maxlength: 10
+                     }
       },
        messages: {
-			   txtrazonsocial: "Campo requerido",
-			   txtdireccion: "Campo requerido",
-			   txtmail: {
-					email: "E-mail inválido"
-				},
-			   txttelefono:  {
-					required: "Campo requerido",
-					digits: "Teléfono inválido",
-					maxlength: "Máximo 10 números"
-				}
+                    //txtrazonsocial: "Campo requerido",
+                    txtrazonsocial: 
+               { required: "Campo requerido",
+                 remote: "Descripción no disponible"},
+                   txtdireccion: "Campo requerido",
+                   txtmail: {
+                                email: "E-mail inválido"
+                        },
+                   txttelefono:  {
+                                required: "Campo requerido",
+                                digits: "Teléfono inválido",
+                                maxlength: "Máximo 10 números"
+                        }
         },
        errorPlacement: function(error, element) {
        error.appendTo(element.parent().next());

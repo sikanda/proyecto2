@@ -25,7 +25,7 @@
 <script>
 $(function() {
    var typ = "User";
-   $('td:nth-child(5)').hide(); //oculto id 
+   $('td:nth-child(4)').hide(); //oculto id 
    // $("td:contains('admin')").next().next().next().hide();
      $("td:contains('admin')").next().next().next().find('img').remove();
     
@@ -102,7 +102,7 @@ $('#helpGen').click(function (event) {
                                             <tr>
                                                <!-- <th>Id Usuario</th>   -->
                                                 <th>Nombre</th>
-                                                <th>Contraseña</th>
+                                              <!--  <th>Contraseña</th> -->
                                                 <th colspan="2" >Acciones</th>
                                             </tr>
                                         </thead>
@@ -112,7 +112,7 @@ $('#helpGen').click(function (event) {
                                           %>
                                             <tr>
                                                <td ><%= usuarios.get(i).getNombreUsuario()%></td>
-                                                <td ><%= usuarios.get(i).getPass()%></td>
+                                              <!--    <td ><//%= usuarios.get(i).getPass()%></td> -->
                                                 <td  class="imege"><a href="<%= response.encodeURL("nuevoUsuario.jsp?id=" + usuarios.get(i).getIdUsuario())%>"><img  src='images/iconEdit.png' class='btnEdit' title ="Editar"></a></td>
                                                <td class="imege"><img src='images/trash.png' class='btnDelete' title="Borrar"></td>
                                                 <td><%= usuarios.get(i).getIdUsuario()%></td>

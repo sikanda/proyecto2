@@ -436,4 +436,10 @@ if (validarCantRub(idR)==0){
     int rta = EjecutarQueryInt("Select count(*) from rubrospresupuesto where idRubro = '" + idRub+"'" );
     return (rta);
        } 
+            
+    public int verificaDescRub(String desc, String idR){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM rubros where descRubro = '" + desc +"' and idRubro != '"+idR+"'");
+        closeCon();
+        return (rta);
+    }
 }

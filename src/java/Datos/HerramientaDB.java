@@ -105,4 +105,9 @@ public HerramientaDB() throws Exception{}
         return retorno;
 
     }
+       public int verificaDescHerr(String desc, String idHerr){
+        int rta = EjecutarQueryInt("SELECT count(*) FROM herramientas where descHerramienta = '" + desc +"' and idHerramienta != '"+idHerr+"'");
+        closeCon();
+        return (rta);
+    }
 }

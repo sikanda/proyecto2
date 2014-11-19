@@ -91,6 +91,12 @@ $('#helpGen').click(function (event) {
 if($('#txtId').val().length !== 0){
        $('#txtId').attr("disabled", 'disabled');
 }
+ 
+  function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+  var id= getURLParameter('id');     
+        
         var validator = $("#frmUnidadMedida").validate({
        rules: {
               txtId: {
@@ -106,15 +112,32 @@ if($('#txtId').val().length !== 0){
                         }
                       }
                     },
-                 txtDesc:  "required"
-       },
+                 //txtDesc:  "required"
+                  txtDesc: {
+                       required: true, 
+                        remote: {
+                          url: "popupValida.jsp",
+                          type: "post",
+                          data: {
+                              ide: id,
+                            tipo: "Um",  
+                            desc: function() {
+                              return $( "#txtDesc" ).val();
+                            }
+                          }
+                        }
+                        }              
+             },
        messages: {
 			txtId: {
 			  required: "Campo requerido",
 			  maxlength: "Máximo 5 caracteres",
-                          remote: "Código ya existente"
+                          remote: "Código no disponible"
 			},
-				txtDesc: "Campo requerido"
+				//txtDesc: "Campo requerido"
+                       txtDesc: 
+                       { required: "Campo requerido",
+                         remote: "Descripción no disponible"}
         },
        errorPlacement: function(error, element) {
        error.appendTo(element.parent().next());

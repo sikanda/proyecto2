@@ -105,10 +105,29 @@
             center: 'parent'
           });
      });
-	 
+     
+ function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+  var id= getURLParameter('id');
+  
         var validator = $("#frmManoDeObra").validate({
        rules: {
-               txtDesc: "required",
+              // txtDesc: "required",
+                  txtDesc: {
+                       required: true, 
+                        remote: {
+                          url: "popupValida.jsp",
+                          type: "post",
+                          data: {
+                              ide: id,
+                            tipo: "Mo",  
+                            desc: function() {
+                              return $( "#txtDesc" ).val();
+                            }
+                          }
+                        }
+                        },
                txtDescUm: "required",
                  txtPrecio: {
                    required: true,
@@ -117,7 +136,11 @@
                  }
        },
        messages: {
-               txtDesc: "Campo requerido",
+               //txtDesc: "Campo requerido",
+                 txtDesc:{ 
+              required: "Campo requerido",
+              remote: "Descripción no disponible"
+                },
                txtDescUm:"Campo requerido",
        txtPrecio: {
            required: "Campo requerido",
