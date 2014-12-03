@@ -3,7 +3,7 @@
 <%@ page import="Entidades.Material"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page errorPage="errorPageAdmin.jsp" %>
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
@@ -11,7 +11,15 @@
 
 <%
 	List<Material> materiales = new ArrayList();
-	materiales = materialDB.getMateriales();
+	
+         try{
+          materiales = materialDB.getMateriales();
+          }
+            catch(Exception e)
+            {
+                //response.sendRedirect(response.encodeRedirectURL("listaUsuarios.jsp"));
+                throw new RuntimeException("Error!");
+            }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

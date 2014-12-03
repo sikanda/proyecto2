@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="Entidades.Proveedor"%>
-
+<%@ page errorPage="errorPageUser.jsp" %>
 
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 
@@ -27,7 +27,8 @@
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
+                //response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
+                throw new RuntimeException("Error!");
             }
         }
 
@@ -58,6 +59,9 @@
                             {
                                 response.sendRedirect(response.encodeRedirectURL("listaProveedores.jsp"));
 			}
+                       else {
+                               throw new RuntimeException("Error!");
+                            }
 		}
 	}
         if (request.getParameter("id") != null  || request.getParameter("accion") != null){

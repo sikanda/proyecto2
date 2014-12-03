@@ -3,35 +3,13 @@
 <%@ page import="Entidades.Rubro"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page errorPage="errorPageUser.jsp" %>
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %> 
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="rubroDB" scope="page" class="Datos.RubroDB" />
 
 <%!
-//public Rubro getRubroByCode(String idRubro, List<Rubro> lista)
-//  {
-//      Rubro rubro = new Rubro();
-//     
-//      	  for(int i=0; i<lista.size();i++)
-//	  { 
-////              System.out.println("i es " + i);
-//		if (idRubro.equals(lista.get(i).getIdRubro()))
-//		   {
-////			   System.out.println( "entro con "+ lista.get(i).getIdRubro()); 
-//                       rubro = lista.get(i) ;
-// lista.clear();
-//		   }
-//		if (( rubro != null ) && (!lista.get(i).getSubrubros().isEmpty()))  
-//			{
-////				 System.out.println("sigue iterando con"+ lista.get(i).getIdRubro());
-//                            rubro = getRubroByCode(idRubro,lista.get(i).getSubrubros());
-//			}
-//	  }
-// 
-//	  return rubro;
-//  }
 public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
         Rubro rubro = new Rubro();
         for (int i = 0; i < lista.size(); i++) {
@@ -66,23 +44,29 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
 %>
 
 <%
-	List<Rubro> rub = new ArrayList();
-	rub = rubroDB.getRubrosConSubrubros();
-        String[] listaIds = null;
-        //string of IDS
-        if (request.getParameter("ids") != null){
-           String cadena = request.getParameter("ids").toString();
-           session.setAttribute("cadenaIdes", cadena);
-           listaIds = cadena.split("_");
-           List<Rubro> listaRubrosSelec = new ArrayList();
+     List<Rubro> rub = new ArrayList();
+     try{
+            rub = rubroDB.getRubrosConSubrubros();
+            String[] listaIds = null;
+            //string of IDS
+            if (request.getParameter("ids") != null){
+               String cadena = request.getParameter("ids").toString();
+               session.setAttribute("cadenaIdes", cadena);
+               listaIds = cadena.split("_");
+               List<Rubro> listaRubrosSelec = new ArrayList();
 
-           for (int p=0; p<listaIds.length; p++){
-                Rubro rubro = getRubroByCode(listaIds[p],rub);
-                listaRubrosSelec.add(rubro);
-           } 
-           session.setAttribute("rubrosLeaf", listaRubrosSelec);
-           response.sendRedirect(response.encodeRedirectURL("pantallaDos.jsp"));
-        }       
+               for (int p=0; p<listaIds.length; p++){
+                    Rubro rubro = getRubroByCode(listaIds[p],rub);
+                    listaRubrosSelec.add(rubro);
+               } 
+               session.setAttribute("rubrosLeaf", listaRubrosSelec);
+               response.sendRedirect(response.encodeRedirectURL("pantallaDos.jsp"));
+            }  
+      }
+      catch(Exception e)
+      {
+          throw new RuntimeException("Error!");
+      }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

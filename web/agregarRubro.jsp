@@ -7,6 +7,7 @@
 
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page errorPage="errorPageAdmin.jsp" %>
 
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -20,22 +21,23 @@
 <%-- <jsp:useBean id="presupuestoBean" class="Entidades.Presupuesto"  scope="session"/> --%>
 
 <%
-             String idPadre = request.getParameter("idRub");  //padre del q se quiere dar de alta
-           //System.out.println(r1);
-            Rubro nuevoHijin = rubroDB.generarIdSubrubro(idPadre);
-                    
-           // System.out.println ("dando de alta rubro" + nuevoHijin.getIdRubro());       
-            List<Material> materiales = new ArrayList();
-            materiales = materialDB.getMateriales();
-      
-            List<ManoDeObra> manoDeObra = new ArrayList();
-            manoDeObra = manoDeObraDB.getManoDeObra();
-            
             List<UnidadMedida> unidadesM = new ArrayList();
-            unidadesM = unidadMedidaDB.getUnidadesDeMedida();
+            List<ManoDeObra> manoDeObra = new ArrayList();             
+            List<Material> materiales = new ArrayList();
+            String idPadre = request.getParameter("idRub");  //padre del q se quiere dar de alta
+      
+      try{
+            Rubro nuevoHijin = rubroDB.generarIdSubrubro(idPadre);
+             materiales = materialDB.getMateriales();
+             manoDeObra = manoDeObraDB.getManoDeObra();
+             unidadesM = unidadMedidaDB.getUnidadesDeMedida();
             
             session.setAttribute("nuevoRubro", nuevoHijin);
-       
+          }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Error!");
+        }
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

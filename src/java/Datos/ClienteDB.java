@@ -19,7 +19,9 @@ public ClienteDB() throws Exception{}
         
     public boolean save(Cliente c){ 
        boolean rta = false;
-               rta = EjecutarNonQuery("insert into clientes ( idCliente, nomApeCli, direCli, telCli,emailCli)  VALUES ( "  + c.getIdCliente() + ", '"+ c.getNomApeCli()  + "' , '" + c.getDireCli() + "' , '" + c.getTelCli() + "' , '" + c.getEmailCli() +  "' )");
+       String direEsc = c.getDireCli().replace("'", "\\'");
+       String nomEsc =  c.getNomApeCli().replace("'", "\\'");
+               rta = EjecutarNonQuery("insert into clientes ( idCliente, nomApeCli, direCli, telCli,emailCli)  VALUES ( "  + c.getIdCliente() + ", '"+ nomEsc  + "' , '" + direEsc + "' , '" + c.getTelCli() + "' , '" + c.getEmailCli() +  "' )");
                if(rta){
            rta = commit();
        }
@@ -32,7 +34,9 @@ public ClienteDB() throws Exception{}
 
       public boolean update(Cliente c){ 
        boolean rta = false;
-               rta = EjecutarNonQuery("update clientes set nomApeCli = '" +c.getNomApeCli()+ "', direCli = '"+c.getDireCli()+ "', telCli = '"+c.getTelCli()+"'   WHERE idCliente = "  + c.getIdCliente() );
+       String direEsc = c.getDireCli().replace("'", "\\'");
+       String nomEsc =  c.getNomApeCli().replace("'", "\\'");
+               rta = EjecutarNonQuery("update clientes set nomApeCli = '" +nomEsc+ "', direCli = '"+direEsc+ "', telCli = '"+c.getTelCli()+"'   WHERE idCliente = "  + c.getIdCliente() );
                if(rta){
            rta = commit();
        }

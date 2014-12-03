@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="Entidades.Empleado"%>
-
+<%@ page errorPage="errorPageAdmin.jsp" %>
 
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
@@ -32,7 +32,8 @@
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaEmpleados.jsp"));
+                //response.sendRedirect(response.encodeRedirectURL("listaEmpleados.jsp"));
+                 throw new RuntimeException("Error!");
             }
         }
 
@@ -67,7 +68,11 @@
                             if (rta)
                             {
                                 response.sendRedirect(response.encodeRedirectURL("listaEmpleados.jsp"));
-			}
+                            }
+                            else {
+                              //response.sendRedirect(response.encodeRedirectURL("inicioAdmin.jsp"));
+                               throw new RuntimeException("Error!");
+                            }
 		}
 	}
         if (request.getParameter("id") != null  || request.getParameter("accion") != null){

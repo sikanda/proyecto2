@@ -3,7 +3,7 @@
 <%@ page import="Entidades.Rubro"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page errorPage="errorPageAdmin.jsp" %>
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
@@ -46,18 +46,24 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
 
 <%
 	List<Rubro> rub = new ArrayList();
-	rub = rubroDB.getRubrosConSubrubros();
+        try{
+                 rub = rubroDB.getRubrosConSubrubros();
        
-        //string of IDS
-        if (request.getParameter("ids") != null){
-           String cadena = request.getParameter("ids").toString();
-     
-           Rubro rubro = getRubroByCode(cadena,rub);
-             
-           
-           session.setAttribute("rubroEdit", rubro);
-           response.sendRedirect(response.encodeRedirectURL("editarRubro1.jsp"));
-        }       
+                //string of IDS
+                if (request.getParameter("ids") != null){
+                   String cadena = request.getParameter("ids").toString();
+
+                   Rubro rubro = getRubroByCode(cadena,rub);
+
+                   session.setAttribute("rubroEdit", rubro);
+                   response.sendRedirect(response.encodeRedirectURL("editarRubro1.jsp"));
+                }    
+
+             }
+            catch(Exception e)
+            {
+                throw new RuntimeException("Error!");
+            }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

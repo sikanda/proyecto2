@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="Entidades.Herramienta"%>
-
+<%@ page errorPage="errorPageUser.jsp" %>
 
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 
@@ -23,7 +23,8 @@
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
+                //response.sendRedirect(response.encodeRedirectURL("listaHerramientas.jsp"));
+                throw new RuntimeException("Error!");
             }
         }
 
@@ -52,8 +53,8 @@
                                 
                             }
                            else {
-                              response.sendRedirect(response.encodeRedirectURL("inicioUsuario.jsp"));
-                               //TODO: ver si se agrega una pag de error. 
+                              //response.sendRedirect(response.encodeRedirectURL("inicioUsuario.jsp"));
+                               throw new RuntimeException("Error!");
                             }
 					}
 	}

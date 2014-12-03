@@ -28,7 +28,8 @@ public class PresupuestoDB extends AccesoDatos {
        // Rubro r = new Rubro();
        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
        String fechaCreac = sdf.format(p.getFechaCreacion());
-        rta1 = EjecutarNonQuery("insert into presupuestos (observaciones, idUsuario, idCliente, fechaCreacion)  VALUES ( '" + p.getObservaciones()  + "' , " + p.getUsuario().getIdUsuario() + " , " + p.getCliente().getIdCliente()  + ", '" + fechaCreac +   "' )");
+       String obsEsc = p.getObservaciones().replace("'", "\\'");
+        rta1 = EjecutarNonQuery("insert into presupuestos (observaciones, idUsuario, idCliente, fechaCreacion)  VALUES ( '" + obsEsc  + "' , " + p.getUsuario().getIdUsuario() + " , " + p.getCliente().getIdCliente()  + ", '" + fechaCreac +   "' )");
         
         int idPres = EjecutarQueryInt("SELECT MAX(idPresupuesto) FROM presupuestos");
         
@@ -268,7 +269,8 @@ public class PresupuestoDB extends AccesoDatos {
         boolean rta1,rta2,rta3,rta4,rta5,rta6,rta7,rtaPred ;
         boolean flag = true;
         int idP = p.getIdPresupuesto();
-        rta1 = EjecutarNonQuery("update presupuestos set observaciones = '" +p.getObservaciones()+"'   WHERE idPresupuesto = "  +  idP );
+        String obsEsc = p.getObservaciones().replace("'", "\\'");
+        rta1 = EjecutarNonQuery("update presupuestos set observaciones = '" + obsEsc +"'   WHERE idPresupuesto = "  +  idP );
 
         rta2 =  EjecutarNonQuery("delete from rubrospresupuesto WHERE idPresupuesto = " + idP);
         rta3 =  EjecutarNonQuery("delete from manodeobrapresupuesto WHERE idPresupuesto = " + idP);

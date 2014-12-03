@@ -3,7 +3,7 @@
 <%@ page import="Entidades.Herramienta"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page errorPage="errorPageUser.jsp" %>
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
@@ -11,7 +11,14 @@
 
 <%
 	List<Herramienta> herramientas = new ArrayList();
-	herramientas = herramientaDB.getHerramientas();
+	
+                 try{
+          herramientas = herramientaDB.getHerramientas();
+          }
+            catch(Exception e)
+            {
+                throw new RuntimeException("Error!");
+            }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

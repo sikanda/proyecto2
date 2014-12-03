@@ -21,9 +21,9 @@
        String desc = request.getParameter("desc"); 
        String tipo = request.getParameter("tipo");
        String id = request.getParameter("ide");
-System.out.println("tipo " + tipo);
-System.out.println("desc " + desc);
-System.out.println("ide " + id);
+    //System.out.println("tipo " + tipo);
+    //System.out.println("desc " + desc);
+    //System.out.println("ide " + id);
        TipoABM typ = TipoABM.valueOf(tipo);
         int cant =  0;
 

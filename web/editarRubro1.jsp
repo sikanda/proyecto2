@@ -8,6 +8,8 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
+<%@ page errorPage="errorPageAdmin.jsp" %>
+
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -19,22 +21,21 @@
 <%-- <jsp:useBean id="presupuestoBean" class="Entidades.Presupuesto"  scope="session"/> --%>
 
 <%
-           // Rubro r1 = new Rubro("007011");  //007011
-           // session.setAttribute("rubroEdit", r1);
+       Rubro r1 = (Rubro)session.getAttribute("rubroEdit");  //supongo q ya lo seteo la otra pag
 
-             Rubro r1 = (Rubro)session.getAttribute("rubroEdit");  //supongo q ya lo seteo la otra pag
-           //System.out.println(r1);
-
-
-            List<Material> materiales = new ArrayList();
+       List<Material> materiales = new ArrayList();
+       List<ManoDeObra> manoDeObra = new ArrayList();   
+       List<UnidadMedida> unidadesM = new ArrayList();     
+        
+       try{
             materiales = materialDB.getMateriales();
-      
-            List<ManoDeObra> manoDeObra = new ArrayList();
             manoDeObra = manoDeObraDB.getManoDeObra();
-            
-            List<UnidadMedida> unidadesM = new ArrayList();
             unidadesM = unidadMedidaDB.getUnidadesDeMedida();
-       
+           }
+        catch(Exception e)
+        {
+            throw new RuntimeException("Error!");
+        }
   %>   
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

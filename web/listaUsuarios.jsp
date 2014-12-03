@@ -3,15 +3,22 @@
 <%@ page import="Entidades.Usuario"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page errorPage="errorPageAdmin.jsp" %>
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
 <jsp:useBean id="usuarioDB" scope="page" class="Datos.UsuarioDB" />
 
 <%
-	List<Usuario> usuarios = new ArrayList();
-	usuarios = usuarioDB.getUsuarios();
+         List<Usuario> usuarios = new ArrayList();
+         try{
+          usuarios = usuarioDB.getUsuarios();
+          }
+            catch(Exception e)
+            {
+                //response.sendRedirect(response.encodeRedirectURL("listaUsuarios.jsp"));
+                throw new RuntimeException("Error!");
+            }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

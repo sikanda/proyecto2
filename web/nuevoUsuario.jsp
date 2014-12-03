@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="Entidades.Usuario"%>
-
+<%@ page errorPage="errorPageAdmin.jsp" %>
 
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
@@ -23,7 +23,8 @@
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaUsuarios.jsp"));
+                //response.sendRedirect(response.encodeRedirectURL("listaUsuarios.jsp"));
+                throw new RuntimeException("Error!");
             }
         }
 
@@ -52,8 +53,8 @@
                                 
                             }
                            else { //error
-                              response.sendRedirect(response.encodeRedirectURL("inicioUsuario.jsp"));
-                               //TODO: ver si se agrega una pag de error. 
+                              //response.sendRedirect(response.encodeRedirectURL("inicioUsuario.jsp")); 
+                                 throw new RuntimeException("Error!");
                             }
 					}
 	}
@@ -71,7 +72,7 @@
          <title><%=globconfig.nombrePag() %></title>
         <%@ include file="WEB-INF/jspf/estilo.jspf" %>
             <script src="dist/libs/jquery.js" ></script>	
-            <script src="js/jquery.validate.js"></script>	   
+            <script src="js/jquery.validate.js"></script>	
 	   <script type="text/javascript" src="js/jquery.popupwindow.js"></script>
            <script type="text/javascript" src="js/jquery.sauron.js"></script>
 
@@ -115,18 +116,36 @@ function getURLParameter(name) {
                       }
                     }
                   }
+                  ,rangelength: [5,10]
             },  
-            txtPass:  "required"
+           // txtPass:  "required"
+           txtPass: {
+                 required: true,
+                 rangelength: [4,10]
+               }
        },
        messages: {
                txtNomUs: 
                        { notEqual: "Debe ser distinto de 'admin'", 
                         required: "Campo requerido",
-                         remote: "Nombre no disponible"},
-              txtPass: "Campo requerido"
+                         remote: "Nombre no disponible",
+                         rangelength: "Entre 5 y 10 caracteres"
+                        },
+              //txtPass: "Campo requerido"
+                txtPass: {
+                 required: "Campo requerido",
+                 rangelength: "Entre 4 y 10 caracteres"
+               }
         },
        errorPlacement: function(error, element) {
-       error.appendTo(element.parent().next());
+           
+    if (element.attr("name") === "txtNomUs" ) {
+      error.appendTo(element.parent().next());
+    } else {
+         error.appendTo(element.parent().parent().next());
+    }
+       //error.appendTo(element.parent().next());
+       // error.appendTo(element.parent().parent().next());    // sauron
                },
        errorClass: 'errore'
        });

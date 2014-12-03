@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="Entidades.UnidadMedida"%>
-
+<%@ page errorPage="errorPageAdmin.jsp" %>
 
 <%@ include file="WEB-INF/jspf/redirAdm.jspf" %>
 
@@ -22,7 +22,8 @@
            }
             catch(Exception e)
             {
-                response.sendRedirect(response.encodeRedirectURL("listaUnidadesMedida.jsp"));
+                //response.sendRedirect(response.encodeRedirectURL("listaUnidadesMedida.jsp"));
+                 throw new RuntimeException("Error!");
             }
         }
 
@@ -50,8 +51,8 @@
                                 
                             }
                            else {
-                              response.sendRedirect(response.encodeRedirectURL("inicioAdmin.jsp"));
-                               //TODO: ver si se agrega una pag de error. 
+                              //response.sendRedirect(response.encodeRedirectURL("inicioAdmin.jsp"));
+                                 throw new RuntimeException("Error!");
                             }
 					}
 	}

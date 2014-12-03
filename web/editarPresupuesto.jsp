@@ -4,7 +4,7 @@
 <%@ page import="Entidades.Presupuesto"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
-
+<%@ page errorPage="errorPageUser.jsp" %>
 <%@ include file="WEB-INF/jspf/redirUsr.jspf" %> 
 
 <jsp:useBean id="globconfig" scope="application" class="Base.Config" />
@@ -47,7 +47,8 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
 
 <%
 	List<Rubro> rub = new ArrayList();
-	rub = rubroDB.getRubrosConSubrubros(); 
+    try{
+        rub = rubroDB.getRubrosConSubrubros(); 
         
         if (request.getParameter("id") != null){       
         int idPresEdit = Integer.parseInt(request.getParameter("id"));
@@ -80,7 +81,12 @@ public Rubro getRubroByCode(String idRubro, List<Rubro> lista) {
            } 
            session.setAttribute("rubrosLeaf", listaRubrosSelec);
            response.sendRedirect(response.encodeRedirectURL("editarPresupuesto2.jsp"));
-        }       
+        }
+      }
+      catch(Exception e)
+      {
+          throw new RuntimeException("Error!");
+      }
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
